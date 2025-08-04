@@ -55,9 +55,9 @@ vim.pack.add({
     },
     {src = "https://github.com/neovim/nvim-lspconfig"},
     {src = "https://github.com/mason-org/mason.nvim"},
-    {src = "https://github.com/nvim-neo-tree/neo-tree.nvim"},
+	{src = "https://github.com/nvim-tree/nvim-tree.lua" },
     {src = "https://github.com/nvim-lua/plenary.nvim"},
-    {src = "https://github.com/nvim-tree/nvim-web-devicons"},
+    {src = "https://github.com/echasnovski/mini.icons"},
     {src = "https://github.com/MunifTanjim/nui.nvim"},
     {src = "https://github.com/ellisonleao/gruvbox.nvim"},
 })
@@ -74,28 +74,54 @@ vim.cmd('set completeopt+=noselect')
 
 require "mason".setup()
 require "mini.pick".setup()
-require("neo-tree").setup({
-    window = {
-        position = "right",
-        width = 26,
+require("mini.icons").setup()
+local icons = require("mini.icons")
+require("nvim-tree").setup({
+  view = {
+    width = 25,
+    side = "right",
+  },
+  renderer = {
+    icons = {
+      show = {
+        folder_arrow = false,
+      },
+      glyphs = {
+        default = "",
+        symlink = "",
+        folder = {
+          arrow_closed = "",
+          arrow_open = "",
+          default = "",
+          open = "",
+          empty = "",
+          empty_open = "",
+          symlink = "",
+          symlink_open = "",
+        }
+      },
     },
-    filesystem = {
-        filtered_items = {
-            visible = true,
-            hide_dotfiles = false,
-            hide_gitignored = false,
-        },
-    },
-    default_component_configs = {
-        indent = { padding = 0 },
-        icon = {
-            folder_closed = "",
-            folder_open = "",
-            folder_empty = "",
-            default = "*",
-        },
-    },
+  },
+  diagnostics = {
+    enable = false,
+  },
+  filters = {
+    dotfiles = false,
+  },
+  on_attach = function(bufnr)
+    local api = require "nvim-tree.api"
+    local function opts(desc)
+      return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    end
+    vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
+    vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Directory'))
+    vim.keymap.set('n', 'a', api.fs.create, opts('Create File or Directory'))
+    vim.keymap.set('n', 'd', api.fs.remove, opts('Delete File or Directory'))
+  end,
 })
+
+vim.o.winblend = 10
+
 require("harpoon").setup()
 
 local harpoon = require("harpoon")
@@ -109,7 +135,7 @@ vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 vim.keymap.set("n", "<leader>hx", function() harpoon:list():clear() end)
 vim.keymap.set('n', '<leader>ff', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
-vim.keymap.set('n', '<leader>e', ':Neotree toggle right<CR>')
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>cm', ':Mason<CR>')
 vim.keymap.set({'n', 'v'}, 'd', '"_d')
@@ -154,3 +180,4 @@ vim.keymap.set("n", "<leader>tt", function()
 end)
 
 set_colorscheme("vague")
+_G.mini_icons = mini_icons

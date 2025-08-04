@@ -48,7 +48,7 @@ vim.keymap.set('n', '<leader>q', ':quit<CR>')
 
 vim.pack.add({
     { src = "https://github.com/vague2k/vague.nvim" },
-    { src = "https://github.com/echasnovski/mini.pick" },
+    { src = "https://github.com/echasnovski/mini.nvim" },
     {
         src = "https://github.com/ThePrimeagen/harpoon",
         checkout = "harpoon2"
@@ -58,7 +58,6 @@ vim.pack.add({
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/windwp/nvim-autopairs" },
-    { src = "https://github.com/echasnovski/mini.icons" },
     { src = "https://github.com/ellisonleao/gruvbox.nvim" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
 })
@@ -76,6 +75,7 @@ vim.cmd('set completeopt+=noselect')
 require "mason".setup()
 require "mini.pick".setup()
 require("mini.icons").setup()
+require("mini.extra").setup()
 local icons = require("mini.icons")
 require("Oil").setup({
     keymaps = {
@@ -104,6 +104,13 @@ vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 vim.keymap.set("n", "<leader>hx", function() harpoon:list():clear() end)
 
 vim.keymap.set('n', '<leader>ff', ':Pick files<CR>')
+vim.keymap.set('n', '<leader>fg', ':Pick grep_live<CR>')
+vim.keymap.set("n", "<leader>fw", function()
+  require("mini.pick").builtin.grep({ pattern = vim.fn.expand("<cword>")
+})
+vim.keymap.set('n', '<leader>fb', ':Pick buffers<CR>')
+vim.keymap.set('n', '<leader>fr', ':Pick oldfiles<CR>')
+vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
 vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
 vim.keymap.set('n', '<leader>e', ':Oil<CR>')
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)

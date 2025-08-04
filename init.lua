@@ -47,19 +47,20 @@ vim.keymap.set('n', '<leader>w', ':write<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
 
 vim.pack.add({
-    {src = "https://github.com/vague2k/vague.nvim"},
-    {src = "https://github.com/echasnovski/mini.pick"},
+    { src = "https://github.com/vague2k/vague.nvim" },
+    { src = "https://github.com/echasnovski/mini.pick" },
     {
         src = "https://github.com/ThePrimeagen/harpoon",
         checkout = "harpoon2"
     },
-    {src = "https://github.com/neovim/nvim-lspconfig"},
-    {src = "https://github.com/mason-org/mason.nvim"},
-	{src = "https://github.com/nvim-tree/nvim-tree.lua" },
-    {src = "https://github.com/nvim-lua/plenary.nvim"},
-    {src = "https://github.com/echasnovski/mini.icons"},
-    {src = "https://github.com/MunifTanjim/nui.nvim"},
-    {src = "https://github.com/ellisonleao/gruvbox.nvim"},
+    { src = "https://github.com/neanias/everforest-nvim" },
+    { src = "https://github.com/neovim/nvim-lspconfig" },
+    { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/mason-org/mason.nvim" },
+    { src = "https://github.com/windwp/nvim-autopairs" },
+    { src = "https://github.com/echasnovski/mini.icons" },
+    { src = "https://github.com/ellisonleao/gruvbox.nvim" },
+    { src = "https://github.com/nvim-lua/plenary.nvim" },
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -76,48 +77,16 @@ require "mason".setup()
 require "mini.pick".setup()
 require("mini.icons").setup()
 local icons = require("mini.icons")
-require("nvim-tree").setup({
-  view = {
-    width = 25,
-    side = "right",
-  },
-  renderer = {
-    icons = {
-      show = {
-        folder_arrow = false,
-      },
-      glyphs = {
-        default = "",
-        symlink = "",
-        folder = {
-          arrow_closed = "",
-          arrow_open = "",
-          default = "",
-          open = "",
-          empty = "",
-          empty_open = "",
-          symlink = "",
-          symlink_open = "",
-        }
-      },
+require("Oil").setup({
+    keymaps = {
+        ["q"] = "actions.close",
+        ["l"] = "actions.select",
+        ["h"] = "actions.parent",
+        ["<leader>r"] = "actions.refresh",
     },
-  },
-  diagnostics = {
-    enable = false,
-  },
-  filters = {
-    dotfiles = false,
-  },
-  on_attach = function(bufnr)
-    local api = require "nvim-tree.api"
-    local function opts(desc)
-      return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-    end
-    vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
-    vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Directory'))
-    vim.keymap.set('n', 'a', api.fs.create, opts('Create File or Directory'))
-    vim.keymap.set('n', 'd', api.fs.remove, opts('Delete File or Directory'))
-  end,
+    view_options = {
+        show_hidden = true,
+    },
 })
 
 vim.o.winblend = 10
@@ -133,9 +102,10 @@ vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
 vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
 vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 vim.keymap.set("n", "<leader>hx", function() harpoon:list():clear() end)
+
 vim.keymap.set('n', '<leader>ff', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
+vim.keymap.set('n', '<leader>e', ':Oil<CR>')
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>cm', ':Mason<CR>')
 vim.keymap.set({'n', 'v'}, 'd', '"_d')
@@ -161,21 +131,37 @@ require("gruvbox").setup({
     transparent_mode = false,
     contrast = "hard",
 })
+require("everforest").setup({
+    background = "hard",
+    transparent_background_level = 0,
+    italics = true,
+    disable_italic_comments = false,
+    inlay_hints_background = "dimmed",
+    on_highlights = function(hl, _)
+        hl["@string.special.symbol.ruby"] = { link = "@field" }
+    end,
+})
 
 local function set_colorscheme(name)
-    vim.cmd("colorscheme " .. name)
+    local success, _ = pcall(vim.cmd, "colorscheme " .. name)
+    if not success then
+        vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR)
+        return
+    end
     if name == "gruvbox" then
         vim.cmd("hi SignColumn guibg=#1d2021")
     elseif name == "vague" then
         vim.cmd("hi statusline guibg=NONE")
+    elseif name == "everforest" then
+        vim.cmd("hi Normal guibg=#282828")
     end
 end
 
-local schemes = { "gruvbox", "vague" }
+local schemes = { "gruvbox", "vague", "everforest" }
 local current_idx = 1
 
 vim.keymap.set("n", "<leader>tt", function()
-    current_idx = 3 - current_idx
+    current_idx = (current_idx % #schemes) + 1
     set_colorscheme(schemes[current_idx])
 end)
 

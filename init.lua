@@ -49,6 +49,10 @@ vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.pack.add({
     {src = "https://github.com/vague2k/vague.nvim"},
     {src = "https://github.com/echasnovski/mini.pick"},
+    {
+        src = "https://github.com/ThePrimeagen/harpoon",
+        checkout = "harpoon2"
+    },
     {src = "https://github.com/neovim/nvim-lspconfig"},
     {src = "https://github.com/mason-org/mason.nvim"},
     {src = "https://github.com/nvim-neo-tree/neo-tree.nvim"},
@@ -92,8 +96,17 @@ require("neo-tree").setup({
         },
     },
 })
+require("harpoon").setup()
 
+local harpoon = require("harpoon")
 
+vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
+vim.keymap.set("n", "<leader>hx", function() harpoon:list():clear() end)
 vim.keymap.set('n', '<leader>ff', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
 vim.keymap.set('n', '<leader>e', ':Neotree toggle right<CR>')
@@ -116,13 +129,28 @@ vim.lsp.config("lua_ls", {
     }
 })
 
-require "vague".setup({ transparency = true })
+require("vague").setup({ transparency = true })
 require("gruvbox").setup({
     terminal_colors = true,
     transparent_mode = false,
     contrast = "hard",
 })
 
-vim.cmd("colorscheme gruvbox")
-vim.cmd("hi SignColumn guibg=#1d2021")
-vim.cmd(":hi statusline guibg=NONE")
+local function set_colorscheme(name)
+    vim.cmd("colorscheme " .. name)
+    if name == "gruvbox" then
+        vim.cmd("hi SignColumn guibg=#1d2021")
+    elseif name == "vague" then
+        vim.cmd("hi statusline guibg=NONE")
+    end
+end
+
+local schemes = { "gruvbox", "vague" }
+local current_idx = 1
+
+vim.keymap.set("n", "<leader>tt", function()
+    current_idx = 3 - current_idx
+    set_colorscheme(schemes[current_idx])
+end)
+
+set_colorscheme("vague")

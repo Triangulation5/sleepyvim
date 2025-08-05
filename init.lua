@@ -1,59 +1,96 @@
-vim.o.encoding = "utf-8"
-vim.o.number = true
-vim.o.relativenumber = true
-vim.o.numberwidth = 4
-vim.o.signcolumn = "yes"
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
-vim.o.expandtab = true
-vim.o.autoindent = true
-vim.o.smartindent = true
-vim.o.breakindent = true
-vim.o.list = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.hlsearch = false
-vim.o.incsearch = true
-vim.o.termguicolors = true
-vim.o.background = "dark"
-vim.o.updatetime = 50
-vim.o.timeoutlen = 150
-vim.o.guicursor = "a:block"
-vim.o.scrolloff = 8
-vim.o.sidescrolloff = 8
-vim.o.winborder = "rounded"
-vim.o.clipboard = "unnamedplus"
-vim.o.completeopt = "menuone,noselect"
-vim.o.conceallevel = 0
-vim.o.pumheight = 10
-vim.o.pumblend = 10
-vim.opt.ruler = false
-vim.opt.title = true
-vim.opt.titlelen = 0
-vim.opt.fillchars = vim.opt.fillchars + "eob: "
-vim.opt.fillchars:append({ stl = " " })
-vim.opt.shortmess:append("c")
-vim.g.netrw_banner = 0
-vim.g.netrw_mouse = 2
+if vim.loader then vim.loader.enable() end
+vim.g.mapleader = " "
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.o.swapfile = false
-vim.g.mapleader = " "
-vim.opt.fillchars:append({ horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " })
 
-vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
-vim.keymap.set('n', '<leader>w', ':lua MiniTrailspace.trim()<CR> :lua MiniTrailspace.trim_last_lines()<CR> :write<CR>')
-vim.keymap.set('n', '<leader>q', ':exit<CR>')
+local opt = vim.opt
+local o = vim.opt
+
+o.number = true
+o.relativenumber = true
+o.numberwidth = 4
+o.signcolumn = "yes"
+o.tabstop = 4
+o.softtabstop = 4
+o.shiftwidth = 4
+o.expandtab = true
+o.autoindent = true
+o.smartindent = true
+o.breakindent = true
+o.list = true
+o.ignorecase = true
+o.smartcase = true
+o.hlsearch = false
+o.incsearch = true
+o.termguicolors = true
+o.background = "dark"
+o.updatetime = 50
+o.timeoutlen = 150
+o.guicursor = "a:block"
+o.scrolloff = 8
+o.sidescrolloff = 8
+o.winborder = "rounded"
+o.clipboard = "unnamedplus"
+o.completeopt = "menuone,noselect"
+o.conceallevel = 0
+o.pumheight = 10
+o.pumblend = 10
+o.swapfile = false
+o.winblend = 28
+opt.ruler = false
+opt.title = true
+opt.titlelen = 0
+opt.fillchars = opt.fillchars + "eob: "
+opt.fillchars:append({
+    stl = " ",
+    horiz = " ", horizup = " ", horizdown = " ",
+    vertleft = " ", vertright = " ", verthoriz = " "
+})
+opt.shortmess:append("c")
+
+local map = vim.keymap.set
+
+map('n', '<leader>o', ':update<CR>:source<CR>')
+map('n', '<leader>w', ':lua MiniTrailspace.trim()<CR>:lua MiniTrailspace.trim_last_lines()<CR>:write<CR>')
+map('n', '<leader>q', ':exit<CR>')
+map('n', '<leader>a', function() require("harpoon"):list():add() end)
+map('n', '<C-e>', function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end)
+map('n', '<C-h>', function() require("harpoon"):list():select(1) end)
+map('n', '<C-t>', function() require("harpoon"):list():select(2) end)
+map('n', '<C-n>', function() require("harpoon"):list():select(3) end)
+map('n', '<C-s>', function() require("harpoon"):list():select(4) end)
+map('n', '<leader>hx', function() require("harpoon"):list():clear() end)
+map('n', '<leader>ff', ':Pick files<CR>')
+map('n', '<leader>fg', ':Pick grep_live<CR>')
+map('n', '<leader>fw', ':lua MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>") })<CR>')
+map('n', '<leader>fb', ':Pick buffers<CR>')
+map('n', '<leader>fr', ':Pick oldfiles<CR>')
+map('n', '<leader>h', ':Pick help<CR>')
+map('n', '<leader>e', ':Oil<CR>')
+map('n', '<leader>ef', ':lua MiniFiles.open()<CR>')
+map('n', '<leader>wz', ':lua MiniMisc.zoom()<CR>')
+map('n', '<leader>lf', vim.lsp.buf.format)
+map('n', '<leader>cm', ':Mason<CR>')
+map('n', '<leader>bn', ':bnext<CR>')
+map('n', '<leader>bp', ':bprev<CR>')
+map('n', '<leader>bd', ':bdelete<CR>')
+map('n', '<leader>bm', ':bmodified<CR>')
+map({'n', 'v'}, 'd', '"_d')
+map({'n', 'v'}, 'c', '"_c')
+map('n', 'x', '"_x')
+map('n', '<leader>ca', function() vim.cmd('botright split term://ruff format && ruff clean') end)
+map('n', '<leader>gg', function()
+  if vim.fn.executable("lazygit") == 1 then
+    vim.cmd("botright split term://lazygit")
+  else
+    vim.notify("lazygit not found in PATH", vim.log.levels.WARN)
+  end
+end)
 
 vim.pack.add({
     { src = "https://github.com/vague2k/vague.nvim" },
     { src = "https://github.com/echasnovski/mini.nvim" },
-    {
-        src = "https://github.com/ThePrimeagen/harpoon",
-        checkout = "harpoon2"
-    },
-    { src = "https://github.com/neanias/everforest-nvim" },
+    { src = "https://github.com/ThePrimeagen/harpoon", checkout = "harpoon2" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/mason-org/mason.nvim" },
@@ -61,39 +98,8 @@ vim.pack.add({
     { src = "https://github.com/nvim-lua/plenary.nvim" },
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(ev)
-        local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        if client:supports_method('textDocument/completion') then
-            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-        end
-    end,
-})
-vim.cmd('set completeopt+=noselect')
-
-require "mason".setup()
-require "mini.ai".setup()
-require "mini.animate".setup()
-require "mini.clue".setup()
-require "mini.completion".setup()
-require "mini.diff".setup()
-require "mini.extra".setup()
-require "mini.files".setup()
-require "mini.git".setup()
-require "mini.icons".setup()
-require "mini.indentscope".setup()
-require "mini.jump".setup()
-require "mini.misc".setup()
-require "mini.move".setup()
-require "mini.notify".setup()
-require "mini.pairs".setup()
-require "mini.pick".setup()
-require "mini.snippets".setup()
-require "mini.statusline".setup()
-require "mini.tabline".setup()
-require "mini.trailspace".setup()
-local icons = require("mini.icons")
-require("Oil").setup({
+require("mason").setup()
+require("oil").setup({
     keymaps = {
         ["q"] = "actions.close",
         ["l"] = "actions.select",
@@ -105,53 +111,60 @@ require("Oil").setup({
     },
 })
 
-vim.o.winblend = 28
-
 require("harpoon").setup()
 
-local harpoon = require("harpoon")
+require("mini.ai").setup()
+require("mini.animate").setup()
+require("mini.clue").setup()
+require("mini.completion").setup()
+require("mini.diff").setup()
+require("mini.extra").setup()
+require("mini.files").setup()
+require("mini.git").setup()
+require("mini.icons").setup()
+require("mini.indentscope").setup()
+require("mini.jump").setup()
+require("mini.misc").setup()
+require("mini.move").setup()
+require("mini.notify").setup({
+    lsp_progress = {
+        enable = true,
+        duration_last = 1000,
+    },
+    window = {
+        config = {
+            border = "rounded",
+        },
+        max_width_share = 0.4,
+    },
+})
+vim.notify = require("mini.notify").make_notify()
+require("mini.pairs").setup()
+require("mini.pick").setup()
+require("mini.snippets").setup()
+require("mini.tabline").setup()
+require("mini.statusline").setup()
+require("mini.trailspace").setup()
 
-vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
-vim.keymap.set("n", "<leader>hx", function() harpoon:list():clear() end)
+vim.lsp.enable({"lua_ls", "ruff-lsp", "pylsp", "pyright"})
 
-vim.keymap.set('n', '<leader>ff', ':Pick files<CR>')
-vim.keymap.set('n', '<leader>fg', ':Pick grep_live<CR>')
-vim.keymap.set('n', '<leader>fw', ':lua MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>")})<CR>')
-vim.keymap.set('n', '<leader>fb', ':Pick buffers<CR>')
-vim.keymap.set('n', '<leader>fr', ':Pick oldfiles<CR>')
-vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
-vim.keymap.set('n', '<leader>e', ':Oil<CR>')
-vim.keymap.set('n', '<leader>ef', ':lua MiniFiles.open()<CR>')
-vim.keymap.set('n', '<leader>wz', ':lua MiniMisc.zoom()<CR>')
-vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
-vim.keymap.set('n', '<leader>cm', ':Mason<CR>')
-vim.keymap.set('n', '<leader>bn', ':bnext<CR>')
-vim.keymap.set('n', '<leader>bp', ':bprev<CR>')
-vim.keymap.set('n', '<leader>bd', ':bdelete<CR>')
-vim.keymap.set('n', '<leader>bm', ':bmodified<CR>')
-vim.keymap.set({'n', 'v'}, 'd', '"_d')
-vim.keymap.set({'n', 'v'}, 'c', '"_c')
-vim.keymap.set('n', 'x', '"_x')
-vim.keymap.set('n', '<leader>ca', function()
-    vim.cmd('botright split term://ruff format && ruff clean')
-end)
-vim.keymap.set('n', '<leader>gg', function()
-    vim.cmd('botright split term://lazygit')
-end)
-vim.lsp.enable({"lua_ls", "ruff-lsp"})
 vim.lsp.config("lua_ls", {
     settings = {
         Lua = {
             workspace = {
-                library = vim.api.nvim_get_runtime_file("", true)
-            }
-        }
-    }
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+        },
+    },
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(ev)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client:supports_method('textDocument/completion') then
+            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+        end
+    end,
 })
 
 require("vague").setup({ transparency = true })
@@ -160,33 +173,21 @@ require("gruvbox").setup({
     transparent_mode = false,
     contrast = "hard",
 })
-require("everforest").setup({
-    background = "hard",
-    transparent_background_level = 0,
-    italics = true,
-    disable_italic_comments = false,
-    inlay_hints_background = "dimmed",
-    on_highlights = function(hl, _)
-        hl["@string.special.symbol.ruby"] = { link = "@field" }
-    end,
-})
 
 local function set_colorscheme(name)
-    local success, _ = pcall(vim.cmd, "colorscheme " .. name)
-    if not success then
+    local ok = pcall(vim.cmd.colorscheme, name)
+    if not ok then
         vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR)
         return
     end
     if name == "gruvbox" then
-        vim.cmd("hi SignColumn guibg=#1d2021")
+        vim.api.nvim_set_hl(0, "SignColumn", { bg = "#1d2021" })
     elseif name == "vague" then
-        vim.cmd("hi statusline guibg=NONE")
-    elseif name == "everforest" then
-        vim.cmd("hi Normal guibg=#282828")
+        vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
     end
 end
 
-local schemes = { "gruvbox", "everforest", "vague", "retrobox", "randomhue" }
+local schemes = { "gruvbox", "vague", "retrobox", "randomhue" }
 local current_idx = 0
 
 vim.keymap.set("n", "<leader>tt", function()

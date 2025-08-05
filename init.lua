@@ -95,6 +95,7 @@ vim.pack.add({
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/ellisonleao/gruvbox.nvim" },
+    { src = "https://github.com/projekt0n/github-nvim-theme"},
     { src = "https://github.com/nvim-lua/plenary.nvim" },
 })
 
@@ -168,6 +169,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 require("vague").setup({ transparency = true })
+
 require("gruvbox").setup({
     terminal_colors = true,
     transparent_mode = false,

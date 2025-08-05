@@ -22,7 +22,7 @@ vim.o.timeoutlen = 150
 vim.o.guicursor = "a:block"
 vim.o.scrolloff = 8
 vim.o.sidescrolloff = 8
-vim.o.winborder = "double"
+vim.o.winborder = "rounded"
 vim.o.clipboard = "unnamedplus"
 vim.o.completeopt = "menuone,noselect"
 vim.o.conceallevel = 0
@@ -43,8 +43,8 @@ vim.g.mapleader = " "
 vim.opt.fillchars:append({ horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " })
 
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
-vim.keymap.set('n', '<leader>w', ':write<CR>')
-vim.keymap.set('n', '<leader>q', ':quit<CR>')
+vim.keymap.set('n', '<leader>w', ':lua MiniTrailspace.trim()<CR> :lua MiniTrailspace.trim_last_lines()<CR> :write<CR>')
+vim.keymap.set('n', '<leader>q', ':exit<CR>')
 
 vim.pack.add({
     { src = "https://github.com/vague2k/vague.nvim" },
@@ -57,7 +57,6 @@ vim.pack.add({
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/windwp/nvim-autopairs" },
     { src = "https://github.com/ellisonleao/gruvbox.nvim" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
 })
@@ -65,7 +64,7 @@ vim.pack.add({
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        if client:supports_method('textDocument/completion') then 
+        if client:supports_method('textDocument/completion') then
             vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
         end
     end,
@@ -73,9 +72,26 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.cmd('set completeopt+=noselect')
 
 require "mason".setup()
+require "mini.ai".setup()
+require "mini.animate".setup()
+require "mini.clue".setup()
+require "mini.completion".setup()
+require "mini.diff".setup()
+require "mini.extra".setup()
+require "mini.files".setup()
+require "mini.git".setup()
+require "mini.icons".setup()
+require "mini.indentscope".setup()
+require "mini.jump".setup()
+require "mini.misc".setup()
+require "mini.move".setup()
+require "mini.notify".setup()
+require "mini.pairs".setup()
 require "mini.pick".setup()
-require("mini.icons").setup()
-require("mini.extra").setup()
+require "mini.snippets".setup()
+require "mini.statusline".setup()
+require "mini.tabline".setup()
+require "mini.trailspace".setup()
 local icons = require("mini.icons")
 require("Oil").setup({
     keymaps = {
@@ -89,7 +105,7 @@ require("Oil").setup({
     },
 })
 
-vim.o.winblend = 10
+vim.o.winblend = 28
 
 require("harpoon").setup()
 
@@ -105,19 +121,25 @@ vim.keymap.set("n", "<leader>hx", function() harpoon:list():clear() end)
 
 vim.keymap.set('n', '<leader>ff', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>fg', ':Pick grep_live<CR>')
-vim.keymap.set("n", "<leader>fw", function()
-  require("mini.pick").builtin.grep({ pattern = vim.fn.expand("<cword>")
-})
+vim.keymap.set('n', '<leader>fw', ':lua MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>")})<CR>')
 vim.keymap.set('n', '<leader>fb', ':Pick buffers<CR>')
 vim.keymap.set('n', '<leader>fr', ':Pick oldfiles<CR>')
 vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
-vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
 vim.keymap.set('n', '<leader>e', ':Oil<CR>')
+vim.keymap.set('n', '<leader>ef', ':lua MiniFiles.open()<CR>')
+vim.keymap.set('n', '<leader>wz', ':lua MiniMisc.zoom()<CR>')
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>cm', ':Mason<CR>')
+vim.keymap.set('n', '<leader>bn', ':bnext<CR>')
+vim.keymap.set('n', '<leader>bp', ':bprev<CR>')
+vim.keymap.set('n', '<leader>bd', ':bdelete<CR>')
+vim.keymap.set('n', '<leader>bm', ':bmodified<CR>')
 vim.keymap.set({'n', 'v'}, 'd', '"_d')
 vim.keymap.set({'n', 'v'}, 'c', '"_c')
 vim.keymap.set('n', 'x', '"_x')
+vim.keymap.set('n', '<leader>ca', function()
+    vim.cmd('botright split term://ruff format && ruff clean')
+end)
 vim.keymap.set('n', '<leader>gg', function()
     vim.cmd('botright split term://lazygit')
 end)
@@ -164,8 +186,8 @@ local function set_colorscheme(name)
     end
 end
 
-local schemes = { "gruvbox", "vague", "everforest" }
-local current_idx = 1
+local schemes = { "gruvbox", "everforest", "vague", "retrobox", "randomhue" }
+local current_idx = 0
 
 vim.keymap.set("n", "<leader>tt", function()
     current_idx = (current_idx % #schemes) + 1
@@ -173,4 +195,3 @@ vim.keymap.set("n", "<leader>tt", function()
 end)
 
 set_colorscheme("vague")
-_G.mini_icons = mini_icons

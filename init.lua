@@ -14,7 +14,7 @@ for k, v in pairs({
     background = "dark", guicursor = "a:block",
     updatetime = 50, timeoutlen = 150,
     scrolloff = 8, sidescrolloff = 8,
-    winborder = "single", clipboard = "unnamedplus",
+    winborder = "double", clipboard = "unnamedplus",
     completeopt = { "menuone", "noselect" },
     conceallevel = 0, pumheight = 10, pumblend = 10,
     winblend = 20, swapfile = false, ruler = false,
@@ -28,7 +28,7 @@ opt.fillchars:append({
 opt.shortmess:append("c")
 
 for _, m in ipairs({
-    { "n", "<leader>o", ":update<CR>:source<CR>", "Write and source file" },
+    -- { "n", "<leader>o", ":update<CR>:source<CR>", "Write and source file" },
     { "n", "<leader>w", function()
         MiniTrailspace.trim()
         MiniTrailspace.trim_last_lines()
@@ -125,7 +125,7 @@ vim.notify = require("mini.notify").make_notify()
 --     },
 -- })
 
-vim.lsp.enable({ "lua_ls", "ruff-lsp", "pylsp", "pyright" })
+vim.lsp.enable({ "lua_ls", "ruff-lsp", "pylsp", "pyright", "ruff" })
 vim.lsp.config("lua_ls", {
     settings = {
         Lua = {

@@ -36,6 +36,12 @@ require("mini.clue").setup({
     { "n", "<leader>o", ":update<CR>:source<CR>", "Write and source file" },
 ```
 
+## Extra: Themes
+
+```lua
+    { src = "https://github.com/projekt0n/github-nvim-theme"},
+```
+
 
 
 

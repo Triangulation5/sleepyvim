@@ -120,18 +120,29 @@ vim.notify = require("mini.notify").make_notify()
 --         require("mini.clue").gen_clues.z(),
 --     },
 --     window = {
---         config = { border = "rounded" },
+--         config = { border = "double" },
 --         delay = 200,
 --     },
 -- })
 
-vim.lsp.enable({ "lua_ls", "ruff-lsp", "pylsp", "pyright", "ruff" })
+vim.lsp.enable({ "lua_ls", "pylsp", "pyright", "ruff", "gopls" })
 vim.lsp.config("lua_ls", {
     settings = {
         Lua = {
             workspace = {
                 library = vim.api.nvim_get_runtime_file("", true),
             },
+        },
+    },
+})
+vim.lsp.config("gopls", {
+    settings = {
+        gopls = {
+            analyses = {
+                unusedparams = true,
+                shadow = true,
+            },
+            staticcheck = true,
         },
     },
 })

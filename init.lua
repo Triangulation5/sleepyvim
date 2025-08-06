@@ -8,16 +8,16 @@ for k, v in pairs({
     number = true, relativenumber = true, numberwidth = 4,
     signcolumn = "yes",
     tabstop = 4, softtabstop = 4, shiftwidth = 4, expandtab = true,
-    autoindent = true, smartindent = true, breakindent = true,
-    list = true, ignorecase = true, smartcase = true,
+    smartindent = true, breakindent = true,
+    list = true, smartcase = true,
     hlsearch = false, incsearch = true,
-    termguicolors = true, background = "dark", guicursor = "a:block",
+    background = "dark", guicursor = "a:block",
     updatetime = 50, timeoutlen = 150,
     scrolloff = 8, sidescrolloff = 8,
-    winborder = "rounded", clipboard = "unnamedplus",
+    winborder = "single", clipboard = "unnamedplus",
     completeopt = { "menuone", "noselect" },
     conceallevel = 0, pumheight = 10, pumblend = 10,
-    winblend = 28, swapfile = false, ruler = false,
+    winblend = 20, swapfile = false, ruler = false,
     title = true, titlelen = 0,
 }) do opt[k] = v end
 opt.fillchars:append({
@@ -80,6 +80,7 @@ vim.pack.add({
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/ellisonleao/gruvbox.nvim" },
+    { src = "https://github.com/projekt0n/github-nvim-theme"},
     { src = "https://github.com/nvim-lua/plenary.nvim" },
 })
 
@@ -99,30 +100,30 @@ require("mini.notify").setup({
     window = { config = { border = "rounded" }, max_width_share = 0.4 },
 })
 vim.notify = require("mini.notify").make_notify()
-require("mini.clue").setup({
-    triggers = {
-        { mode = 'n', keys = '<Leader>' }, { mode = 'x', keys = '<Leader>' },
-        { mode = 'i', keys = '<C-x>' }, { mode = 'n', keys = 'g' },
-        { mode = 'x', keys = 'g' }, { mode = 'n', keys = "'" },
-        { mode = 'n', keys = "`" }, { mode = 'x', keys = "'" },
-        { mode = 'x', keys = "`" }, { mode = 'n', keys = '"' },
-        { mode = 'x', keys = '"' }, { mode = 'i', keys = '<C-r>' },
-        { mode = 'c', keys = '<C-r>' }, { mode = 'n', keys = '<C-w>' },
-        { mode = 'n', keys = 'z' }, { mode = 'x', keys = 'z' },
-    },
-    clues = {
-        require("mini.clue").gen_clues.builtin_completion(),
-        require("mini.clue").gen_clues.g(),
-        require("mini.clue").gen_clues.marks(),
-        require("mini.clue").gen_clues.registers(),
-        require("mini.clue").gen_clues.windows(),
-        require("mini.clue").gen_clues.z(),
-    },
-    window = {
-        config = { border = "rounded" },
-        delay = 200,
-    },
-})
+-- require("mini.clue").setup({
+--     triggers = {
+--         { mode = 'n', keys = '<Leader>' }, { mode = 'x', keys = '<Leader>' },
+--         { mode = 'i', keys = '<C-x>' }, { mode = 'n', keys = 'g' },
+--         { mode = 'x', keys = 'g' }, { mode = 'n', keys = "'" },
+--         { mode = 'n', keys = "`" }, { mode = 'x', keys = "'" },
+--         { mode = 'x', keys = "`" }, { mode = 'n', keys = '"' },
+--         { mode = 'x', keys = '"' }, { mode = 'i', keys = '<C-r>' },
+--         { mode = 'c', keys = '<C-r>' }, { mode = 'n', keys = '<C-w>' },
+--         { mode = 'n', keys = 'z' }, { mode = 'x', keys = 'z' },
+--     },
+--     clues = {
+--         require("mini.clue").gen_clues.builtin_completion(),
+--         require("mini.clue").gen_clues.g(),
+--         require("mini.clue").gen_clues.marks(),
+--         require("mini.clue").gen_clues.registers(),
+--         require("mini.clue").gen_clues.windows(),
+--         require("mini.clue").gen_clues.z(),
+--     },
+--     window = {
+--         config = { border = "rounded" },
+--         delay = 200,
+--     },
+-- })
 
 vim.lsp.enable({ "lua_ls", "ruff-lsp", "pylsp", "pyright" })
 vim.lsp.config("lua_ls", {
@@ -158,7 +159,7 @@ local function set_colorscheme(name)
         vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
     end
 end
-local schemes = { "gruvbox", "vague", "retrobox", "randomhue" }
+local schemes = { "gruvbox", "vague", "retrobox", "randomhue", "github_dark_default" }
 local idx = 0
 
 vim.keymap.set("n", "<leader>t", function()
@@ -166,4 +167,4 @@ vim.keymap.set("n", "<leader>t", function()
     set_colorscheme(schemes[idx])
 end, { desc = "UI: Cycle colorschemes" })
 
-set_colorscheme("retrobox")
+set_colorscheme("vague")

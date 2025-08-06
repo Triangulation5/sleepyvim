@@ -1,6 +1,6 @@
 # Extras:
 
-## Show next key clues
+## MiniClue - Show Next Key Clues
 
 ```lua
 -- Add this for mini.clue:
@@ -30,7 +30,7 @@ require("mini.clue").setup({
 })
 ```
 
-## Source file 
+## Update & Source File
 
 ```lua
     { "n", "<leader>o", ":update<CR>:source<CR>", "Write and source file" },

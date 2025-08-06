@@ -28,7 +28,6 @@ opt.fillchars:append({
 opt.shortmess:append("c")
 
 for _, m in ipairs({
-    -- { "n", "<leader>o", ":update<CR>:source<CR>", "Write and source file" },
     { "n", "<leader>w", function()
         MiniTrailspace.trim()
         MiniTrailspace.trim_last_lines()
@@ -73,15 +72,15 @@ for _, m in ipairs({
 }) do vim.keymap.set(m[1], m[2], m[3], { desc = m[4] }) end
 
 vim.pack.add({
-    { src = "https://github.com/vague2k/vague.nvim" },
-    { src = "https://github.com/echasnovski/mini.nvim" },
-    { src = "https://github.com/ThePrimeagen/harpoon", checkout = "harpoon2" },
-    { src = "https://github.com/neovim/nvim-lspconfig" },
-    { src = "https://github.com/stevearc/oil.nvim" },
-    { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/ellisonleao/gruvbox.nvim" },
-    { src = "https://github.com/projekt0n/github-nvim-theme"},
     { src = "https://github.com/nvim-lua/plenary.nvim" },
+    { src = "https://github.com/neovim/nvim-lspconfig" },
+    { src = "https://github.com/mason-org/mason.nvim" },
+    { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/ThePrimeagen/harpoon", checkout = "harpoon2" },
+    { src = "https://github.com/echasnovski/mini.nvim" },
+    { src = "https://github.com/vague2k/vague.nvim" },
+    { src = "https://github.com/ellisonleao/gruvbox.nvim" },
+    { src = "https://github.com/folke/tokyonight.nvim" },
 })
 
 require("mason").setup()
@@ -100,30 +99,6 @@ require("mini.notify").setup({
     window = { config = { border = "rounded" }, max_width_share = 0.4 },
 })
 vim.notify = require("mini.notify").make_notify()
--- require("mini.clue").setup({
---     triggers = {
---         { mode = 'n', keys = '<Leader>' }, { mode = 'x', keys = '<Leader>' },
---         { mode = 'i', keys = '<C-x>' }, { mode = 'n', keys = 'g' },
---         { mode = 'x', keys = 'g' }, { mode = 'n', keys = "'" },
---         { mode = 'n', keys = "`" }, { mode = 'x', keys = "'" },
---         { mode = 'x', keys = "`" }, { mode = 'n', keys = '"' },
---         { mode = 'x', keys = '"' }, { mode = 'i', keys = '<C-r>' },
---         { mode = 'c', keys = '<C-r>' }, { mode = 'n', keys = '<C-w>' },
---         { mode = 'n', keys = 'z' }, { mode = 'x', keys = 'z' },
---     },
---     clues = {
---         require("mini.clue").gen_clues.builtin_completion(),
---         require("mini.clue").gen_clues.g(),
---         require("mini.clue").gen_clues.marks(),
---         require("mini.clue").gen_clues.registers(),
---         require("mini.clue").gen_clues.windows(),
---         require("mini.clue").gen_clues.z(),
---     },
---     window = {
---         config = { border = "double" },
---         delay = 200,
---     },
--- })
 
 vim.lsp.enable({ "lua_ls", "pylsp", "pyright", "ruff", "gopls" })
 vim.lsp.config("lua_ls", {
@@ -157,6 +132,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 require("vague").setup({ transparency = true })
 require("gruvbox").setup({ terminal_colors = true, transparent_mode = false, contrast = "hard" })
+require("tokyonight").setup({ style = "night", transparent = false })
 
 local function set_colorscheme(name)
     local ok = pcall(vim.cmd.colorscheme, name)
@@ -170,7 +146,7 @@ local function set_colorscheme(name)
         vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
     end
 end
-local schemes = { "gruvbox", "vague", "retrobox", "randomhue", "github_dark_default" }
+local schemes = { "gruvbox", "vague", "retrobox", "tokyonight" }
 local idx = 0
 
 vim.keymap.set("n", "<leader>t", function()
@@ -178,4 +154,4 @@ vim.keymap.set("n", "<leader>t", function()
     set_colorscheme(schemes[idx])
 end, { desc = "UI: Cycle colorschemes" })
 
-set_colorscheme("vague")
+set_colorscheme("gruvbox")

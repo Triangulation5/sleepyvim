@@ -40,8 +40,5 @@ require("mini.clue").setup({
 
 ```lua
     { src = "https://github.com/projekt0n/github-nvim-theme"},
+    { src = "https://github.com/folke/tokyonight.nvim" },
 ```
-
-
-
-

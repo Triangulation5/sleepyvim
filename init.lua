@@ -4,88 +4,89 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 local opt = vim.opt
-local o = vim.opt
 
-o.number = true
-o.relativenumber = true
-o.numberwidth = 4
-o.signcolumn = "yes"
-o.tabstop = 4
-o.softtabstop = 4
-o.shiftwidth = 4
-o.expandtab = true
-o.autoindent = true
-o.smartindent = true
-o.breakindent = true
-o.list = true
-o.ignorecase = true
-o.smartcase = true
-o.hlsearch = false
-o.incsearch = true
-o.termguicolors = true
-o.background = "dark"
-o.updatetime = 50
-o.timeoutlen = 150
-o.guicursor = "a:block"
-o.scrolloff = 8
-o.sidescrolloff = 8
-o.winborder = "rounded"
-o.clipboard = "unnamedplus"
-o.completeopt = "menuone,noselect"
-o.conceallevel = 0
-o.pumheight = 10
-o.pumblend = 10
-o.swapfile = false
-o.winblend = 28
+opt.number = true
+opt.relativenumber = true
+opt.numberwidth = 4
+opt.signcolumn = "yes"
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.autoindent = true
+opt.smartindent = true
+opt.breakindent = true
+opt.list = true
+opt.ignorecase = true
+opt.smartcase = true
+opt.hlsearch = false
+opt.incsearch = true
+opt.termguicolors = true
+opt.background = "dark"
+opt.guicursor = "a:block"
+opt.updatetime = 50
+opt.timeoutlen = 150
+opt.scrolloff = 8
+opt.sidescrolloff = 8
+opt.winborder = "rounded"
+opt.clipboard = "unnamedplus"
+opt.completeopt = { "menuone", "noselect" }
+opt.conceallevel = 0
+opt.pumheight = 10
+opt.pumblend = 10
+opt.winblend = 28
+opt.swapfile = false
 opt.ruler = false
 opt.title = true
 opt.titlelen = 0
-opt.fillchars = opt.fillchars + "eob: "
 opt.fillchars:append({
+    eob = " ",
     stl = " ",
     horiz = " ", horizup = " ", horizdown = " ",
-    vertleft = " ", vertright = " ", verthoriz = " "
+    vertleft = " ", vertright = " ", verthoriz = " ",
 })
 opt.shortmess:append("c")
 
 local map = vim.keymap.set
 
-map('n', '<leader>o', ':update<CR>:source<CR>')
-map('n', '<leader>w', ':lua MiniTrailspace.trim()<CR>:lua MiniTrailspace.trim_last_lines()<CR>:write<CR>')
-map('n', '<leader>q', ':exit<CR>')
-map('n', '<leader>a', function() require("harpoon"):list():add() end)
-map('n', '<C-e>', function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end)
-map('n', '<C-h>', function() require("harpoon"):list():select(1) end)
-map('n', '<C-t>', function() require("harpoon"):list():select(2) end)
-map('n', '<C-n>', function() require("harpoon"):list():select(3) end)
-map('n', '<C-s>', function() require("harpoon"):list():select(4) end)
-map('n', '<leader>hx', function() require("harpoon"):list():clear() end)
-map('n', '<leader>ff', ':Pick files<CR>')
-map('n', '<leader>fg', ':Pick grep_live<CR>')
-map('n', '<leader>fw', ':lua MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>") })<CR>')
-map('n', '<leader>fb', ':Pick buffers<CR>')
-map('n', '<leader>fr', ':Pick oldfiles<CR>')
-map('n', '<leader>h', ':Pick help<CR>')
-map('n', '<leader>e', ':Oil<CR>')
-map('n', '<leader>ef', ':lua MiniFiles.open()<CR>')
-map('n', '<leader>wz', ':lua MiniMisc.zoom()<CR>')
-map('n', '<leader>lf', vim.lsp.buf.format)
-map('n', '<leader>cm', ':Mason<CR>')
-map('n', '<leader>bn', ':bnext<CR>')
-map('n', '<leader>bp', ':bprev<CR>')
-map('n', '<leader>bd', ':bdelete<CR>')
-map('n', '<leader>bm', ':bmodified<CR>')
-map({'n', 'v'}, 'd', '"_d')
-map({'n', 'v'}, 'c', '"_c')
-map('n', 'x', '"_x')
-map('n', '<leader>ca', function() vim.cmd('botright split term://ruff format && ruff clean') end)
+map('n', '<leader>o', ':update<CR>:source<CR>', { desc = 'Write and source current file' })
+map('n', '<leader>w', ':lua MiniTrailspace.trim()<CR>:lua MiniTrailspace.trim_last_lines()<CR>:write<CR>', { desc = 'Trim whitespace and save' })
+map('n', '<leader>q', ':exit<CR>', { desc = 'Exit current window' })
+map('n', '<leader>a', function() require("harpoon"):list():add() end, { desc = 'Harpoon: Add file' })
+map('n', '<C-e>', function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, { desc = 'Harpoon: Toggle menu' })
+map('n', '<C-h>', function() require("harpoon"):list():select(1) end, { desc = 'Harpoon: Go to file 1' })
+map('n', '<C-t>', function() require("harpoon"):list():select(2) end, { desc = 'Harpoon: Go to file 2' })
+map('n', '<C-n>', function() require("harpoon"):list():select(3) end, { desc = 'Harpoon: Go to file 3' })
+map('n', '<C-s>', function() require("harpoon"):list():select(4) end, { desc = 'Harpoon: Go to file 4' })
+map('n', '<leader>hx', function() require("harpoon"):list():clear() end, { desc = 'Harpoon: Clear list' })
+map('n', '<leader>ff', ':Pick files<CR>', { desc = 'Pick: Files' })
+map('n', '<leader>fg', ':Pick grep_live<CR>', { desc = 'Pick: Live grep' })
+map('n', '<leader>fw', ':lua MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>") })<CR>', { desc = 'Pick: Grep word under cursor' })
+map('n', '<leader>fb', ':Pick buffers<CR>', { desc = 'Pick: Buffers' })
+map('n', '<leader>fr', ':Pick oldfiles<CR>', { desc = 'Pick: Recent files' })
+map('n', '<leader>h', ':Pick help<CR>', { desc = 'Pick: Help tags' })
+map('n', '<leader>e', ':Oil<CR>', { desc = 'Oil: Open file explorer' })
+map('n', '<leader>ef', ':lua MiniFiles.open()<CR>', { desc = 'MiniFiles: Open file manager' })
+map('n', '<leader>wz', ':lua MiniMisc.zoom()<CR>', { desc = 'MiniMisc: Zoom window' })
+map('n', '<leader>lf', vim.lsp.buf.format, { desc = 'LSP: Format buffer' })
+map('n', '<leader>cm', ':Mason<CR>', { desc = 'Mason' })
+map('n', '<leader>b', ':buffers<CR>', { desc = 'Buffers' })
+map('n', '<leader>bn', ':bnext<CR>', { desc = 'Buffer: Next' })
+map('n', '<leader>bp', ':bprev<CR>', { desc = 'Buffer: Previous' })
+map('n', '<leader>bd', ':bdelete<CR>', { desc = 'Buffer: Delete' })
+map('n', '<leader>bm', ':bmodified<CR>', { desc = 'Buffer: Modified list' })
+map({'n', 'v'}, 'd', '"_d', { desc = 'Delete without yank' })
+map({'n', 'v'}, 'c', '"_c', { desc = 'Change without yank' })
+map('n', 'x', '"_x', { desc = 'Cut character without yank' })
+map('n', '<C-p>', function() vim.cmd('botright split term://powershell') end, { desc = 'Terminal: Open PowerShell' })
+map('n', '<leader>ca', function() vim.cmd('botright split term://ruff format && ruff clean') end, { desc = 'Ruff: Format and clean' })
 map('n', '<leader>gg', function()
   if vim.fn.executable("lazygit") == 1 then
     vim.cmd("botright split term://lazygit")
   else
     vim.notify("lazygit not found in PATH", vim.log.levels.WARN)
   end
-end)
+end, { desc = 'Git: Open lazygit' })
 
 vim.pack.add({
     { src = "https://github.com/vague2k/vague.nvim" },
@@ -116,7 +117,40 @@ require("harpoon").setup()
 
 require("mini.ai").setup()
 require("mini.animate").setup()
-require("mini.clue").setup()
+require("mini.clue").setup({
+    triggers = {
+        { mode = 'n', keys = '<Leader>' },
+        { mode = 'x', keys = '<Leader>' },
+        { mode = 'i', keys = '<C-x>' },
+        { mode = 'n', keys = 'g' },
+        { mode = 'x', keys = 'g' },
+        { mode = 'n', keys = "'" },
+        { mode = 'n', keys = "" },
+        { mode = 'x', keys = "'" },
+        { mode = 'x', keys = "" },
+        { mode = 'n', keys = '"' },
+        { mode = 'x', keys = '"' },
+        { mode = 'i', keys = '<C-r>' },
+        { mode = 'c', keys = '<C-r>' },
+        { mode = 'n', keys = '<C-w>' },
+        { mode = 'n', keys = 'z' },
+        { mode = 'x', keys = 'z' },
+    },
+    clues = {
+        require('mini.clue').gen_clues.builtin_completion(),
+        require('mini.clue').gen_clues.g(),
+        require('mini.clue').gen_clues.marks(),
+        require('mini.clue').gen_clues.registers(),
+        require('mini.clue').gen_clues.windows(),
+        require('mini.clue').gen_clues.z(),
+    },
+    window = {
+        config = {
+            width = 'auto',
+            border = 'rounded',
+        },
+    },
+})
 require("mini.completion").setup()
 require("mini.diff").setup()
 require("mini.extra").setup()
@@ -169,7 +203,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 require("vague").setup({ transparency = true })
-
 require("gruvbox").setup({
     terminal_colors = true,
     transparent_mode = false,
@@ -189,12 +222,12 @@ local function set_colorscheme(name)
     end
 end
 
-local schemes = { "gruvbox", "vague", "retrobox", "randomhue" }
+local schemes = { "gruvbox", "vague", "retrobox", "randomhue", "github_dark_high_contrast" }
 local current_idx = 0
 
-vim.keymap.set("n", "<leader>tt", function()
+vim.keymap.set("n", "<leader>t", function()
     current_idx = (current_idx % #schemes) + 1
     set_colorscheme(schemes[current_idx])
-end)
+end, { desc = 'UI: Cycle colorschemes' })
 
-set_colorscheme("vague")
+set_colorscheme("github_dark_default")

@@ -9,23 +9,18 @@ for k, v in pairs({
     signcolumn = "yes",
     tabstop = 4, softtabstop = 4, shiftwidth = 4, expandtab = true,
     smartindent = true, breakindent = true,
-    list = true, smartcase = true,
+    list = true,listchars = { tab = "  ", trail = "·", extends = "›", precedes = "‹", nbsp = "␣" }, smartcase = true,
     hlsearch = false, incsearch = true,
     background = "dark", guicursor = "a:block",
     updatetime = 50, timeoutlen = 150,
     scrolloff = 8, sidescrolloff = 8,
-    winborder = "single", clipboard = "unnamedplus",
+    winborder = "double", clipboard = "unnamedplus",
     completeopt = { "menuone", "noselect" },
     conceallevel = 0, pumheight = 10, pumblend = 15,
     winblend = 25, swapfile = false, shada = "", ruler = false,
     title = true, titlelen = 0,
 }) do opt[k] = v end
-opt.fillchars:append({
-    eob = " ", stl = " ",
-    horiz = " ", horizup = " ", horizdown = " ",
-    vertleft = " ", vertright = " ", verthoriz = " ",
-})
-opt.shortmess:append("c")
+opt.fillchars:append({ eob = " ", stl = " ", horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " }); opt.shortmess:append("c")
 
 for _, m in ipairs({
     { "n", "<leader>w", function()
@@ -76,77 +71,32 @@ vim.pack.add({
     { src = "https://github.com/vague2k/vague.nvim" },
     { src = "https://github.com/ellisonleao/gruvbox.nvim" },
     { src = "https://github.com/rose-pine/neovim" },
+    { src = "https://github.com/folke/tokyonight.nvim" },
 })
 
 require("mason").setup()
-require("oil").setup({
-  keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" },
-  view_options = { show_hidden = true },
-})
+require("oil").setup({ keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, view_options = { show_hidden = true } })
 require("harpoon").setup()
-for _, mod in ipairs({
-    "ai", "animate", "completion", "diff", "extra", "files", "git", "icons",
-    "indentscope", "jump", "misc", "move", "pairs", "pick", "snippets",
-    "tabline", "statusline", "trailspace"
-}) do require("mini." .. mod).setup() end
-require("mini.notify").setup({
-    lsp_progress = { enable = true, duration_last = 1000 },
-    window = { config = { border = "rounded" }, max_width_share = 0.6 },
-})
+for _,m in ipairs({"ai","animate","completion","diff","extra","files","git","icons","jump","misc","move","pairs","pick","snippets","tabline","statusline","trailspace"}) do require("mini."..m).setup() end
+require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } })
+require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.none() }, symbol = "│", options = { try_as_border = true } })
+
 vim.notify = require("mini.notify").make_notify()
 
 vim.lsp.enable({ "lua_ls", "pylsp", "pyright", "ruff", "gopls" })
-vim.lsp.config("lua_ls", {
-    settings = {
-        Lua = {
-            workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-        },
-    },
-})
-vim.lsp.config("gopls", {
-    settings = {
-        gopls = {
-            analyses = {
-                unusedparams = true,
-                shadow = true,
-            },
-            staticcheck = true,
-        },
-    },
-})
-vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(ev)
-        local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        if client and client:supports_method("textDocument/completion") then
-            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-        end
-    end,
+vim.lsp.config("lua_ls", { settings = { Lua = { workspace = { library = vim.api.nvim_get_runtime_file("", true) } } } })
+vim.lsp.config("gopls", { settings = { gopls = { analyses = { unusedparams = true, shadow = true, }, staticcheck = true, }, }, })
+vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client = vim.lsp.get_client_by_id(ev.data.client_id) if client and client:supports_method("textDocument/completion") then vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true }) end end,
 })
 
 require("vague").setup({ transparency = true })
 require("gruvbox").setup({ terminal_colors = true, transparent_mode = false, contrast = "hard" })
 require("rose-pine").setup({ variant = "auto", dark_variant = "main", dim_inactive_windows = true, extend_background_behind_borders = true, styles = { bold = true, italic = true, transparency = false }, groups = { border = "highlight_med", background = "base", panel = "surface", comment = "muted", link = "iris", punctuation = "subtle", error = "love", hint = "iris", info = "foam", warn = "gold", git_add = "foam", git_change = "rose", git_delete = "love", git_dirty = "rose", git_ignore = "muted", git_merge = "iris", git_rename = "pine", git_stage = "iris", git_text = "rose", head = "iris", hunk = "rose" } })
 
-local function set_colorscheme(name)
-    local ok = pcall(vim.cmd.colorscheme, name)
-    if not ok then
-        vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR)
-        return
-    end
-    if name == "gruvbox" then
-        vim.api.nvim_set_hl(0, "SignColumn", { bg = "#1d2021" })
-    elseif name == "vague" then
-        vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
-    end
-end
+local function set_colorscheme(name) local ok = pcall(vim.cmd.colorscheme, name) if not ok then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if name == "gruvbox" then vim.api.nvim_set_hl(0, "SignColumn", { bg = "#1d2021" }) elseif name == "vague" then vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" }) end end
 local schemes = { "gruvbox", "vague", "retrobox", "rose-pine-main", "rose-pine-moon" }
 local idx = 0
 
-vim.keymap.set("n", "<leader>t", function()
-    idx = (idx % #schemes) + 1
-    set_colorscheme(schemes[idx])
-end, { desc = "UI: Cycle colorschemes" })
+vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1; set_colorscheme(schemes[idx]) end, { desc = "UI: Cycle colorschemes" })
 
 set_colorscheme("rose-pine-moon")

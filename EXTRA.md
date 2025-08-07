@@ -34,7 +34,6 @@ require("mini.clue").setup({
 
 ```lua
     { "n", "<leader>o", ":update<CR>:source<CR>", "Write and source file" },
-    { src = "https://github.com/olimorris/onedarkpro.nvim" },
 ```
 
 ## Extra: Themes
@@ -42,4 +41,5 @@ require("mini.clue").setup({
 ```lua
     { src = "https://github.com/projekt0n/github-nvim-theme"},
     { src = "https://github.com/folke/tokyonight.nvim" },
+    { src = "https://github.com/olimorris/onedarkpro.nvim" },
 ```

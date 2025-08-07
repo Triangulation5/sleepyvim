@@ -34,6 +34,7 @@ require("mini.clue").setup({
 
 ```lua
     { "n", "<leader>o", ":update<CR>:source<CR>", "Write and source file" },
+    { src = "https://github.com/olimorris/onedarkpro.nvim" },
 ```
 
 ## Extra: Themes

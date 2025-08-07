@@ -17,7 +17,7 @@ for k, v in pairs({
     winborder = "single", clipboard = "unnamedplus",
     completeopt = { "menuone", "noselect" },
     conceallevel = 0, pumheight = 10, pumblend = 15,
-    winblend = 25, swapfile = false, ruler = false,
+    winblend = 25, swapfile = false, shada = "", ruler = false,
     title = true, titlelen = 0,
 }) do opt[k] = v end
 opt.fillchars:append({
@@ -57,6 +57,7 @@ for _, m in ipairs({
     { "n", "<leader>bp", ":bprev<CR>", "Prev buffer" },
     { "n", "<leader>bd", ":bdelete<CR>", "Delete buffer" },
     { "n", "<leader>bm", ":bmodified<CR>", "Modified buffers" },
+    { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "buffer" }) end, "Show all diagnostics" },
     { { "n", "v" }, "d", '"_d', "Delete (no yank)" },
     { { "n", "v" }, "c", '"_c', "Change (no yank)" },
     { "n", "x", '"_x', "Cut (no yank)" },

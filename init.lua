@@ -14,10 +14,10 @@ for k, v in pairs({
     background = "dark", guicursor = "a:block",
     updatetime = 50, timeoutlen = 150,
     scrolloff = 8, sidescrolloff = 8,
-    winborder = "double", clipboard = "unnamedplus",
+    winborder = "single", clipboard = "unnamedplus",
     completeopt = { "menuone", "noselect" },
-    conceallevel = 0, pumheight = 10, pumblend = 10,
-    winblend = 20, swapfile = false, ruler = false,
+    conceallevel = 0, pumheight = 10, pumblend = 15,
+    winblend = 25, swapfile = false, ruler = false,
     title = true, titlelen = 0,
 }) do opt[k] = v end
 opt.fillchars:append({
@@ -61,14 +61,8 @@ for _, m in ipairs({
     { { "n", "v" }, "c", '"_c', "Change (no yank)" },
     { "n", "x", '"_x', "Cut (no yank)" },
     { "n", "<C-p>", function() vim.cmd('botright split term://powershell') end, "Open PowerShell" },
-    { "n", "<leader>ca", function() vim.cmd('botright split term://ruff format && ruff clean') end, "Ruff clean" },
-    { "n", "<leader>gg", function()
-        if vim.fn.executable("lazygit") == 1 then
-            vim.cmd("botright split term://lazygit")
-        else
-            vim.notify("lazygit not found", vim.log.levels.WARN)
-        end
-    end, "Lazygit" },
+    { "n", "<leader>ca", function() local ft, cmds = vim.bo.filetype, { python = "ruff format && ruff clean", go = "gofmt -w % && goimports -w %", } local cmd = cmds[ft] if not cmd then return vim.notify("No formatter for " .. ft, vim.log.levels.WARN) end vim.fn.jobstart(cmd, { on_exit = function() vim.schedule(function() vim.cmd("edit!") vim.notify("Formatted and cleaned " .. ft .. ", buffer reloaded") end) end, }) end, desc = "Code Action" },
+    { "n", "<leader>gg", function() if vim.fn.executable("lazygit") == 1 then vim.cmd("botright split term://lazygit") else vim.notify("lazygit not found", vim.log.levels.WARN)end end, "Lazygit" },
 }) do vim.keymap.set(m[1], m[2], m[3], { desc = m[4] }) end
 
 vim.pack.add({
@@ -80,7 +74,7 @@ vim.pack.add({
     { src = "https://github.com/echasnovski/mini.nvim" },
     { src = "https://github.com/vague2k/vague.nvim" },
     { src = "https://github.com/ellisonleao/gruvbox.nvim" },
-    { src = "https://github.com/folke/tokyonight.nvim" },
+    { src = "https://github.com/rose-pine/neovim" },
 })
 
 require("mason").setup()
@@ -96,7 +90,7 @@ for _, mod in ipairs({
 }) do require("mini." .. mod).setup() end
 require("mini.notify").setup({
     lsp_progress = { enable = true, duration_last = 1000 },
-    window = { config = { border = "rounded" }, max_width_share = 0.4 },
+    window = { config = { border = "rounded" }, max_width_share = 0.6 },
 })
 vim.notify = require("mini.notify").make_notify()
 
@@ -132,7 +126,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 require("vague").setup({ transparency = true })
 require("gruvbox").setup({ terminal_colors = true, transparent_mode = false, contrast = "hard" })
-require("tokyonight").setup({ style = "night", transparent = false })
+require("rose-pine").setup({ variant = "auto", dark_variant = "main", dim_inactive_windows = true, extend_background_behind_borders = true, styles = { bold = true, italic = true, transparency = false }, groups = { border = "highlight_med", background = "base", panel = "surface", comment = "muted", link = "iris", punctuation = "subtle", error = "love", hint = "iris", info = "foam", warn = "gold", git_add = "foam", git_change = "rose", git_delete = "love", git_dirty = "rose", git_ignore = "muted", git_merge = "iris", git_rename = "pine", git_stage = "iris", git_text = "rose", head = "iris", hunk = "rose" } })
 
 local function set_colorscheme(name)
     local ok = pcall(vim.cmd.colorscheme, name)
@@ -146,7 +140,7 @@ local function set_colorscheme(name)
         vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
     end
 end
-local schemes = { "gruvbox", "vague", "retrobox", "tokyonight" }
+local schemes = { "gruvbox", "vague", "retrobox", "rose-pine-main", "rose-pine-moon" }
 local idx = 0
 
 vim.keymap.set("n", "<leader>t", function()
@@ -154,4 +148,4 @@ vim.keymap.set("n", "<leader>t", function()
     set_colorscheme(schemes[idx])
 end, { desc = "UI: Cycle colorschemes" })
 
-set_colorscheme("gruvbox")
+set_colorscheme("rose-pine-moon")

@@ -102,4 +102,4 @@ local idx = 0
 
 vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1; set_colorscheme(schemes[idx]) end, { desc = "UI: Cycle Colorschemes" })
 
-set_colorscheme("tokyonight")
+set_colorscheme("rose-pine-moon")

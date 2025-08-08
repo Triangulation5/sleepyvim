@@ -14,7 +14,7 @@ for k, v in pairs({
     background = "dark", guicursor = "a:block",
     updatetime = 50, timeoutlen = 150,
     scrolloff = 8, sidescrolloff = 8,
-    winborder = "double", clipboard = "unnamedplus",
+    winborder = "rounded", clipboard = "unnamedplus",
     completeopt = { "menuone", "noselect" },
     conceallevel = 0, pumheight = 10, pumblend = 15,
     winblend = 25, swapfile = false, shada = "", ruler = false,
@@ -40,7 +40,7 @@ for _, m in ipairs({
     { "n", "<leader>fg", ":Pick grep_live<CR>", "Pick: grep" },
     { "n", "<leader>fw", function() MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>") }) end, "Pick: word" },
     { "n", "<leader>fb", ":Pick buffers<CR>", "Pick: buffers" },
-    { "n", "<leader>fr", ":Pick oldfiles<CR>", "Pick: recent" },
+    { "n", "<leader>fc", ":Pick colorschemes<CR>", "Pick: colorschemes"},
     { "n", "<leader>h", ":Pick help<CR>", "Pick: help" },
     { "n", "<leader>e", ":Oil<CR>", "Oil: explorer" },
     { "n", "<leader>ef", function() MiniFiles.open() end, "MiniFiles" },
@@ -52,7 +52,7 @@ for _, m in ipairs({
     { "n", "<leader>bp", ":bprev<CR>", "Prev buffer" },
     { "n", "<leader>bd", ":bdelete<CR>", "Delete buffer" },
     { "n", "<leader>bm", ":bmodified<CR>", "Modified buffers" },
-    { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "buffer" }) end, "Show all diagnostics" },
+    { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "l" }) end, "Show Diagnostic" },
     { { "n", "v" }, "d", '"_d', "Delete (no yank)" },
     { { "n", "v" }, "c", '"_c', "Change (no yank)" },
     { "n", "x", '"_x', "Cut (no yank)" },
@@ -80,14 +80,15 @@ require("harpoon").setup()
 for _,m in ipairs({"ai","animate","completion","diff","extra","files","git","icons","jump","misc","move","pairs","pick","snippets","tabline","statusline","trailspace"}) do require("mini."..m).setup() end
 require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } })
 require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.none() }, symbol = "│", options = { try_as_border = true } })
+MiniIcons.tweak_lsp_kind()
 
 vim.notify = require("mini.notify").make_notify()
 
 vim.lsp.enable({ "lua_ls", "pylsp", "pyright", "ruff", "gopls" })
 vim.lsp.config("lua_ls", { settings = { Lua = { workspace = { library = vim.api.nvim_get_runtime_file("", true) } } } })
 vim.lsp.config("gopls", { settings = { gopls = { analyses = { unusedparams = true, shadow = true, }, staticcheck = true, }, }, })
-vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client = vim.lsp.get_client_by_id(ev.data.client_id) if client and client:supports_method("textDocument/completion") then vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true }) end end,
-})
+vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client = vim.lsp.get_client_by_id(ev.data.client_id) if client and client:supports_method("textDocument/completion") then vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true }) end end, })
+vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
 
 require("vague").setup({ transparency = true })
 require("gruvbox").setup({ terminal_colors = true, transparent_mode = false, contrast = "hard" })
@@ -99,4 +100,4 @@ local idx = 0
 
 vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1; set_colorscheme(schemes[idx]) end, { desc = "UI: Cycle colorschemes" })
 
-set_colorscheme("rose-pine-moon")
+set_colorscheme("vague")

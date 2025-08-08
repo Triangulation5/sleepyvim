@@ -30,7 +30,6 @@ for _, m in ipairs({
     end, "+1 Trim & Save" },
     { "n", "<leader>q", ":exit<CR>", "Quit" },
     { "n", "<leader>a", function() require("harpoon"):list():add() end, "Harpoon Add" },
-    { "n", "<leader>sc", function() require("screenkey").toggle() end, "Screenkey" },
     { "n", "<C-e>", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, "Harpoon menu" },
     { "n", "<C-h>", function() require("harpoon"):list():select(1) end, "Harpoon 1" },
     { "n", "<C-t>", function() require("harpoon"):list():select(2) end, "Harpoon 2" },
@@ -71,10 +70,8 @@ vim.pack.add({
     { src = "https://github.com/ThePrimeagen/harpoon", checkout = "harpoon2" },
     { src = "https://github.com/echasnovski/mini.nvim" },
     { src = "https://github.com/vague2k/vague.nvim" },
-    { src = "https://github.com/ellisonleao/gruvbox.nvim" },
     { src = "https://github.com/rose-pine/neovim" },
     { src = "https://github.com/folke/tokyonight.nvim" },
-    { src = "https://github.com/NStefan002/screenkey.nvim" },
 })
 
 require("mason").setup()
@@ -84,7 +81,6 @@ for _,m in ipairs({"ai","animate","completion","diff","extra","files","git","ico
 MiniIcons.tweak_lsp_kind()
 require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } })
 require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.none() }, symbol = "│", options = { try_as_border = true } })
-require("screenkey").setup({win_opts={row=(vim.o.lines-vim.o.cmdheight)/2-1,col=vim.o.columns-1,relative="editor",anchor="NE",width=20,height=3,border="rounded",title=" Screenkey ",title_pos="center",style="minimal",focusable=false,noautocmd=true},hl_groups={["screenkey.hl.key"]={link="Normal"},["screenkey.hl.map"]={link="Normal"},["screenkey.hl.sep"]={link="Normal"}},compress_after=3,clear_after=4,emit_events=true,disable={filetypes={},buftypes={}},show_leader=true,group_mappings=false,display_infront={},display_behind={},filter=function(keys)return keys end,colorize=function(keys)return keys end,separator=" ",keys={["<TAB>"]="󰌒",["<CR>"]="󰌑",["<ESC>"]="Esc",["<SPACE>"]="␣",["<BS>"]="󰌥",["<DEL>"]="Del",["<LEFT>"]="",["<RIGHT>"]="",["<UP>"]="",["<DOWN>"]="",["<HOME>"]="Home",["<END>"]="End",["<PAGEUP>"]="PgUp",["<PAGEDOWN>"]="PgDn",["<INSERT>"]="Ins",["<F1>"]="󱊫",["<F2>"]="󱊬",["<F3>"]="󱊭",["<F4>"]="󱊮",["<F5>"]="󱊯",["<F6>"]="󱊰",["<F7>"]="󱊱",["<F8>"]="󱊲",["<F9>"]="󱊳",["<F10>"]="󱊴",["<F11>"]="󱊵",["<F12>"]="󱊶",CTRL="Ctrl",ALT="Alt",SUPER="󰘳",["<leader>"]="<leader>"}})
 
 vim.notify = require("mini.notify").make_notify()
 
@@ -98,8 +94,8 @@ require("vague").setup({ transparency = true })
 require("gruvbox").setup({ terminal_colors = true, transparent_mode = false, contrast = "hard" })
 require("rose-pine").setup({ variant = "auto", dark_variant = "main", dim_inactive_windows = true, extend_background_behind_borders = true, styles = { bold = true, italic = true, transparency = false }, groups = { border = "highlight_med", background = "base", panel = "surface", comment = "muted", link = "iris", punctuation = "subtle", error = "love", hint = "iris", info = "foam", warn = "gold", git_add = "foam", git_change = "rose", git_delete = "love", git_dirty = "rose", git_ignore = "muted", git_merge = "iris", git_rename = "pine", git_stage = "iris", git_text = "rose", head = "iris", hunk = "rose" } })
 
-local function set_colorscheme(name) local ok = pcall(vim.cmd.colorscheme, name) if not ok then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if name == "gruvbox" then vim.api.nvim_set_hl(0, "SignColumn", { bg = "#1d2021" }) elseif name == "vague" then vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" }) end end
-local schemes = { "gruvbox", "vague", "retrobox", "rose-pine-main", "rose-pine-moon" }
+local function set_colorscheme(name) if not pcall(vim.cmd.colorscheme, name) then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if name == "vague" then vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" }) end end
+local schemes = { "vague", "retrobox", "rose-pine-main", "rose-pine-moon" }
 local idx = 0
 
 vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1; set_colorscheme(schemes[idx]) end, { desc = "UI: Cycle Colorschemes" })

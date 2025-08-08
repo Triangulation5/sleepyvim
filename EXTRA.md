@@ -51,4 +51,10 @@ require("screenkey").setup({win_opts={row=(vim.o.lines-vim.o.cmdheight)/2-1,col=
     { src = "https://github.com/projekt0n/github-nvim-theme"},
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/olimorris/onedarkpro.nvim" },
+    { src = "https://github.com/ellisonleao/gruvbox.nvim" },
+    -- Some things for Gruvbox:
+    require("gruvbox").setup({ terminal_colors = true, transparent_mode = false, contrast = "hard" })
+    -- Add this to the keymap toggle:
+    if name == "gruvbox" then
+        vim.api.nvim_set_hl(0, "SignColumn", { bg = "#1d2021" })
 ```

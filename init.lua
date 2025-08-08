@@ -91,7 +91,6 @@ vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client 
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
 
 require("vague").setup({ transparency = true })
-require("gruvbox").setup({ terminal_colors = true, transparent_mode = false, contrast = "hard" })
 require("rose-pine").setup({ variant = "auto", dark_variant = "main", dim_inactive_windows = true, extend_background_behind_borders = true, styles = { bold = true, italic = true, transparency = false }, groups = { border = "highlight_med", background = "base", panel = "surface", comment = "muted", link = "iris", punctuation = "subtle", error = "love", hint = "iris", info = "foam", warn = "gold", git_add = "foam", git_change = "rose", git_delete = "love", git_dirty = "rose", git_ignore = "muted", git_merge = "iris", git_rename = "pine", git_stage = "iris", git_text = "rose", head = "iris", hunk = "rose" } })
 
 local function set_colorscheme(name) if not pcall(vim.cmd.colorscheme, name) then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if name == "vague" then vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" }) end end

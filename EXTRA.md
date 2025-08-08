@@ -30,10 +30,12 @@ require("mini.clue").setup({
 })
 ```
 
-## Update & Source File
+## Extra: Keymaps
 
 ```lua
     { "n", "<leader>o", ":update<CR>:source<CR>", "Write and source file" },
+    -- If you want oldfiles to work remove shada from the opt section.
+    { "n", "<leader>fr", ":Pick oldfiles<CR>", "Pick: recent" },
 ```
 
 ## Extra: Themes
@@ -43,3 +45,4 @@ require("mini.clue").setup({
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/olimorris/onedarkpro.nvim" },
 ```
+

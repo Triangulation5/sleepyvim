@@ -1,6 +1,6 @@
 # Extras:
 
-## MiniClue - Show Next Key Clues
+## Extra: Plugins
 
 ```lua
 -- Add this for mini.clue:
@@ -28,6 +28,10 @@ require("mini.clue").setup({
         delay = 200,
     },
 })
+-- blink.cmp
+-- Install it using vim.pack.add(): { src = "https://github.com/Saghen/blink.cmp" },
+-- Add this to enable it:
+require('blink.cmp').setup({keymap={preset='default',['<CR>']={'accept','fallback'},['<Tab>']={'select_next','fallback'},['<S-Tab>']={'select_prev','fallback'}},completion={accept={auto_brackets={enabled=true}},list={selection={preselect=true,auto_insert=false},autotrigger=true},menu={border='rounded',max_height=12,winblend=15},documentation={auto_show=true,auto_show_delay_ms=150,max_height=20,max_width=80,window={border='rounded',winblend=10,max_height=20,max_width=80,wrap=true}}},sources={default={'lsp','path','buffer'},providers={lsp={module='blink.cmp.sources.lsp',score_offset=100},path={module='blink.cmp.sources.path',score_offset=80},buffer={module='blink.cmp.sources.buffer',score_offset=70}}},fuzzy={implementation='lua',use_exact=true},signature={enabled=true,trigger={enabled=true,chars={'(',','}},window={border='rounded',winblend=15}},snippets={}})
 ```
 
 ## Extra: Keymaps
@@ -45,4 +49,3 @@ require("mini.clue").setup({
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/olimorris/onedarkpro.nvim" },
 ```
-

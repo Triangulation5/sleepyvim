@@ -15,6 +15,8 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
 - 🧩 Minimal plugin set using:
   - `mini.nvim` suite
   - `harpoon` (v2)
+    - You will have to clone it into your nvim-data:
+    - git clone --branch harpoon2 https://github.com/ThePrimeagen/harpoon.git
   - `oil.nvim`
   - `mason.nvim`
   - `Pick` interface via `mini.pick`

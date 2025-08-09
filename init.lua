@@ -23,11 +23,7 @@ for k, v in pairs({
 opt.fillchars:append({ eob = " ", stl = " ", horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " }); opt.shortmess:append("c")
 
 for _, m in ipairs({
-    { "n", "<leader>w", function()
-        MiniTrailspace.trim()
-        MiniTrailspace.trim_last_lines()
-        vim.cmd.write()
-    end, "+1 Trim & Save" },
+    { "n", "<leader>w", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd.write() end, "+1 Trim & Save" },
     { "n", "<leader>q", ":exit<CR>", "Quit" },
     { "n", "<leader>a", function() require("harpoon"):list():add() end, "Harpoon Add" },
     { "n", "<C-e>", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, "Harpoon menu" },

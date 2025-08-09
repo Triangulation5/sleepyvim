@@ -1,9 +1,5 @@
-if vim.loader then vim.loader.enable() end
-vim.g.mapleader = " "
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+if vim.loader then vim.loader.enable() end; vim.g.loaded_netrw = 1; vim.g.loaded_netrwPlugin = 1; vim.g.mapleader = " "; local opt = vim.opt
 
-local opt = vim.opt
 for k, v in pairs({
     number = true, relativenumber = true, numberwidth = 4,
     signcolumn = "yes",
@@ -20,17 +16,17 @@ for k, v in pairs({
     winblend = 25, swapfile = false, shada = "", ruler = false,
     title = true, titlelen = 0,
 }) do opt[k] = v end
-opt.fillchars:append({ eob = " ", stl = " ", horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " }); opt.shortmess:append("c")
+opt.fillchars:append({ eob = " ", stl = " ", horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " }); local mini_path = vim.fn.stdpath("data") .. "/site/pack/deps/start/mini.nvim"; if vim.fn.empty(vim.fn.glob(mini_path)) > 0 then vim.fn.system({"git", "clone", "--depth", "1", "https://github.com/echasnovski/mini.nvim", mini_path}) end; vim.cmd("packadd mini.nvim"); local add = require("mini.deps").add; add({ source = "nvim-lua/plenary.nvim" }); add({ source = "ThePrimeagen/harpoon", checkout = "harpoon2" }); local harpoon = require("harpoon"); harpoon:setup()
 
 for _, m in ipairs({
     { "n", "<leader>w", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd.write() end, "+1 Trim & Save" },
     { "n", "<leader>q", ":exit<CR>", "Quit" },
-    { "n", "<leader>a", function() require("harpoon"):list():add() end, "Harpoon Add" },
-    { "n", "<C-e>", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, "Harpoon menu" },
-    { "n", "<C-h>", function() require("harpoon"):list():select(1) end, "Harpoon 1" },
-    { "n", "<C-t>", function() require("harpoon"):list():select(2) end, "Harpoon 2" },
-    { "n", "<C-n>", function() require("harpoon"):list():select(3) end, "Harpoon 3" },
-    { "n", "<C-s>", function() require("harpoon"):list():select(4) end, "Harpoon 4" },
+    { "n", "<leader>a", function() harpoon:list():add() end, "Harpoon Add" },
+    { "n", "<C-e>", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, "Harpoon Menu" },
+    { "n", "<C-h>", function() harpoon:list():select(1) end, "Harpoon 1" },
+    { "n", "<C-t>", function() harpoon:list():select(2) end, "Harpoon 2" },
+    { "n", "<C-n>", function() harpoon:list():select(3) end, "Harpoon 3" },
+    { "n", "<C-s>", function() harpoon:list():select(4) end, "Harpoon 4" },
     { "n", "<leader>hx", function() require("harpoon"):list():clear() end, "Harpoon Clear" },
     { "n", "<leader>ff", ":Pick files<CR>", "Pick: Files" }, { "n", "<leader>f", function() end, "+5 MiniPick"},
     { "n", "<leader>fg", ":Pick grep_live<CR>", "Pick: Grep" },
@@ -59,11 +55,9 @@ for _, m in ipairs({
 }) do vim.keymap.set(m[1], m[2], m[3], { desc = m[4] }) end
 
 vim.pack.add({
-    { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
-    { src = "https://github.com/ThePrimeagen/harpoon", checkout = "harpoon2" },
     { src = "https://github.com/echasnovski/mini.nvim" },
     { src = "https://github.com/vague2k/vague.nvim" },
     { src = "https://github.com/rose-pine/neovim" },
@@ -72,7 +66,6 @@ vim.pack.add({
 
 require("mason").setup()
 require("oil").setup({ keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, view_options = { show_hidden = true } })
-require("harpoon").setup()
 for _,m in ipairs({"ai","animate","completion","diff","extra","files","git","icons","jump","misc","move","pairs","pick","snippets","tabline","statusline","trailspace"}) do require("mini."..m).setup() end
 MiniIcons.tweak_lsp_kind()
 require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } })
@@ -90,9 +83,9 @@ require("vague").setup({ transparency = true })
 require("rose-pine").setup({ variant = "auto", dark_variant = "main", dim_inactive_windows = true, extend_background_behind_borders = true, styles = { bold = true, italic = true, transparency = false }, groups = { border = "highlight_med", background = "base", panel = "surface", comment = "muted", link = "iris", punctuation = "subtle", error = "love", hint = "iris", info = "foam", warn = "gold", git_add = "foam", git_change = "rose", git_delete = "love", git_dirty = "rose", git_ignore = "muted", git_merge = "iris", git_rename = "pine", git_stage = "iris", git_text = "rose", head = "iris", hunk = "rose" } })
 
 local function set_colorscheme(name) if not pcall(vim.cmd.colorscheme, name) then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if name == "vague" then vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" }) end end
-local schemes = { "vague", "retrobox", "rose-pine-main", "rose-pine-moon" }
+local schemes = { "vague", "retrobox", "tokyonight-night", "rose-pine-main", "rose-pine-moon" }
 local idx = 0
 
 vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1; set_colorscheme(schemes[idx]) end, { desc = "UI: Cycle Colorschemes" })
 
-set_colorscheme("rose-pine-moon")
+set_colorscheme("tokyonight-moon")

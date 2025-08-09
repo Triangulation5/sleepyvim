@@ -15,8 +15,7 @@ for k, v in pairs({
     conceallevel = 0, pumheight = 10, pumblend = 15,
     winblend = 25, swapfile = false, shada = "", ruler = false,
     title = true, titlelen = 0,
-}) do opt[k] = v end
-opt.fillchars:append({ eob = " ", stl = " ", horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " }); local mini_path = vim.fn.stdpath("data") .. "/site/pack/deps/start/mini.nvim"; if vim.fn.empty(vim.fn.glob(mini_path)) > 0 then vim.fn.system({"git", "clone", "--depth", "1", "https://github.com/echasnovski/mini.nvim", mini_path}) end; vim.cmd("packadd mini.nvim"); local add = require("mini.deps").add; add({ source = "nvim-lua/plenary.nvim" }); add({ source = "ThePrimeagen/harpoon", checkout = "harpoon2" }); local harpoon = require("harpoon"); harpoon:setup()
+}) do opt[k] = v end ; opt.fillchars:append({ eob = " ", stl = " ", horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " }); local mini_path = vim.fn.stdpath("data") .. "/site/pack/deps/start/mini.nvim"; if vim.fn.empty(vim.fn.glob(mini_path)) > 0 then vim.fn.system({"git", "clone", "--depth", "1", "https://github.com/echasnovski/mini.nvim", mini_path}) end; vim.cmd("packadd mini.nvim"); local add = require("mini.deps").add; add({ source = "nvim-lua/plenary.nvim" }); add({ source = "ThePrimeagen/harpoon", checkout = "harpoon2" }); local harpoon = require("harpoon"); harpoon:setup()
 
 for _, m in ipairs({
     { "n", "<leader>w", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd.write() end, "+1 Trim & Save" },
@@ -62,6 +61,7 @@ vim.pack.add({
     { src = "https://github.com/vague2k/vague.nvim" },
     { src = "https://github.com/rose-pine/neovim" },
     { src = "https://github.com/folke/tokyonight.nvim" },
+    { src = "https://github.com/catppuccin/nvim" },
 })
 
 require("mason").setup()
@@ -76,16 +76,15 @@ vim.notify = require("mini.notify").make_notify()
 vim.lsp.enable({ "lua_ls", "pylsp", "pyright", "ruff", "gopls" })
 vim.lsp.config("lua_ls", { settings = { Lua = { workspace = { library = vim.api.nvim_get_runtime_file("", true) } } } })
 vim.lsp.config("gopls", { settings = { gopls = { analyses = { unusedparams = true, shadow = true, }, staticcheck = true, }, }, })
-vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client = vim.lsp.get_client_by_id(ev.data.client_id) if client and client:supports_method("textDocument/completion") then vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true }) end end, })
-vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
+vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client = vim.lsp.get_client_by_id(ev.data.client_id) if client and client:supports_method("textDocument/completion") then vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true }) end end, }) ; vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
 
 require("vague").setup({ transparency = true })
 require("rose-pine").setup({ variant = "auto", dark_variant = "main", dim_inactive_windows = true, extend_background_behind_borders = true, styles = { bold = true, italic = true, transparency = false }, groups = { border = "highlight_med", background = "base", panel = "surface", comment = "muted", link = "iris", punctuation = "subtle", error = "love", hint = "iris", info = "foam", warn = "gold", git_add = "foam", git_change = "rose", git_delete = "love", git_dirty = "rose", git_ignore = "muted", git_merge = "iris", git_rename = "pine", git_stage = "iris", git_text = "rose", head = "iris", hunk = "rose" } })
+require("catppuccin").setup({ flavour = "mocha", color_overrides = { mocha = { base = "#000000", mantle = "#000000", crust = "#000000" } }, integrations = { notify = true, mini = true }, no_italic = true, custom_highlights = function(colors) return { FloatBorder = { fg = colors.surface2, bg = colors.base }, NormalFloat = { bg = colors.base } } end })
 
 local function set_colorscheme(name) if not pcall(vim.cmd.colorscheme, name) then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if name == "vague" then vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" }) end end
-local schemes = { "vague", "retrobox", "tokyonight-night", "rose-pine-main", "rose-pine-moon" }
-local idx = 0
+local schemes = { "vague", "retrobox", "tokyonight-night", "rose-pine-main", "rose-pine-moon" } ; local idx = 0
 
 vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1; set_colorscheme(schemes[idx]) end, { desc = "UI: Cycle Colorschemes" })
 
-set_colorscheme("tokyonight-moon")
+set_colorscheme("vague")

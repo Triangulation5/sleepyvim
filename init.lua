@@ -66,7 +66,7 @@ vim.pack.add({
 
 require("mason").setup()
 require("oil").setup({ keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, view_options = { show_hidden = true } })
-for _,m in ipairs({"ai","animate","bracketed","bufremove","comment","completion","diff","extra","files","git","icons","jump","jump2d","misc","move","pairs","pick","snippets","tabline","statusline","trailspace"}) do require("mini."..m).setup() end
+for _,m in ipairs({"ai","animate","bracketed","bufremove","comment","completion","diff","extra","files","git","icons","jump","jump2d","misc","move","pairs","pick","snippets","statusline","tabline","trailspace"}) do require("mini."..m).setup() end
 MiniIcons.tweak_lsp_kind()
 require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } }) ; require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.quadratic({ easing = 'in-out', duration = 20 }) }, symbol = "│", options = { try_as_border = true } }); require("mini.hipatterns").setup({ highlighters = { fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" }, hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" }, todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" }, note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" }, hex_color = require("mini.hipatterns").gen_highlighter.hex_color() } })
 
@@ -86,3 +86,4 @@ local current_scheme, set_colorscheme, schemes, idx = nil, function(name, notify
 vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1 set_colorscheme(schemes[idx], true) end, { desc = "UI: Cycle Colorschemes" })
 
 set_colorscheme("vague", false)
+-- for _, group in ipairs({ "Normal", "NormalFloat", "SignColumn", "VertSplit", "StatusLine", "StatusLineNC", "TabLine", "TabLineSel", "TabLineFill", "Pmenu", "PmenuSel", "PmenuSbar", "PmenuThumb", "CursorLine", "LineNr", "CursorLineNr", "MsgArea", "Folded", "FoldColumn" }) do vim.api.nvim_set_hl(0, group, { bg = "NONE" }) end

@@ -35,7 +35,7 @@ for _, m in ipairs({
     { "n", "<leader>h", ":Pick help<CR>", "+1 Pick: Help" },
     { "n", "<leader>e", ":Oil<CR>", "+1 Oil: Explorer" },
     { "n", "<leader>ef", function() MiniFiles.open() end, "MiniFiles" },
-    { "n", "<leader>wz", function() MiniMisc.zoom() end, "Zoom Window" },
+    { "n", "<leader>wz", function() MiniMisc.zoom() end, "Zoom Window" }, { { "n", "x", "o" }, "<leader>j", function() MiniJump2d.start() end, "MiniJump2d: Start jump" },
     { "n", "<leader>lf", vim.lsp.buf.format, "LSP: Format" }, { "n", "<leader>l", function() end, "+1 Lsp" },
     { "n", "<leader>cm", ":Mason<CR>", "Open Mason" }, { "n", "<leader>c", function() end, "+2 Code Tools" },
     { "n", "<leader>b", ":buffers<CR>", "+4 Buffers" },
@@ -68,9 +68,7 @@ require("mason").setup()
 require("oil").setup({ keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, view_options = { show_hidden = true } })
 for _,m in ipairs({"ai","animate","bracketed","bufremove","comment","completion","diff","extra","files","git","icons","jump","jump2d","misc","move","pairs","pick","snippets","tabline","statusline","trailspace"}) do require("mini."..m).setup() end
 MiniIcons.tweak_lsp_kind()
-require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } })
-require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.quadratic({ easing = 'out', duration = 100 }) }, symbol = "│", options = { try_as_border = true } })
-require("mini.hipatterns").setup({ highlighters = { fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" }, hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" }, todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" }, note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" }, hex_color = require("mini.hipatterns").gen_highlighter.hex_color() } })
+require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } }) ; require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.quadratic({ easing = 'in-out', duration = 20 }) }, symbol = "│", options = { try_as_border = true } }); require("mini.hipatterns").setup({ highlighters = { fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" }, hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" }, todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" }, note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" }, hex_color = require("mini.hipatterns").gen_highlighter.hex_color() } })
 
 vim.notify = require("mini.notify").make_notify()
 

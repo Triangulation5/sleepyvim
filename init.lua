@@ -66,10 +66,11 @@ vim.pack.add({
 
 require("mason").setup()
 require("oil").setup({ keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, view_options = { show_hidden = true } })
-for _,m in ipairs({"ai","animate","completion","diff","extra","files","git","icons","jump","misc","move","pairs","pick","snippets","tabline","statusline","trailspace"}) do require("mini."..m).setup() end
+for _,m in ipairs({"ai","animate","bracketed","bufremove","comment","completion","diff","extra","files","git","icons","jump","jump2d","misc","move","pairs","pick","snippets","tabline","statusline","trailspace"}) do require("mini."..m).setup() end
 MiniIcons.tweak_lsp_kind()
 require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } })
-require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.none() }, symbol = "│", options = { try_as_border = true } })
+require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.quadratic({ easing = 'out', duration = 100 }) }, symbol = "│", options = { try_as_border = true } })
+require("mini.hipatterns").setup({ highlighters = { fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" }, hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" }, todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" }, note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" }, hex_color = require("mini.hipatterns").gen_highlighter.hex_color() } })
 
 vim.notify = require("mini.notify").make_notify()
 
@@ -82,9 +83,8 @@ require("vague").setup({ transparency = true })
 require("rose-pine").setup({ variant = "auto", dark_variant = "main", dim_inactive_windows = true, extend_background_behind_borders = true, styles = { bold = true, italic = true, transparency = false }, groups = { border = "highlight_med", background = "base", panel = "surface", comment = "muted", link = "iris", punctuation = "subtle", error = "love", hint = "iris", info = "foam", warn = "gold", git_add = "foam", git_change = "rose", git_delete = "love", git_dirty = "rose", git_ignore = "muted", git_merge = "iris", git_rename = "pine", git_stage = "iris", git_text = "rose", head = "iris", hunk = "rose" } })
 require("catppuccin").setup({ flavour = "mocha", color_overrides = { mocha = { base = "#000000", mantle = "#000000", crust = "#000000" } }, integrations = { notify = true, mini = true }, no_italic = true, custom_highlights = function(colors) return { FloatBorder = { fg = colors.surface2, bg = colors.base }, NormalFloat = { bg = colors.base } } end })
 
-local function set_colorscheme(name) if not pcall(vim.cmd.colorscheme, name) then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if name == "vague" then vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" }) end end
-local schemes = { "vague", "retrobox", "tokyonight-night", "rose-pine-main", "rose-pine-moon" } ; local idx = 0
+local current_scheme, set_colorscheme, schemes, idx = nil, function(name, notify) if not pcall(vim.cmd.colorscheme, name) then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if notify and name ~= current_scheme then vim.notify("Switched Colorscheme: " .. name, vim.log.levels.INFO) end current_scheme = name if name == "vague" then vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" }) end end, { "vague", "retrobox", "tokyonight-night", "rose-pine-main", "rose-pine-moon" }, 0
 
-vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1; set_colorscheme(schemes[idx]) end, { desc = "UI: Cycle Colorschemes" })
+vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1 set_colorscheme(schemes[idx], true) end, { desc = "UI: Cycle Colorschemes" })
 
-set_colorscheme("vague")
+set_colorscheme("vague", false)

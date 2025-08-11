@@ -1,5 +1,4 @@
 if vim.loader then vim.loader.enable() end; vim.g.loaded_netrw = 1; vim.g.loaded_netrwPlugin = 1; vim.g.mapleader = " "; local opt = vim.opt
-
 for k, v in pairs({
     number = true, relativenumber = true, numberwidth = 4,
     signcolumn = "yes",
@@ -81,9 +80,9 @@ require("vague").setup({ transparency = true })
 require("rose-pine").setup({ variant = "auto", dark_variant = "main", dim_inactive_windows = true, extend_background_behind_borders = true, styles = { bold = true, italic = true, transparency = false }, groups = { border = "highlight_med", background = "base", panel = "surface", comment = "muted", link = "iris", punctuation = "subtle", error = "love", hint = "iris", info = "foam", warn = "gold", git_add = "foam", git_change = "rose", git_delete = "love", git_dirty = "rose", git_ignore = "muted", git_merge = "iris", git_rename = "pine", git_stage = "iris", git_text = "rose", head = "iris", hunk = "rose" } })
 require("catppuccin").setup({ flavour = "mocha", color_overrides = { mocha = { base = "#000000", mantle = "#000000", crust = "#000000" } }, integrations = { notify = true, mini = true }, no_italic = true, custom_highlights = function(colors) return { FloatBorder = { fg = colors.surface2, bg = colors.base }, NormalFloat = { bg = colors.base } } end })
 
-local current_scheme, set_colorscheme, schemes, idx = nil, function(name, notify) if not pcall(vim.cmd.colorscheme, name) then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if notify and name ~= current_scheme then vim.notify("Switched Colorscheme: " .. name, vim.log.levels.INFO) end current_scheme = name if name == "vague" then vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" }) end end, { "vague", "retrobox", "tokyonight-night", "rose-pine-main", "rose-pine-moon" }, 0
+local transparency_enabled, current_scheme, idx = false, nil, 1; local schemes = { "vague", "tokyonight-night", "retrobox", "rose-pine-main", "rose-pine-moon" }; local apply_transparency = function() if transparency_enabled then for _, group in ipairs({ "Normal", "NormalFloat", "SignColumn", "VertSplit", "StatusLine", "StatusLineNC", "TabLine", "TabLineSel", "TabLineFill", "Pmenu", "PmenuSel", "PmenuSbar", "PmenuThumb", "CursorLine", "LineNr", "CursorLineNr", "MsgArea", "Folded", "FoldColumn" }) do vim.api.nvim_set_hl(0, group, { bg = "NONE" }) end end end; local set_colorscheme = function(name, notify) if not pcall(vim.cmd.colorscheme, name) then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if notify and name ~= current_scheme then vim.notify("Switched Colorscheme: " .. name, vim.log.levels.INFO) end current_scheme = name apply_transparency() end
 
-vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1 set_colorscheme(schemes[idx], true) end, { desc = "UI: Cycle Colorschemes" })
+vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1; set_colorscheme(schemes[idx], true) end, { desc = "UI: Cycle Colorschemes" })
+vim.keymap.set("n", "<leader>tt", function() transparency_enabled = not transparency_enabled; set_colorscheme(current_scheme, false); vim.notify("Transparency " .. (transparency_enabled and "enabled" or "disabled"), vim.log.levels.INFO) end, { desc = "Toggle Transparency" })
 
-set_colorscheme("vague", false)
--- for _, group in ipairs({ "Normal", "NormalFloat", "SignColumn", "VertSplit", "StatusLine", "StatusLineNC", "TabLine", "TabLineSel", "TabLineFill", "Pmenu", "PmenuSel", "PmenuSbar", "PmenuThumb", "CursorLine", "LineNr", "CursorLineNr", "MsgArea", "Folded", "FoldColumn" }) do vim.api.nvim_set_hl(0, group, { bg = "NONE" }) end
+set_colorscheme(schemes[idx], false)

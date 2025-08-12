@@ -9,10 +9,10 @@ for k, v in pairs({
     background = "dark", guicursor = "a:block",
     updatetime = 50, timeoutlen = 150,
     scrolloff = 8, sidescrolloff = 8,
-    winborder = "rounded", clipboard = "unnamedplus",
+    winborder = "solid", clipboard = "unnamedplus",
     completeopt = { "menuone", "noselect" },
-    conceallevel = 0, pumheight = 10, pumblend = 15,
-    winblend = 25, swapfile = false, shada = "", ruler = false,
+    conceallevel = 0, pumheight = 10, pumblend = 10,
+    winblend = 20, swapfile = false, shada = "", ruler = false,
     title = true, titlelen = 0,
 }) do opt[k] = v end ; opt.fillchars:append({ eob = " ", stl = " ", horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " }); local mini_path = vim.fn.stdpath("data") .. "/site/pack/deps/start/mini.nvim"; if vim.fn.empty(vim.fn.glob(mini_path)) > 0 then vim.fn.system({"git", "clone", "--depth", "1", "https://github.com/echasnovski/mini.nvim", mini_path}) end; vim.cmd("packadd mini.nvim"); local add = require("mini.deps").add; add({ source = "nvim-lua/plenary.nvim" }); add({ source = "ThePrimeagen/harpoon", checkout = "harpoon2" }); local harpoon = require("harpoon"); harpoon:setup()
 
@@ -38,10 +38,10 @@ for _, m in ipairs({
     { "n", "<leader>lf", vim.lsp.buf.format, "LSP: Format" }, { "n", "<leader>l", function() end, "+1 Lsp" },
     { "n", "<leader>cm", ":Mason<CR>", "Open Mason" }, { "n", "<leader>c", function() end, "+2 Code Tools" },
     { "n", "<leader>b", ":buffers<CR>", "+4 Buffers" },
-    { "n", "<leader>bn", ":bnext<CR>", "Next Buffer" },
-    { "n", "<leader>bp", ":bprev<CR>", "Prev Buffer" },
-    { "n", "<leader>bd", ":bdelete<CR>", "Delete Buffer" },
-    { "n", "<leader>bm", ":bmodified<CR>", "Modified Buffers" },
+    { "n", "<leader>bn", ":bn<CR>", "Next Buffer" },
+    { "n", "<leader>bp", ":bp<CR>", "Prev Buffer" },
+    { "n", "<leader>bd", ":bd<CR>", "Delete Buffer" },
+    { "n", "<leader>bf", ":bd!<CR>", "Force Delete Buffer" },
     { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "l" }) end, "+1 Show Diagnostic" },
     { "n", "<leader>da", function() vim.diagnostic.setqflist({ open = true, title = "Diagnostics"}) end, "Show All Diagnostics"},
     { { "n", "v" }, "d", '"_d', "Delete (no yank)" },
@@ -61,20 +61,21 @@ vim.pack.add({
     { src = "https://github.com/rose-pine/neovim" },
     { src = "https://github.com/folke/tokyonight.nvim" },
 })
+
 require("mason").setup()
 require("oil").setup({ keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, view_options = { show_hidden = true } })
 for _,m in ipairs({"ai","animate","bracketed","bufremove","comment","completion","diff","extra","git","icons","jump","jump2d","misc","move","pairs","pick","snippets","statusline","tabline","trailspace"}) do require("mini."..m).setup() end
-MiniIcons.tweak_lsp_kind(); require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } }) ; require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.quadratic({ easing = 'in-out', duration = 20 }) }, symbol = "│", options = { try_as_border = true } }); require("mini.hipatterns").setup({ highlighters = { fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" }, hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" }, todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" }, note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" }, hex_color = require("mini.hipatterns").gen_highlighter.hex_color() } }); require("mini.files").setup({ windows = { preview = true, width_focus = 50, width_nofocus = 15, width_preview = 30, }, })
+MiniIcons.tweak_lsp_kind(); require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } }) ; require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.quadratic({ easing = 'in-out', duration = 20 }) }, symbol = "│", options = { try_as_border = true } }); require("mini.hipatterns").setup({ highlighters = { fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" }, hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" }, todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" }, note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" }, hex_color = require("mini.hipatterns").gen_highlighter.hex_color() } }); require("mini.files").setup({ windows = { preview = true, width_focus = 50, width_nofocus = 15, width_preview = 25, }, })
 
 vim.notify = require("mini.notify").make_notify()
 
 vim.lsp.enable({ "lua_ls","pyright", "ruff", "gopls" })
 vim.lsp.config("lua_ls", { settings = { Lua = { workspace = { library = vim.api.nvim_get_runtime_file("", true) } } } }); vim.lsp.config("gopls", { settings = { gopls = { analyses = { unusedparams = true, shadow = true, }, staticcheck = true, }, }, })
-vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client = vim.lsp.get_client_by_id(ev.data.client_id) if client and client:supports_method("textDocument/completion") then vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true }) end end, }) ; vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true }); vim.diagnostic.config { virtual_text = { prefix = "■", spacing = 4 }, signs = true, underline = true, update_in_insert = false, severity_sort = true }
+vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client = vim.lsp.get_client_by_id(ev.data.client_id) if client and client:supports_method("textDocument/completion") then vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true }) end end, }) ; vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true }); vim.diagnostic.config { virtual_text = { prefix = "■", spacing = 8 }, signs = true, underline = true, update_in_insert = false, severity_sort = true }
 
 require("vague").setup({ transparency = true }); require("rose-pine").setup({ variant = "auto", dark_variant = "main", dim_inactive_windows = true, extend_background_behind_borders = true, styles = { bold = true, italic = true, transparency = false }, groups = { border = "highlight_med", background = "base", panel = "surface", comment = "muted", link = "iris", punctuation = "subtle", error = "love", hint = "iris", info = "foam", warn = "gold", git_add = "foam", git_change = "rose", git_delete = "love", git_dirty = "rose", git_ignore = "muted", git_merge = "iris", git_rename = "pine", git_stage = "iris", git_text = "rose", head = "iris", hunk = "rose" } })
 
-local transparency_enabled, current_scheme, idx = false, nil, 1; local schemes = {  "rose-pine-main", "vague", "tokyonight-night", "retrobox",  "rose-pine-moon" }; local apply_transparency = function() if transparency_enabled then for _, group in ipairs({ "Normal", "NormalFloat", "SignColumn", "VertSplit", "StatusLine", "StatusLineNC", "TabLine", "TabLineSel", "TabLineFill", "Pmenu", "PmenuSel", "PmenuSbar", "PmenuThumb", "CursorLine", "LineNr", "CursorLineNr", "MsgArea", "Folded", "FoldColumn" }) do vim.api.nvim_set_hl(0, group, { bg = "NONE" }) end end end; local set_colorscheme = function(name, notify) if not pcall(vim.cmd.colorscheme, name) then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if notify and name ~= current_scheme then vim.notify("Switched Colorscheme: " .. name, vim.log.levels.INFO) end current_scheme = name apply_transparency() end
+local transparency_enabled, current_scheme, idx = false, nil, 1; local schemes = {  "vague", "rose-pine-main",  "tokyonight-night", "retrobox",  "rose-pine-moon" }; local apply_transparency = function() if transparency_enabled then for _, group in ipairs({ "Normal", "NormalFloat", "SignColumn", "VertSplit", "StatusLine", "StatusLineNC", "TabLine", "TabLineSel", "TabLineFill", "Pmenu", "PmenuSel", "PmenuSbar", "PmenuThumb", "CursorLine", "LineNr", "CursorLineNr", "MsgArea", "Folded", "FoldColumn" }) do vim.api.nvim_set_hl(0, group, { bg = "NONE" }) end end end; local set_colorscheme = function(name, notify) if not pcall(vim.cmd.colorscheme, name) then vim.notify("Colorscheme " .. name .. " not found", vim.log.levels.ERROR) return end if notify and name ~= current_scheme then vim.notify("Switched Colorscheme: " .. name, vim.log.levels.INFO) end current_scheme = name apply_transparency() end
 
 vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1; set_colorscheme(schemes[idx], true) end, { desc = "UI: Cycle Colorschemes" }); vim.keymap.set("n", "<leader>tt", function() transparency_enabled = not transparency_enabled; set_colorscheme(current_scheme, false); vim.notify("Transparency: " .. (transparency_enabled and "Enabled" or "Disabled"), vim.log.levels.INFO) end, { desc = "Toggle Transparency" })
 

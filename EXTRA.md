@@ -40,6 +40,8 @@ require("screenkey").setup({win_opts={row=(vim.o.lines-vim.o.cmdheight)/2-1,col=
 
 -- Add this for undotree: { src = "https://github.com/mbbill/undotree" },
 vim.opt.undofile = true; local u = vim.fn.stdpath("state") .. "/undo"; vim.opt.undodir = u; vim.fn.mkdir(u, "p"); local t = u .. "/.last_cleanup"; local n = os.time(); local l = vim.fn.filereadable(t) == 1 and tonumber(vim.fn.readfile(t)[1]) or 0; if n - l > 86400 then for _, f in ipairs(vim.fn.glob(u .. "/*", true, true)) do if f ~= t then os.remove(f) end end; vim.fn.writefile({ tostring(n) }, t) end
+-- The kaymap that you have to add to the keymap section:
+{ "n", "<leader>u", "<cmd>UndotreeToggle<CR>", "Toggle Undotree" },
 -- The code about makes it so that the undo file clears after every day.
 
 ```

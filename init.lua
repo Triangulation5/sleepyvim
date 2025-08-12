@@ -2,7 +2,7 @@ if vim.loader then vim.loader.enable() end; vim.g.loaded_netrw = 1; vim.g.loaded
 for k, v in pairs({
     number = true, relativenumber = true, numberwidth = 4,
     signcolumn = "yes",
-    tabstop = 4, softtabstop = 4, shiftwidth = 4, expandtab = true,
+    tabstop = 4, softtabstop = 4, shiftwidth = 4, expandtab = true, cursorline = true,
     smartindent = true, breakindent = true,
     list = true,listchars = { tab = "  ", trail = "·", extends = "›", precedes = "‹", nbsp = "␣" }, smartcase = true,
     hlsearch = false, incsearch = true,
@@ -65,7 +65,7 @@ vim.pack.add({
 require("mason").setup()
 require("oil").setup({ keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, view_options = { show_hidden = true } })
 for _,m in ipairs({"ai","animate","bracketed","bufremove","comment","completion","diff","extra","git","icons","jump","jump2d","misc","move","pairs","pick","snippets","statusline","tabline","trailspace"}) do require("mini."..m).setup() end
-MiniIcons.tweak_lsp_kind(); require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } }) ; require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.quadratic({ easing = 'in-out', duration = 20 }) }, symbol = "│", options = { try_as_border = true } }); require("mini.hipatterns").setup({ highlighters = { fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" }, hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" }, todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" }, note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" }, hex_color = require("mini.hipatterns").gen_highlighter.hex_color() } }); require("mini.files").setup({ windows = { preview = true, width_focus = 50, width_nofocus = 15, width_preview = 25, }, })
+MiniIcons.tweak_lsp_kind(); require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 1000 }, window = { config = { border = "solid" }, max_width_share = 0.6 } }) ; require("mini.indentscope").setup({ draw = { animation = require("mini.indentscope").gen_animation.quadratic({ easing = 'in-out', duration = 20 }) }, symbol = "│", options = { try_as_border = true } }); require("mini.hipatterns").setup({ highlighters = { fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" }, hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" }, todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" }, note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" }, hex_color = require("mini.hipatterns").gen_highlighter.hex_color() } }); require("mini.files").setup({ windows = { preview = true, width_focus = 50, width_nofocus = 15, width_preview = 25, }, })
 
 vim.notify = require("mini.notify").make_notify()
 

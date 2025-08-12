@@ -28,13 +28,20 @@ require("mini.clue").setup({
         delay = 200,
     },
 })
+
 -- blink.cmp
 -- Install it using vim.pack.add(): { src = "https://github.com/Saghen/blink.cmp" },
 -- Add this to enable it:
 require('blink.cmp').setup({keymap={preset='default',['<CR>']={'accept','fallback'},['<Tab>']={'select_next','fallback'},['<S-Tab>']={'select_prev','fallback'}},completion={accept={auto_brackets={enabled=true}},list={selection={preselect=true,auto_insert=false},autotrigger=true},menu={border='rounded',max_height=12,winblend=15},documentation={auto_show=true,auto_show_delay_ms=150,max_height=20,max_width=80,window={border='rounded',winblend=10,max_height=20,max_width=80,wrap=true}}},sources={default={'lsp','path','buffer'},providers={lsp={module='blink.cmp.sources.lsp',score_offset=100},path={module='blink.cmp.sources.path',score_offset=80},buffer={module='blink.cmp.sources.buffer',score_offset=70}}},fuzzy={implementation='lua',use_exact=true},signature={enabled=true,trigger={enabled=true,chars={'(',','}},window={border='rounded',winblend=15}},snippets={}})
+
 -- Add for Screenkey
 -- vim.pack.add(): { src = "https://github.com/NStefan002/screenkey.nvim" },
-require("screenkey").setup({win_opts={row=(vim.o.lines-vim.o.cmdheight)/2-1,col=vim.o.columns-1,relative="editor",anchor="NE",width=20,height=3,border="rounded",title=" Screenkey ",title_pos="center",style="minimal",focusable=false,noautocmd=true},hl_groups={["screenkey.hl.key"]={link="Normal"},["screenkey.hl.map"]={link="Normal"},["screenkey.hl.sep"]={link="Normal"}},compress_after=3,clear_after=4,emit_events=true,disable={filetypes={},buftypes={}},show_leader=true,group_mappings=false,display_infront={},display_behind={},filter=function(keys)return keys end,colorize=function(keys)return keys end,separator=" ",keys={["<TAB>"]="󰌒",["<CR>"]="󰌑",["<ESC>"]="Esc",["<SPACE>"]="␣",["<BS>"]="󰌥",["<DEL>"]="Del",["<LEFT>"]="",["<RIGHT>"]="",["<UP>"]="",["<DOWN>"]="",["<HOME>"]="Home",["<END>"]="End",["<PAGEUP>"]="PgUp",["<PAGEDOWN>"]="PgDn",["<INSERT>"]="Ins",["<F1>"]="󱊫",["<F2>"]="󱊬",["<F3>"]="󱊭",["<F4>"]="󱊮",["<F5>"]="󱊯",["<F6>"]="󱊰",["<F7>"]="󱊱",["<F8>"]="󱊲",["<F9>"]="󱊳",["<F10>"]="󱊴",["<F11>"]="󱊵",["<F12>"]="󱊶",CTRL="Ctrl",ALT="Alt",SUPER="󰘳",["<leader>"]="<leader>"}}) 
+require("screenkey").setup({win_opts={row=(vim.o.lines-vim.o.cmdheight)/2-1,col=vim.o.columns-1,relative="editor",anchor="NE",width=20,height=3,border="rounded",title=" Screenkey ",title_pos="center",style="minimal",focusable=false,noautocmd=true},hl_groups={["screenkey.hl.key"]={link="Normal"},["screenkey.hl.map"]={link="Normal"},["screenkey.hl.sep"]={link="Normal"}},compress_after=3,clear_after=4,emit_events=true,disable={filetypes={},buftypes={}},show_leader=true,group_mappings=false,display_infront={},display_behind={},filter=function(keys)return keys end,colorize=function(keys)return keys end,separator=" ",keys={["<TAB>"]="󰌒",["<CR>"]="󰌑",["<ESC>"]="Esc",["<SPACE>"]="␣",["<BS>"]="󰌥",["<DEL>"]="Del",["<LEFT>"]="",["<RIGHT>"]="",["<UP>"]="",["<DOWN>"]="",["<HOME>"]="Home",["<END>"]="End",["<PAGEUP>"]="PgUp",["<PAGEDOWN>"]="PgDn",["<INSERT>"]="Ins",["<F1>"]="󱊫",["<F2>"]="󱊬",["<F3>"]="󱊭",["<F4>"]="󱊮",["<F5>"]="󱊯",["<F6>"]="󱊰",["<F7>"]="󱊱",["<F8>"]="󱊲",["<F9>"]="󱊳",["<F10>"]="󱊴",["<F11>"]="󱊵",["<F12>"]="󱊶",CTRL="Ctrl",ALT="Alt",SUPER="󰘳",["<leader>"]="<leader>"}})
+
+-- Add this for undotree: { src = "https://github.com/mbbill/undotree" },
+vim.opt.undofile = true; local u = vim.fn.stdpath("state") .. "/undo"; vim.opt.undodir = u; vim.fn.mkdir(u, "p"); local t = u .. "/.last_cleanup"; local n = os.time(); local l = vim.fn.filereadable(t) == 1 and tonumber(vim.fn.readfile(t)[1]) or 0; if n - l > 86400 then for _, f in ipairs(vim.fn.glob(u .. "/*", true, true)) do if f ~= t then os.remove(f) end end; vim.fn.writefile({ tostring(n) }, t) end
+-- The code about makes it so that the undo file clears after every day.
+
 ```
 
 ## Extra: Keymaps
@@ -58,4 +65,8 @@ require("screenkey").setup({win_opts={row=(vim.o.lines-vim.o.cmdheight)/2-1,col=
     -- Add this to the keymap toggle:
     if name == "gruvbox" then
         vim.api.nvim_set_hl(0, "SignColumn", { bg = "#1d2021" })
+
+    { src = "https://github.com/catppuccin/nvim" },
+    -- Custom settings for catppuccin:
+    require("catppuccin").setup({ flavour = "mocha", color_overrides = { mocha = { base = "#000000", mantle = "#000000", crust = "#000000" } }, integrations = { notify = true, mini = true }, no_italic = true, custom_highlights = function(colors) return { FloatBorder = { fg = colors.surface2, bg = colors.base }, NormalFloat = { bg = colors.base } } end })
 ```

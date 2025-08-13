@@ -17,8 +17,7 @@ for k, v in pairs({
 }) do opt[k] = v end ; opt.fillchars:append({ eob = " ", stl = " ", horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " }); local mini_path = vim.fn.stdpath("data") .. "/site/pack/deps/start/mini.nvim"; if vim.fn.empty(vim.fn.glob(mini_path)) > 0 then vim.fn.system({"git", "clone", "--depth", "1", "https://github.com/echasnovski/mini.nvim", mini_path}) end; vim.cmd("packadd mini.nvim"); local add = require("mini.deps").add; add({ source = "nvim-lua/plenary.nvim" }); add({ source = "ThePrimeagen/harpoon", checkout = "harpoon2" }); local harpoon = require("harpoon"); harpoon:setup(); local function safe_format() local ft=vim.bo.filetype local commands={python={cmd={"ruff","format"},clean={"ruff","clean"}},go={cmd={"gofmt","-w","%"},clean={"goimports","-w","%"}}} local fmt=commands[ft] if not fmt then vim.notify("No formatter for "..ft,vim.log.levels.WARN) return end local function run_command(command,on_success) if vim.fn.executable(command[1])~=1 then vim.notify("Missing executable: "..command[1],vim.log.levels.ERROR) return end vim.fn.jobstart(command,{stdout_buffered=true,stderr_buffered=true,on_exit=function(_,code) vim.schedule(function() if code==0 then if on_success then on_success() end else vim.notify(table.concat(command," ").." failed",vim.log.levels.ERROR) end end) end}) end run_command(fmt.cmd,function() if fmt.clean then run_command(fmt.clean,function() vim.cmd("edit!") vim.notify("Formatted and cleaned "..ft..", buffer reloaded",vim.log.levels.INFO) end) else vim.cmd("edit!") vim.notify("Formatted "..ft..", buffer reloaded",vim.log.levels.INFO) end end) end
 
 for _, m in ipairs({
-    { "n", "<leader>w", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd.write() end, "+1 Trim & Save" },
-    { "n", "<leader>q", ":exit<CR>", "Quit" },
+    { "n", "<leader>w", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd.write() end, "+1 Trim & Save" }, { "n", "<leader>q", ":exit<CR>", "Quit" },
     { "n", "<leader>a", function() harpoon:list():add() end, "Harpoon Add" },
     { "n", "<C-e>", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, "Harpoon Menu" },
     { "n", "<C-h>", function() harpoon:list():select(1) end, "Harpoon 1" },
@@ -42,13 +41,11 @@ for _, m in ipairs({
     { "n", "<leader>bp", ":bp<CR>", "Prev Buffer" },
     { "n", "<leader>bd", ":bd<CR>", "Delete Buffer" },
     { "n", "<leader>bf", ":bd!<CR>", "Force Delete Buffer" },
-    { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "l" }) end, "+1 Show Diagnostic" },
-    { "n", "<leader>da", function() vim.diagnostic.setqflist({ open = true, title = "Diagnostics"}) end, "Show All Diagnostics"},
+    { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "l" }) end, "+1 Show Diagnostic" }, { "n", "<leader>da", function() vim.diagnostic.setqflist({ open = true, title = "Diagnostics"}) end, "Show All Diagnostics"},
     { { "n", "v" }, "d", '"_d', "Delete (no yank)" },
     { { "n", "v" }, "c", '"_c', "Change (no yank)" },
     { "n", "x", '"_x', "Cut (no yank)" },
-    { "n", "<C-p>", function() vim.cmd('botright split term://powershell') end, "Open PowerShell" },
-    { "n", "<leader>ca", safe_format, "Code Actions" },
+    { "n", "<C-p>", function() vim.cmd('botright split term://powershell') end, "Open PowerShell" }, { "n", "<leader>ca", safe_format, "Code Actions" },
     { "n", "<leader>gg", function() if vim.fn.executable("lazygit") == 1 then vim.cmd("botright split term://lazygit") else vim.notify("lazygit not found", vim.log.levels.WARN)end end, "Lazygit" }, { "n", "<leader>g", function() end, "+1 Git Integration" },
 }) do vim.keymap.set(m[1], m[2], m[3], { desc = m[4] }) end
 

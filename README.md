@@ -20,7 +20,7 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
   - `oil.nvim`
   - `mason.nvim`
   - `Pick` interface via `mini.pick`
-- 🎨 Built-in color scheme cycling (`gruvbox`, `rose-pine`, `vague`, etc.)
+- 🎨 Built-in color scheme cycling (`tokyonight`, `rose-pine`, `vague`, etc.)
 - 🧠 Smart formatting dispatch per filetype (`ruff`, `gofmt`, etc.)
 
 ---

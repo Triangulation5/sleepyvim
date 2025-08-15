@@ -27,7 +27,7 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
 
 ## Requirements
 
-- Neovim **Nightly (0.10+)**
+- Neovim **Nightly (0.11+)**
 - `git` for plugin fetching via `vim.pack.add()`
 - Language-specific tools (e.g. `ruff`, `gofmt`, `lazygit`) if used
 
@@ -37,37 +37,40 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
 
 Managed via [`vim.pack.add`](https://neovim.io/doc/user/repeat.html#vim.pack):
 
-- `nvim-lua/plenary.nvim`
 - `neovim/nvim-lspconfig`
 - `mason-org/mason.nvim`
 - `stevearc/oil.nvim`
-- `ThePrimeagen/harpoon` (`harpoon2` branch)
 - `echasnovski/mini.nvim`
 - `vague2k/vague.nvim`
 - `ellisonleao/gruvbox.nvim`
 - `rose-pine/neovim`
+
+Managed via [`mini.deps`](https://github.com/echasnovski/mini.deps):
+
+- `nvim-lua/plenary.nvim`
+- `ThePrimeagen/harpoon` (`harpoon2` branch)
 
 ---
 
 ## Key Bindings
 
 ### General
-| Key                  | Action                           |
-|----------------------|----------------------------------|
-| `<leader>w`          | Trim trailing space + save       |
-| `<leader>q`          | Quit                             |
-| `<leader>b[n/p/d/m]` | Buffer next/prev/delete/modified |
-| `<leader>cm`         | Open Mason                       |
-| `<C-p>`              | Open PowerShell terminal         |
-| `<leader>gg`         | Open LazyGit terminal            |
+| Key                  | Action                               |
+|----------------------|--------------------------------------|
+| `<leader>w`          | Trim trailing space + save           |
+| `<leader>q`          | Quit                                 |
+| `<leader>b[n/p/d/f]` | Buffer next/prev/delete/delete force |
+| `<leader>cm`         | Open Mason                           |
+| `<C-p>`              | Open PowerShell terminal             |
+| `<leader>gg`         | Open LazyGit terminal                |
 
 ### File Navigation
 | Key              | Action                |
 |------------------|-----------------------|
-| `<leader>ff`     | Pick files            |
+| `<leader>f`      | Pick files            |
 | `<leader>fb`     | Pick buffers          |
 | `<leader>fg`     | Pick grep_live        |
-| `<leader>fr`     | Pick recent files     |
+| `<leader>fc`     | Pick colorschemes     |
 | `<leader>fw`     | Pick word             |
 | `<leader>h`      | Pick help             |
 | `<leader>e`      | Open Oil              |
@@ -88,10 +91,12 @@ Managed via [`vim.pack.add`](https://neovim.io/doc/user/repeat.html#vim.pack):
 | `<leader>ca`     | Format + clean (Go/Python) |
 
 ### UI
-| Key              | Action                |
-|------------------|-----------------------|
-| `<leader>t`      | Cycle color schemes   |
-| `<leader>wz`     | Zoom current window   |
+| Key              | Action                     |
+|------------------|----------------------------|
+| `<leader>t`      | Cycle color schemes        |
+| `<leader>tt`     | Toggle transparency        |
+| `<leader>ta`     | Enable cursor animations   |
+| `<leader>wz`     | Zoom current window        |
 
 ### Editing Behavior
 | Key              | Action                              |
@@ -106,10 +111,11 @@ Managed via [`vim.pack.add`](https://neovim.io/doc/user/repeat.html#vim.pack):
 Configured LSPs:
 
 - **Lua** (`lua_ls`)
-- **Python** (`pyright`, `pylsp`, `ruff`)
+- **Python** (`pyright`, `ruff`)
 - **Go** (`gopls` with staticcheck and param analysis)
+- **Rust** (`rust_analyzer`)
 
-Custom `LspAttach` handler enables completion autotriggering.
+Custom `LspAttach` handler enables completion autotriggering. (Could optionally use blink.cmp).
 
 ---
 
@@ -119,7 +125,7 @@ Themes supported:
 
 - `rose-pine-main`
 - `rose-pine-moon`
-- `gruvbox` (with patched signcolumn)
+- `tokyonight`
 - `vague` (with transparent statusline)
 - `retrobox` (fallback theme)
 

@@ -35,11 +35,11 @@ for _, m in ipairs({
     { "n", "<leader>wz", function() MiniMisc.zoom() end, "Zoom Window" }, { { "n", "x", "o" }, "<leader>j", function() MiniJump2d.start() end, "MiniJump2d: Start jump" },
     { "n", "<leader>lf", vim.lsp.buf.format, "LSP: Format" }, { "n", "<leader>l", function() end, "+1 Lsp" },
     { "n", "<leader>cm", ":Mason<CR>", "Open Mason" }, { "n", "<leader>c", function() end, "+2 Code Tools" },
-    { "n", "<leader>b", ":buffers<CR>", "+4 Buffers" },
+    { "n", "<leader>b", ":buffers<CR>", "+5 Buffers" },
     { "n", "<leader>bn", ":bn<CR>", "Next Buffer" },
     { "n", "<leader>bp", ":bp<CR>", "Prev Buffer" },
     { "n", "<leader>bd", ":bd<CR>", "Delete Buffer" },
-    { "n", "<leader>bf", ":bd!<CR>", "Force Delete Buffer" },
+    { "n", "<leader>bf", ":bd!<CR>", "Force Delete Buffer" }, { "n", "<leader>ba", ":%bw<CR>", "Wipeout All Buffers" },
     { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "l" }) end, "+1 Show Diagnostic" }, { "n", "<leader>da", function() vim.diagnostic.setqflist({ open = true, title = "Diagnostics"}) end, "Show All Diagnostics"},
     { { "n", "v" }, "d", '"_d', "Delete (no yank)" },
     { { "n", "v" }, "c", '"_c', "Change (no yank)" },
@@ -57,6 +57,7 @@ vim.pack.add({
     { src = "https://github.com/rose-pine/neovim" },
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/Saghen/blink.cmp", },
+    { src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
 })
 
 require('blink.cmp').setup({ keymap = { ['<CR>'] = {'accept', 'fallback'}, ['<Tab>'] = {'select_next', 'fallback'}, ['<S-Tab>'] = {'select_prev', 'fallback'}, ['<C-N>'] = {'select_next', 'fallback'}, ['<C-P>'] = {'select_prev', 'fallback'}, ['<C-K>'] = false, ['<C-Y>'] = false, ['<C-E>'] = false }, completion = { accept = { auto_brackets = { enabled = true } }, list = { selection = { preselect = true, auto_insert = false } }, menu = { border = 'none', winblend = 15 }, documentation = { auto_show = true, auto_show_delay_ms = 150 } }, sources = { default = {'lsp', 'path', 'buffer'}, providers = { lsp = { module = 'blink.cmp.sources.lsp', score_offset = 100 }, path = { module = 'blink.cmp.sources.path', score_offset = 80 }, buffer = { module = 'blink.cmp.sources.buffer', score_offset = 70 } } }, fuzzy = { implementation = 'lua' }, signature = { enabled = true, trigger = { enabled = true }, window = { border = 'single', winblend = 15 } }, snippets = {} }); require("mason").setup(); require("oil").setup({ keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, view_options = { show_hidden = true } })

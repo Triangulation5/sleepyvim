@@ -56,7 +56,7 @@ vim.pack.add({
     { src = "https://github.com/vague2k/vague.nvim" },
     { src = "https://github.com/rose-pine/neovim" },
     { src = "https://github.com/folke/tokyonight.nvim" },
-    { src = "https://github.com/Saghen/blink.cmp" },
+    { src = "https://github.com/Saghen/blink.cmp", },
 })
 
 require('blink.cmp').setup({ keymap = { preset = 'default', ['<CR>'] = {'accept', 'fallback'}, ['<Tab>'] = {'select_next', 'fallback'}, ['<S-Tab>'] = {'select_prev', 'fallback'} }, completion = { accept = { auto_brackets = { enabled = true } }, list = { selection = { preselect = true, auto_insert = false } }, menu = { border = 'none', winblend = 15 }, documentation = { auto_show = true, auto_show_delay_ms = 150 } }, sources = { default = {'lsp', 'path', 'buffer'}, providers = { lsp = { module = 'blink.cmp.sources.lsp', score_offset = 100 }, path = { module = 'blink.cmp.sources.path', score_offset = 80 }, buffer = { module = 'blink.cmp.sources.buffer', score_offset = 70 } } }, fuzzy = { implementation = 'lua' }, signature = { enabled = true, trigger = { enabled = true }, window = { border = 'single', winblend = 15 } }, snippets = {} })

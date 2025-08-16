@@ -11,7 +11,7 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
 ![MiniFiles](screenshots/configuration0.png)
 ![blink.cmp](screenshots/configuration1.png)
 ![MiniPick](screenshots/configuration2.png)
-![WhatScreenshotisthis?](screenshots/configuration3.png)
+![Diagnostics](screenshots/configuration3.png)
 
 ## Features
 

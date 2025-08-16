@@ -6,6 +6,10 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
 
 ---
 
+## Configuration Screenshots
+
+![MiniFiles](screenshots/configuration0.png)
+
 ## Features
 
 - ⚡ Fast startup using `vim.loader`

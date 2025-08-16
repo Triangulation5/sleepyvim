@@ -8,10 +8,19 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
 
 ## Configuration Screenshots
 
+### MiniFiles Explorer
 ![MiniFiles](screenshots/configuration0.png)
+
+### blink.cmp Autocomplete
 ![blink.cmp](screenshots/configuration1.png)
+
+### MiniPick File Picker
 ![MiniPick](screenshots/configuration2.png)
+
+### Diagnostics & LSP Info
 ![Diagnostics](screenshots/configuration3.png)
+
+---
 
 ## Features
 
@@ -34,28 +43,40 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
 
 ## Requirements
 
-- Neovim **Nightly (0.11+)**
-- `git` for plugin fetching via `vim.pack.add()`
-- Language-specific tools (e.g. `ruff`, `gofmt`, `lazygit`) if used
+- [Neovim Nightly](https://neovim.io/download/nightly) (v0.11+)
+- `git` for plugin installation via `vim.pack.add()`
+- Optional language-specific tools (Mason is intentionally left empty so you can configure your own):
+  - Python: `ruff`
+  - Go: `gofmt`
+  - Rust: `rust-analyzer`, `cargo`
+  - Shell/git tools: `lazygit`
 
+## Getting Started
+
+1. Install [Neovim Nightly](https://neovim.io/download/nightly).
+2. Clone this configuration:
+   ```bash
+   git clone https://github.com/Triangulation5/minimalvim ~/.config/nvim
+   ```
 ---
 
 ## Plugin Architecture
 
 Managed via [`vim.pack.add`](https://neovim.io/doc/user/repeat.html#vim.pack):
 
-- `neovim/nvim-lspconfig`
-- `mason-org/mason.nvim`
-- `stevearc/oil.nvim`
-- `echasnovski/mini.nvim`
-- `vague2k/vague.nvim`
-- `ellisonleao/gruvbox.nvim`
-- `rose-pine/neovim`
+- [`neovim/nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig)
+- [`mason-org/mason.nvim`](https://github.com/williamboman/mason.nvim)
+- [`stevearc/oil.nvim`](https://github.com/stevearc/oil.nvim)
+- [`echasnovski/mini.nvim`](https://github.com/echasnovski/mini.nvim)
+- [`vague2k/vague.nvim`](https://github.com/vague2k/vague.nvim)
+- [`rose-pine/neovim`](https://github.com/rose-pine/neovim)
+- [`folke/tokyonight`](https://github.com/folke/tokyonight.nvim)
+- [`Saghen/blink.cmp`](https://github.com/Saghen/blink.cmp)
 
 Managed via [`mini.deps`](https://github.com/echasnovski/mini.deps):
 
-- `nvim-lua/plenary.nvim`
-- `ThePrimeagen/harpoon` (`harpoon2` branch)
+- [`nvim-lua/plenary.nvim`](https://github.com/nvim-lua/plenary.nvim)
+- [`ThePrimeagen/harpoon`](https://github.com/ThePrimeagen/harpoon) (`harpoon2` branch)
 
 ---
 
@@ -130,20 +151,19 @@ Custom `LspAttach` handler enables completion autotriggering. (Could optionally 
 
 Themes supported:
 
-- `rose-pine-main`
-- `rose-pine-moon`
+- `rose-pine`
 - `tokyonight`
-- `vague` (with transparent statusline)
-- `retrobox` (fallback theme)
+- `vague` (with custom statusline)
+- `retrobox` (built-in fallback theme)
 
-Cycle using `<leader>t`. Default: `rose-pine-moon`.
+Cycle using `<leader>t`.
 
 ---
 
 ## Notes
 
 - Filetype-specific formatters are dispatched using `jobstart`, with auto-reload.
-- Shell-dependent commands (PowerShell, LazyGit) assume presence in `$PATH`.
+- Assumes Lazygit is installed.
 - No telescope, cmp, lualine, or treesitter used — intentional minimalism via `mini.nvim`.
 
 ---

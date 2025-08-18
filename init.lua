@@ -43,7 +43,7 @@ for _, m in ipairs({
     { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "l" }) end, "+1 Show Diagnostic" }, { "n", "<leader>da", function() vim.diagnostic.setqflist({ open = true, title = "Diagnostics"}) end, "Show All Diagnostics"},
     { { "n", "v" }, "d", '"_d', "Delete (no yank)" },
     { { "n", "v" }, "c", '"_c', "Change (no yank)" },
-    { "n", "x", '"_x', "Cut (no yank)" },
+    { "n", "x", '"_x', "Cut (no yank)" }, { "i", "<C-BS>", "<C-w>", { noremap = true } },
     { "n", "<C-p>", function() vim.cmd('botright split term://powershell') end, "Open PowerShell" }, { "n", "<leader>ca", safe_format, "Code Actions" },
     { "n", "<leader>gg", function() if vim.fn.executable("lazygit") == 1 then vim.cmd("botright split term://lazygit") else vim.notify("lazygit not found", vim.log.levels.WARN)end end, "Lazygit" }, { "n", "<leader>g", function() end, "+1 Git Integration" },
 }) do vim.keymap.set(m[1], m[2], m[3], { desc = m[4] }) end

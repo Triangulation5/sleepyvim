@@ -45,7 +45,93 @@ vim.opt.undofile = true; local u = vim.fn.stdpath("state") .. "/undo"; vim.opt.u
 -- The code about makes it so that the undo file clears after every day.
 
 -- Add this for mini.starter for a starting screen when opening up Neovim:
--- local starter, logo = require("mini.starter"), table.concat({ "            ███████╗██╗     ███████╗███████╗██████╗ ██╗   ██╗██╗   ██╗██╗███╗   ███╗        Z  ", "            ██╔════╝██║     ██╔════╝██╔════╝██╔══██╗╚██╗ ██╔╝██║   ██║██║████╗ ████║     Z     ", "            ███████╗██║     █████╗  █████╗  ██████╔╝ ╚████╔╝ ██║   ██║██║██╔████╔██║   z       ", "            ╚════██║██║     ██╔══╝  ██╔══╝  ██╔═══╝   ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z         ", "            ███████║███████╗███████╗███████╗██║        ██║    ╚████╔╝ ██║██║ ╚═╝ ██║           ", "            ╚══════╝╚══════╝╚══════╝╚══════╝╚═╝        ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝           " }, "\n"); starter.setup({ evaluate_single = true, header = logo, items = { { name = "Pick Files", action = function() require("mini.pick").builtin.files() end, section = string.rep(" ", 22) .. "MiniPick" }, { name = "New file", action = function() vim.cmd("ene | startinsert") end, section = string.rep(" ", 22) .. "Built-in" }, { name = "Find text", action = function() require("mini.pick").builtin.grep_live() end, section = string.rep(" ", 22) .. "MiniPick" }, { name = "Pick Buffers", action = function() require("mini.pick").builtin.buffers() end, section = string.rep(" ", 22) .. "MiniPick" }, { name = "Quit", action = function() vim.cmd("q!") end, section = string.rep(" ", 22) .. "Built-in" } }, content_hooks = { starter.gen_hook.adding_bullet(string.rep(" ", 22) .. "░ ", false), starter.gen_hook.aligning("center", "center") } })
+local starter, logo = require("mini.starter"), table.concat({ "            ███████╗██╗     ███████╗███████╗██████╗ ██╗   ██╗██╗   ██╗██╗███╗   ███╗        Z  ", "            ██╔════╝██║     ██╔════╝██╔════╝██╔══██╗╚██╗ ██╔╝██║   ██║██║████╗ ████║     Z     ", "            ███████╗██║     █████╗  █████╗  ██████╔╝ ╚████╔╝ ██║   ██║██║██╔████╔██║   z       ", "            ╚════██║██║     ██╔══╝  ██╔══╝  ██╔═══╝   ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z         ", "            ███████║███████╗███████╗███████╗██║        ██║    ╚████╔╝ ██║██║ ╚═╝ ██║           ", "            ╚══════╝╚══════╝╚══════╝╚══════╝╚═╝        ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝           " }, "\n"); starter.setup({ evaluate_single = true, header = logo, items = { { name = "Pick Files", action = function() require("mini.pick").builtin.files() end, section = string.rep(" ", 22) .. "MiniPick" }, { name = "New file", action = function() vim.cmd("ene | startinsert") end, section = string.rep(" ", 22) .. "Built-in" }, { name = "Find text", action = function() require("mini.pick").builtin.grep_live() end, section = string.rep(" ", 22) .. "MiniPick" }, { name = "Pick Buffers", action = function() require("mini.pick").builtin.buffers() end, section = string.rep(" ", 22) .. "MiniPick" }, { name = "Quit", action = function() vim.cmd("q!") end, section = string.rep(" ", 22) .. "Built-in" } }, content_hooks = { starter.gen_hook.adding_bullet(string.rep(" ", 22) .. "░ ", false), starter.gen_hook.aligning("center", "center") } })
+
+-- Add this for nvim-tree: { src = "https://github.com/nvim-tree/nvim-tree.lua" },
+require("nvim-tree").setup({
+  hijack_netrw = false,
+  hijack_cursor = false,
+  sync_root_with_cwd = false,
+  respect_buf_cwd = false,
+  update_focused_file = { enable = false },
+  view = {
+    side = "left",
+    width = 26,
+    float = {
+      enable = false,
+      quit_on_focus_loss = true,
+      open_win_config = {
+        relative = "editor",
+        border = "single",
+        width = 50,
+        height = 30,
+        row = 1,
+        col = 1,
+      },
+    },
+  },
+  renderer = {
+    highlight_opened_files = "none",
+    root_folder_label = false,
+    icons = {
+      show = {
+        git = true,
+        folder = true,
+        file = true,
+        folder_arrow = true,
+      },
+      glyphs = {
+        folder = {
+          default = "",
+          open = "",
+          empty = "",
+          empty_open = "",
+        },
+        git = {
+          unstaged = "",
+          staged = "",
+          unmerged = "",
+          renamed = "",
+          untracked = "",
+          deleted = "",
+          ignored = "",
+        },
+      },
+    },
+  },
+  git = {
+    enable = true,
+    ignore = false,
+  },
+  diagnostics = {
+    enable = true,
+  },
+  filters = {
+    dotfiles = false,
+    custom = { ".DS_Store", ".git", "thumbs.db" },
+  },
+  actions = {
+    open_file = {
+      quit_on_open = false,
+      resize_window = true,
+    },
+  },
+    on_attach = function(bufnr)
+      local api = require "nvim-tree.api"
+      local function opts(desc)
+        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+      end
+      vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
+      vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Directory'))
+      vim.keymap.set('n', 'a', api.fs.create, opts('Create File or Directory'))
+      vim.keymap.set('n', 'd', api.fs.remove, opts('Delete File or Directory'))
+    end,
+})
+vim.keymap.set("n", "<leader>fe", "<cmd>NvimTreeToggle<cr>", { desc = "Explorer (Left)" })
+vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NvimTreeNormalNC", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#3a3a3a" })
 ```
 
 ## Extra: Keymaps

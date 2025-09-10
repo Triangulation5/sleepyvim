@@ -16,27 +16,27 @@ for k, v in pairs({ number = true, relativenumber = true, numberwidth = 4,
 
 for _, m in ipairs({
     { "n", "<leader>w", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd.write() end, "+1 Trim & Save" }, { "n", "<leader>q", ":q<CR>", "Quit" }, { "n", "<leader>wq", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd("xa") end, "Save & Quit" },
-    { "n", "<leader>f", ":Pick files<CR>", "+4 Pick: Files" }, { "n", "<leader>ff", ":Telescope ", "Telescope" },
+    { "n", "<leader>f", ":Pick files<CR>", "Pick: Files" },
     { "n", "<leader>fg", ":Pick grep_live<CR>", "Pick: Grep" },
     { "n", "<leader>fw", function() MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>") }) end, "Pick: Word" },
     { "n", "<leader>fb", ":Pick buffers<CR>", "Pick: Buffers" },
     { "n", "<leader>fc", ":Pick colorschemes<CR>", "Pick: Colorschemes"},
-    { "n", "<leader>h", ":Pick help<CR>", "+1 Pick: Help" },
-    { "n", "<leader>e", ":Oil<CR>", "+1 Oil: Explorer" },
+    { "n", "<leader>h", ":Pick help<CR>", "Pick: Help" },
+    { "n", "<leader>e", ":Oil<CR>", "Oil: Explorer" },
     { "n", "<leader>ef", function() MiniFiles.open() end, "MiniFiles" },
     { "n", "<leader>wz", function() MiniMisc.zoom() end, "Zoom Window" }, { "n", "<leader>wr", function() MiniMisc.resize_window() end, "Resize Window"}, { { "n", "x", "o" }, "<leader>j", function() MiniJump2d.start() end, "MiniJump2d: Start jump" },
-    { "n", "<leader>lf", vim.lsp.buf.format, "LSP: Format" }, { "n", "<leader>l", function() end, "+1 Lsp" },
-    { "n", "<leader>cm", ":Mason<CR>", "Open Mason" }, { "n", "<leader>c", function() end, "+2 Code Tools" },
+    { "n", "<leader>lf", vim.lsp.buf.format, "LSP: Format" },
+    { "n", "<leader>cm", ":Mason<CR>", "Open Mason" },
     { "n", "<leader>bn", ":bn<CR>", "Next Buffer" }, { "n", "<leader>tn", ":tabn<CR>", "Next Tab" },
     { "n", "<leader>bp", ":bp<CR>", "Prev Buffer" }, { "n", "<leader>tp", ":tabp<CR>", "Prev Tab" },
     { "n", "<leader>bd", ":bd<CR>", "Delete Buffer" }, { "n", "<leader>tc", ":tabc<CR>", "Close Tab" },
     { "n", "<leader>bf", ":bd!<CR>", "Force Delete Buffer" }, { "n", "<leader>ba", ":%bw<CR>", "Wipeout All Buffers" }, { "n", "<leader>tf", ":tabo<CR>", "Close All Other Tabs"},
-    { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "l" }) end, "+1 Show Diagnostic" }, { "n", "<leader>da", function() vim.diagnostic.setqflist({ open = true, title = "Diagnostics"}) end, "Show All Diagnostics"},
+    { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "l" }) end, "+1 Show Diagnostic" }, { "n", "<leader>da", function() vim.diagnostic.setqflist({ open = true, title = "Diagnostics"}) end, "Show Quickfix"},
     { { "n", "v" }, "d", '"_d', "Delete (no yank)" },
     { { "n", "v" }, "c", '"_c', "Change (no yank)" },
     { "n", "<C-p>", function() vim.cmd('botright split term://powershell') end, "PowerShell" }, { "n", "<leader>ti", function() vim.notify(string.format("Time: %s | Date: %s | %s", os.date("%I:%M:%S %p"), os.date("%Y-%m-%d"), os.date("%A")), vim.log.levels.INFO, { title = "Clock" }) end, "Time" },
     { "n", "x", '"_x', "Cut (no yank)" }, { "n", "<leader>y", function() if vim.fn.executable("yazi")==1 then local buf=vim.api.nvim_create_buf(false,true); local w,h=math.floor(vim.o.columns*0.9),math.floor(vim.o.lines*0.85); local r,c=math.floor((vim.o.lines-h)/2),math.floor((vim.o.columns-w)/2); local win=vim.api.nvim_open_win(buf,true,{relative="editor",width=w,height=h,row=r,col=c,style="minimal",border="rounded"}); vim.cmd("terminal powershell yazi") else vim.notify("yazi not found",vim.log.levels.WARN) end end, "Yazi" },
-    { "n", "<leader>gg", function() if vim.fn.executable("lazygit") == 1 then vim.cmd("botright split term://lazygit") else vim.notify("lazygit not found", vim.log.levels.WARN)end end, "Lazygit" }, { "n", "<leader>g", function() end, "+1 Git Integration" },
+    { "n", "<leader>gg", function() if vim.fn.executable("lazygit") == 1 then vim.cmd("botright split term://lazygit") else vim.notify("lazygit not found", vim.log.levels.WARN)end end, "Lazygit" }, { "n", "<leader>g", function() end, "Git Integration" },
 }) do vim.keymap.set(m[1], m[2], m[3], { desc = m[4] }) end
 
 vim.pack.add({
@@ -61,7 +61,7 @@ vim.notify = require("mini.notify").make_notify()
 
 local lspconfig = require("lspconfig"); vim.lsp.enable({ "pyright", "ruff", "gopls", "rust_analyzer", "vtsls" }); vim.lsp.config("lua_ls", { settings = { Lua = { workspace = { library = vim.api.nvim_get_runtime_file("", true) } } } }); vim.lsp.config("gopls", { settings = { gopls = { analyses = { unusedparams = true, shadow = true }, staticcheck = true } } }); local rust_capabilities = vim.lsp.protocol.make_client_capabilities(); rust_capabilities.textDocument.completion.completionItem.snippetSupport = true; rust_capabilities.textDocument.completion.completionItem.resolveSupport = { properties = { "documentation", "detail", "additionalTextEdits" } }; lspconfig.rust_analyzer.setup({ capabilities = rust_capabilities, settings = { ["rust-analyzer"] = { cargo = { allFeatures = true }, checkOnSave = true, procMacro = { enable = true }, lens = { enable = true } } } }); lspconfig.vtsls.setup{ root_dir = lspconfig.util.root_pattern("jsconfig.json", "package.json", "tsconfig.js"), }
 -- vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client = vim.lsp.get_client_by_id(ev.data.client_id); if client then vim.api.nvim_buf_set_option(ev.buf, "omnifunc", "v:lua.vim.lsp.omnifunc"); if client:supports_method("textDocument/completion") then vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true }) end end end })
-vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true }); vim.diagnostic.config({ virtual_text = { prefix = "■", spacing = 4, hl_mode = "combine", format = function(d) return string.format("%s [%s]", d.message, d.source or d.code or "") end }, signs = true, underline = true, update_in_insert = false, severity_sort = true, float = { border = "rounded", header = "Diagnostic(s):", source = "always", focusable = true } }); vim.api.nvim_create_autocmd("BufEnter", { pattern = "*.rs", callback = function() local ok, _ = pcall(vim.lsp.buf.inlay_hint, 0, true) if not ok then end end }); vim.api.nvim_create_autocmd("TextYankPost", { callback = function() vim.highlight.on_yank({ higroup = "@boolean", timeout = 150, }) end, })
+vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true }); vim.diagnostic.config({ virtual_text = { prefix = "■", spacing = 6, hl_mode = "combine", format = function(d) return string.format("%s [%s]", d.message, d.source or d.code or "") end }, signs = true, underline = true, update_in_insert = false, severity_sort = true, float = { border = "rounded", header = "Diagnostic(s):", source = "always", focusable = true } }); vim.api.nvim_create_autocmd("BufEnter", { pattern = "*.rs", callback = function() local ok, _ = pcall(vim.lsp.buf.inlay_hint, 0, true) if not ok then end end }); vim.api.nvim_create_autocmd("TextYankPost", { callback = function() vim.highlight.on_yank({ higroup = "@boolean", timeout = 150, }) end, })
 
 require("vague").setup({ transparent = false, bold = true, italic = false }); require("rose-pine").setup({ variant = "auto", dark_variant = "main", dim_inactive_windows = true, extend_background_behind_borders = true, styles = { bold = true, italic = false, transparency = false }, groups = { border = "highlight_med", background = "base", panel = "surface", comment = "muted", link = "iris", punctuation = "subtle", error = "love", hint = "iris", info = "foam", warn = "gold", git_add = "foam", git_change = "rose", git_delete = "love", git_dirty = "rose", git_ignore = "muted", git_merge = "iris", git_rename = "pine", git_stage = "iris", git_text = "rose", head = "iris", hunk = "rose" } })
 

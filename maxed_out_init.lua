@@ -1,3 +1,16 @@
+--[[
+Dear Programmer,
+When I wrote this code, only God and
+I knew how it worked.
+Now, only God knows it!
+
+Therefore, if you are trying to make this optimize this.
+Please increase this counter as a warning
+for the next person:
+
+total_hours_wasted_here = 744
+--]]
+
 if vim.loader then vim.loader.enable() end; vim.g.loaded_netrw = 1; vim.g.loaded_netrwPlugin = 1; vim.g.mapleader = " "; local opt = vim.opt
 for k, v in pairs({ number = true, relativenumber = true, numberwidth = 4,
     signcolumn = "yes",

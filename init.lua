@@ -12,7 +12,7 @@ for k, v in pairs({ number = true, relativenumber = true, numberwidth = 4,
     conceallevel = 0, pumheight = 10, pumblend = 0,
     winblend = 0, swapfile = false, shada = "", ruler = false,
     title = true, titlelen = 0,
-}) do opt[k] = v end ; opt.fillchars:append({ eob = "~", stl = " ", horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " })
+}) do opt[k] = v end ; opt.fillchars:append({ eob = " ", stl = " ", horiz = " ", horizup = " ", horizdown = " ", vertleft = " ", vertright = " ", verthoriz = " " })
 
 for _, m in ipairs({
     { "n", "<leader>w", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd.write() end, "+1 Trim & Save" }, { "n", "<leader>q", ":q<CR>", "Quit" }, { "n", "<leader>wq", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd("xa") end, "Save & Quit" },

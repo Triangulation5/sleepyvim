@@ -16,7 +16,7 @@ for k, v in pairs({ number = true, relativenumber = true, numberwidth = 4,
 
 for _, m in ipairs({
     { "n", "<leader>w", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd.write() end, "+1 Trim & Save" }, { "n", "<leader>q", ":q<CR>", "Quit" }, { "n", "<leader>wq", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd("xa") end, "Save & Quit" },
-    { "n", "<leader>f", ":FzfLua files<CR>", "Pick: Files" },
+    { "n", "<leader>f", ":Pick files<CR>", "Pick: Files" },
     { "n", "<leader>fg", ":Pick grep_live<CR>", "Pick: Grep" },
     { "n", "<leader>fw", function() MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>") }) end, "Pick: Word" },
     { "n", "<leader>fb", ":Pick buffers<CR>", "Pick: Buffers" },

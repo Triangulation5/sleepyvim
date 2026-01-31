@@ -1,6 +1,6 @@
 # Neovim Nightly Configuration
 ## This configuration only works in Neovim Nightly
-## NVIM v0.12.0-dev-934+ga9a4c271b1
+## NVIM v0.12.0-dev-1215+ga897cc17a5
 
 This is a high-performance, minimal, and extensible Neovim Nightly configuration designed around fast startup, sane defaults, and modern plugin architecture. Built for Neovim 0.10+.
 

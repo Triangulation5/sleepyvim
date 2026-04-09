@@ -49,8 +49,12 @@ vim.pack.add({
     { src = "https://github.com/rose-pine/neovim" },
     { src = "https://github.com/Saghen/blink.cmp" }, { src = "https://github.com/rafamadriz/friendly-snippets" },
     { src = "https://github.com/gcmt/vessel.nvim" },
+
     { src = "https://github.com/mbbill/undotree" },
+    { src = "https://github.com/Exafunction/codeium.nvim" }, { src = "https://github.com/nvim-lua/plenary.nvim" }, { src = "https://github.com/hrsh7th/nvim-cmp" },
 })
+
+require("codeium").setup({ cmp = { enabled = false } }); require("plenary")
 
 vim.opt.undofile = true; local u = vim.fn.stdpath("state") .. "/undo"; vim.opt.undodir = u; vim.fn.mkdir(u, "p"); local t = u .. "/.last_cleanup"; local n = os.time(); local l = vim.fn.filereadable(t) == 1 and tonumber(vim.fn.readfile(t)[1]) or 0; if n - l > 86400 then for _, f in ipairs(vim.fn.glob(u .. "/*", true, true)) do if f ~= t then os.remove(f) end end; vim.fn.writefile({ tostring(n) }, t) end
 

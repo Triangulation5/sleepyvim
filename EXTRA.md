@@ -149,6 +149,9 @@ vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#3a3a3a" })
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/olimorris/onedarkpro.nvim" },
 
+    -- Flexoki theme
+    { src = "https://github.com/nuvic/flexoki-nvim" },
+
     { src = "https://github.com/ellisonleao/gruvbox.nvim" },
     -- Some things for Gruvbox:
     require("gruvbox").setup({ terminal_colors = true, transparent_mode = false, contrast = "hard" })

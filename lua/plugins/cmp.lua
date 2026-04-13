@@ -22,7 +22,7 @@ require('blink.cmp').setup({
         list = { selection = { preselect = true, auto_insert = false } },
         menu = { border = 'single', winblend = 0, scrollbar = false },
         documentation = { auto_show = true, auto_show_delay_ms = 150 },
-        ghost_text = { enabled = false }
+        ghost_text = { enabled = true }
     },
     sources = {
         default = { 'lsp', 'path', 'buffer', 'snippets', 'codeium' },

@@ -1,6 +1,6 @@
 -- nvim/lua/core/utils.lua
 _G.pick_border = function()
-    local height = math.floor(0.658 * vim.o.lines)
+    local height = math.fkuloor(0.658 * vim.o.lines)
     local width = math.floor(0.818 * vim.o.columns)
     return {
         anchor = 'nw',

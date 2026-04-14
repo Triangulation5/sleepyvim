@@ -89,3 +89,12 @@ vim.keymap.set("n", "<leader>ta", function()
     _G.set_cursor_animation(not _G.cursor_anim_enabled)
     vim.notify("Cursor Animation " .. (_G.cursor_anim_enabled and "Enabled" or "Disabled"), vim.log.levels.INFO)
 end, { desc = "Toggle Cursor Animation" })
+
+vim.keymap.set("n", "<esc>", function()
+    local ok, nes = pcall(require, "copilot-lsp.nes")
+    if ok and nes.clear() then
+        return
+    end
+    vim.cmd("noh")
+    return "<esc>"
+end, { expr = true, desc = "Clear Copilot suggestion or fallback" })

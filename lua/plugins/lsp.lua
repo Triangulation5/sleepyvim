@@ -1,5 +1,5 @@
 -- nvim/lua/plugins/lsp.lua
-vim.lsp.enable({ "pyright", "ruff", "gopls", "rust_analyzer", "vtsls" })
+vim.lsp.enable({ "pyright", "ruff", "gopls", "rust_analyzer", "vtsls", "copilot_ls" })
 
 vim.lsp.config("lua_ls", {
     settings = {
@@ -44,3 +44,5 @@ vim.lsp.config("rust_analyzer", {
 vim.lsp.config("vtsls", {
     root_dir = vim.fs.root(0, { "jsconfig.json", "package.json", "tsconfig.js" })
 })
+
+vim.g.copilot_nes_debounce = 500

@@ -1,15 +1,50 @@
 -- nvim/lua/plugins/cmp.lua
-require("codeium").setup({
-    enable_cmp_source = true,
-    virtual_text = {
-        enabled = false,
-    },
+require("copilot-lsp").setup({
+  nes = {
+    move_count_threshold = 3,
+  },
 })
 
 require('blink.cmp').setup({
     keymap = {
         ['<CR>'] = { 'accept', 'fallback' },
-        ['<Tab>'] = { 'select_next', 'fallback' },
+        ['<Tab>'] = {
+          function(cmp)
+            local col = vim.fn.col('.') - 1
+            if col == 0 or vim.api.nvim_get_current_line():sub(col, col):match('%s') then
+                return false
+            end
+
+            local bufnr = vim.api.nvim_get_current_buf()
+            local nes = require("copilot-lsp.nes")
+
+            local state = vim.b[bufnr].nes_state
+
+            if state then
+              cmp.hide()
+
+              local ok = nes.apply_pending_nes()
+              if ok then
+                nes.walk_cursor_end_edit()
+                return true
+              end
+
+              return false
+            end
+
+            if cmp.visible() then
+              return cmp.select_and_accept()
+            end
+
+            if cmp.snippet_active() then
+              return cmp.accept()
+            end
+
+            return false
+          end,
+          'snippet_forward',
+          'fallback',
+        },
         ['<S-Tab>'] = { 'select_prev', 'fallback' },
         ['<C-N>'] = { 'select_next', 'fallback' },
         ['<C-P>'] = { 'select_prev', 'fallback' },
@@ -25,13 +60,12 @@ require('blink.cmp').setup({
         ghost_text = { enabled = true }
     },
     sources = {
-        default = { 'lsp', 'path', 'buffer', 'snippets', 'codeium' },
+        default = { 'lsp', 'path', 'buffer', 'snippets' },
         providers = {
             lsp = { module = 'blink.cmp.sources.lsp', score_offset = 100 },
             path = { module = 'blink.cmp.sources.path', score_offset = 80 },
             buffer = { module = 'blink.cmp.sources.buffer', score_offset = 70 },
             snippets = { module = 'blink.cmp.sources.snippets', score_offset = 90 },
-            codeium = { name = "Codeium", module = "codeium.blink", async = true, score_offset = 110 },
         }
     },
     fuzzy = { implementation = 'lua' },

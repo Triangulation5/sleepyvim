@@ -76,7 +76,7 @@ require('blink.cmp').setup({
     completion = {
         accept = { auto_brackets = { enabled = true } },
         list = { selection = { preselect = true, auto_insert = false } },
-        menu = { border = 'single', winblend = 0, scrollbar = false },
+        menu = { border = 'rounded', winblend = 0, scrollbar = false },
         documentation = { auto_show = true, auto_show_delay_ms = 150 },
         ghost_text = { enabled = true }
     },
@@ -93,7 +93,7 @@ require('blink.cmp').setup({
     signature = {
         enabled = true,
         trigger = { enabled = true },
-        window = { border = 'single', winblend = 0 }
+        window = { border = 'rounded', winblend = 0 }
     },
 });
 

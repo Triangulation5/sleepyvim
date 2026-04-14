@@ -5,7 +5,7 @@ require("mini.notify").setup({
         duration_last = 250
     },
     window = {
-        config = { border = "single" },
+        config = { border = "rounded" },
         max_width_share = 0.6
     }
 })

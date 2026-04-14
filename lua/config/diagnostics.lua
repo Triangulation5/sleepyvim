@@ -13,7 +13,7 @@ vim.diagnostic.config({
     update_in_insert = false,
     severity_sort = true,
     float = {
-        border = "single",
+        border = "rounded",
         header = "Diagnostic(s):",
         source = "always",
         focusable = true

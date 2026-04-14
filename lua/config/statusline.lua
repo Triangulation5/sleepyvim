@@ -61,7 +61,19 @@ require("mini.statusline").setup({
             local pos = "%#MiniStatuslinePosition# " .. vim.fn.line(".") .. ":" .. vim.fn.col(".") .. " "
             local pct = "%#MiniStatuslinePercent# " ..
                 math.floor((vim.fn.line(".") / math.max(vim.fn.line("$"), 1)) * 100) .. "%% "
-            local left = table.concat({ mode_section, branch, file, diagnostics })
+            local function get_copilot_status()
+                if vim.g.copilot_nes_enabled == false then
+                    return ""
+                end
+                local clients = vim.lsp.get_clients({ name = "copilot_ls", bufnr = 0 })
+                if #clients > 0 then
+                    return "%#MiniStatuslineInfo#  "
+                end
+                return ""
+            end
+
+            local copilot = get_copilot_status()
+            local left = table.concat({ mode_section, branch, file, diagnostics, copilot })
             local right = table.concat({ file_info, pct, pos })
             return left .. "%=" .. right
         end,

@@ -5,6 +5,23 @@ require("copilot-lsp").setup({
   },
 })
 
+vim.g.copilot_nes_enabled = true
+vim.api.nvim_create_user_command("CopilotToggle", function()
+  vim.g.copilot_nes_enabled = not vim.g.copilot_nes_enabled
+  local ok, config = pcall(require, "copilot-lsp.config")
+  if ok and config.options then
+    config.options.nes.enabled = vim.g.copilot_nes_enabled
+  end
+
+  if not vim.g.copilot_nes_enabled then
+    pcall(function() require("copilot-lsp.nes").clear() end)
+  end
+
+  vim.notify("Copilot NES: " .. (vim.g.copilot_nes_enabled and "Enabled" or "Disabled"), vim.log.levels.INFO)
+end, {})
+
+vim.keymap.set("n", "<leader>ct", ":CopilotToggle<CR>", { desc = "Toggle Copilot NES" })
+
 require('blink.cmp').setup({
     keymap = {
         ['<CR>'] = { 'accept', 'fallback' },
@@ -12,6 +29,10 @@ require('blink.cmp').setup({
           function(cmp)
             local col = vim.fn.col('.') - 1
             if col == 0 or vim.api.nvim_get_current_line():sub(col, col):match('%s') then
+                return false
+            end
+
+            if vim.g.copilot_nes_enabled == false then
                 return false
             end
 

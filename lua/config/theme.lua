@@ -80,7 +80,7 @@ require("rose-pine").setup({
 _G.transparency_enabled = false
 _G.current_scheme = nil
 _G.idx = 1
-_G.schemes = { "gruvbox", "rose-pine-main", "vague" }
+_G.schemes = { "vague", "gruvbox", "rose-pine-main" }
 
 _G.apply_transparency = function()
     if _G.transparency_enabled then

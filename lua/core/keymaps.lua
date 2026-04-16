@@ -66,6 +66,9 @@ local keymaps = {
     end, "Lazygit" },
     { "n", "<leader>g", function() end, "Git Integration" },
     { "n", "<leader>u", "<cmd>UndotreeToggle<CR>", "Toggle Undotree" },
+    { "n", "<leader>G", ":Pick git_commits<CR>", "Pick: Commits"},
+    { "n", "<leader>sr", ":Pick lsp scope='document_symbol'<CR>", "Pick: Lsp"},
+    { "n", "<leader>sd", ":Pick diagnostic<CR>", "Pick: Diagnostics"}
 }
 
 for _, m in ipairs(keymaps) do

@@ -5,7 +5,7 @@ require("copilot-lsp").setup({
   },
 })
 
-vim.g.copilot_nes_enabled = true
+vim.g.copilot_nes_enabled = false
 vim.api.nvim_create_user_command("CopilotToggle", function()
   vim.g.copilot_nes_enabled = not vim.g.copilot_nes_enabled
   local ok, config = pcall(require, "copilot-lsp.config")

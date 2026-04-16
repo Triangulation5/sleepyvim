@@ -79,7 +79,7 @@ require("oil").setup({
         padding = 2,
         max_width = 0,
         max_height = 0,
-        border = "rounded",
+        border = "none",
         win_options = {
             winblend = 0
         },
@@ -100,7 +100,7 @@ require("oil").setup({
         max_height = 0.9,
         min_height = { 5, 0.1 },
         height = nil,
-        border = "rounded",
+        border = "none",
         win_options = {
             winblend = 0
         }
@@ -112,12 +112,12 @@ require("oil").setup({
         max_height = { 10, 0.9 },
         min_height = { 5, 0.1 },
         height = nil,
-        border = "rounded",
-        minimized_border = "rounded",
+        border = "none",
+        minimized_border = "none",
         win_options = {
             winblend = 0
         }
     },
-    ssh = { border = "rounded" },
-    keymaps_help = { border = "rounded" }
+    ssh = { border = "none" },
+    keymaps_help = { border = "none" }
 })

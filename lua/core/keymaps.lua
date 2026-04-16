@@ -51,7 +51,7 @@ local keymaps = {
             local w, h = math.floor(vim.o.columns * 0.9), math.floor(vim.o.lines * 0.85)
             local r, c = math.floor((vim.o.lines - h) / 2), math.floor((vim.o.columns - w) / 2)
             local win = vim.api.nvim_open_win(buf, true,
-                { relative = "editor", width = w, height = h, row = r, col = c, style = "minimal", border = "rounded" })
+                { relative = "editor", width = w, height = h, row = r, col = c, style = "minimal", border = "none" })
             vim.cmd("terminal powershell yazi")
         else
             vim.notify("yazi not found", vim.log.levels.WARN)

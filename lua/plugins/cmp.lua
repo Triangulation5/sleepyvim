@@ -76,7 +76,15 @@ require('blink.cmp').setup({
     completion = {
         accept = { auto_brackets = { enabled = true } },
         list = { selection = { preselect = true, auto_insert = false } },
-        menu = { border = 'rounded', winblend = 0, scrollbar = false },
+        menu = {
+            auto_show = true,
+            draw = {
+                columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
+            },
+            border = 'rounded',
+            winblend = 0,
+            scrollbar = false
+        },
         documentation = { auto_show = true, auto_show_delay_ms = 150 },
         ghost_text = { enabled = true }
     },

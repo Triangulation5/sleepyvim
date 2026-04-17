@@ -52,9 +52,23 @@ set_cursor_animation(false)
 
 require("mini.pick").setup({
     window = {
-        config = nil,
-        prompt_caret = '█ ',
-        prompt_prefix = '» ',
+        config = function()
+            local total_h = vim.o.lines
+            local total_w = vim.o.columns
+            local height = math.floor(total_h * 0.6)
+            local width  = math.floor(total_w * 0.7)
+            return {
+                relative = "editor",
+                anchor = "NW",
+                row = math.floor((total_h - height) / 2),
+                col = math.floor((total_w - width) / 2),
+                width = width,
+                height = height,
+                border = "single",
+            }
+        end,
+        prompt_prefix = "» ",
+        prompt_caret = "█ ",
     },
 })
 

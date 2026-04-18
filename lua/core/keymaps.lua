@@ -51,7 +51,7 @@ local keymaps = {
             local w, h = math.floor(vim.o.columns * 0.9), math.floor(vim.o.lines * 0.85)
             local r, c = math.floor((vim.o.lines - h) / 2), math.floor((vim.o.columns - w) / 2)
             local win = vim.api.nvim_open_win(buf, true,
-                { relative = "editor", width = w, height = h, row = r, col = c, style = "minimal", border = "none" })
+                { relative = "editor", width = w, height = h, row = r, col = c, style = "minimal", border = "solid" })
             vim.cmd("terminal powershell yazi")
         else
             vim.notify("yazi not found", vim.log.levels.WARN)
@@ -68,7 +68,8 @@ local keymaps = {
     { "n", "<leader>u", "<cmd>UndotreeToggle<CR>", "Toggle Undotree" },
     { "n", "<leader>G", ":Pick git_commits<CR>", "Pick: Commits"},
     { "n", "<leader>sr", ":Pick lsp scope='document_symbol'<CR>", "Pick: Lsp"},
-    { "n", "<leader>sd", ":Pick diagnostic<CR>", "Pick: Diagnostics"}
+    { "n", "<leader>sd", ":Pick diagnostic<CR>", "Pick: Diagnostics"},
+    { "n", "<leader>a", ":edit #<CR>", "Edit last file"},
 }
 
 for _, m in ipairs(keymaps) do
@@ -76,6 +77,23 @@ for _, m in ipairs(keymaps) do
 end
 
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
+
+for i = 1, 8 do
+  vim.keymap.set("n", "<Leader>" .. i, function()
+    local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+    if bufs[i] then
+      vim.cmd.buffer(bufs[i].bufnr)
+    end
+  end, { silent = true })
+
+  vim.keymap.set("t", "<Leader>" .. i, function()
+    local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+    if bufs[i] then
+      vim.cmd("stopinsert")
+      vim.cmd.buffer(bufs[i].bufnr)
+    end
+  end, { silent = true })
+end
 
 vim.keymap.set("n", "<leader>t", function()
     _G.idx = (_G.idx % #_G.schemes) + 1

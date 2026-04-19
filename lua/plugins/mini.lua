@@ -64,7 +64,7 @@ require("mini.pick").setup({
                 col = math.floor((total_w - width) / 2),
                 width = width,
                 height = height,
-                border = "solid",
+                border = "single",
             }
         end,
         prompt_prefix = "» ",

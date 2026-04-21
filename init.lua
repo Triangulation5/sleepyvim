@@ -1,4 +1,4 @@
-vim.cmd([[set mouse=]]); vim.cmd([[set noswapfile]])
+vim.cmd([[set mouse=]])
 if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; local opt = vim.opt
 for k, v in pairs({ nu = true, rnu = true, nuw = 4,
     scl = "yes",
@@ -78,7 +78,7 @@ require("telescope").setup({
         preview = { treesitter = false },
         sorting_strategy = "ascending",
         prompt_prefix = "» ",
-        selection_caret = "∾ ",
+        selection_caret = "› ",
         borderchars = { "", "", "", "", "", "", "", "" },
         path_displays = { "smart" },
         layout_config = { height = 100, width = 400, prompt_position = "top", preview_cutoff = 40 }

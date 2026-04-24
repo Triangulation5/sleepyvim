@@ -1,4 +1,4 @@
-if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; local opt = vim.opt
+if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; vim.opt.shortmess:append("I"); local opt = vim.opt
 for k, v in pairs({ nu = true, rnu = true, nuw = 4,
     scl = "yes",
     ts = 4, sts = 4, sw = 4, et = true,
@@ -74,5 +74,3 @@ local transparency_enabled, current_scheme, idx = false, nil, 1; local schemes =
 vim.keymap.set("n", "<leader>t", function() idx = (idx % #schemes) + 1; set_colorscheme(schemes[idx], true) end, { desc = "Cycle Colorschemes" }); vim.keymap.set("n", "<leader>tt", function() transparency_enabled = not transparency_enabled; set_colorscheme(current_scheme, false); vim.notify("Transparency: " .. (transparency_enabled and "Enabled" or "Disabled"), vim.log.levels.INFO) end, { desc = "Toggle Transparency" })
 
 set_colorscheme(schemes[idx], false)
-
-require('mini.starter').setup({evaluate_single=true,header=table.concat({'                     NVIM v0.12.2','','     Nvim is open source and freely distributable','                https://neovim.io/#chat'},'\n'),items={{name='   type  :help nvim<Enter>       if you are new!',action='help nvim',section=''},{name='   type  :checkhealth<Enter>     to optimize Nvim',action='checkhealth',section=''},{name='   type  :q<Enter>               to exit',action='quit',section=''},{name='   type  :help<Enter>            for help',action='help',section=''},{name='',action='',section=''},{name='   type  :help news<Enter>       to see changes in v0.12',action='help news',section=''},{name='',action='',section=''},{name='             Sponsor Vim development!',action='',section=''},{name='   type  :help sponsor<Enter>    for information',action='help sponsor',section=''}},footer='',content_hooks={require('mini.starter').gen_hook.aligning('center','center')}})

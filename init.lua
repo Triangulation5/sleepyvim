@@ -34,7 +34,7 @@ for _, m in ipairs({
     { "n", "<leader>bp", ":bp<CR>", "Prev Buffer" }, { "n", "<leader>tp", ":tabp<CR>", "Prev Tab" },
     { "n", "<leader>bd", ":bd<CR>", "Delete Buffer" }, { "n", "<leader>tc", ":tabc<CR>", "Close Tab" },
     { "n", "<leader>bf", ":bd!<CR>", "Force Delete Buffer" }, { "n", "<leader>ba", ":%bw<CR>", "Wipeout All Buffers" }, { "n", "<leader>tf", ":tabo<CR>", "Close All Other Tabs"},
-    { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "l" }) end, "+1 Show Diagnostic" }, { "n", "<leader>da", function() vim.diagnostic.setqflist({ open = true, title = "Diagnostics"}) end, "Show Quickfix"},
+    { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "l" }) end, "+1 Show Diagnostic" }, { "n", "<leader>da", function() vim.diagnostic.setqflist({ open = true, title = "Diagnostics"}) end, "Show Diagnostics in Quickfix"}, { "n", "<C-q>", ":copen<CR>", "Opens Quickfix"},
     { { "n", "v" }, "d", '"_d', "Delete (no yank)" },
     { { "n", "v" }, "c", '"_c', "Change (no yank)" },
     { "n", "<C-p>", function() vim.cmd('botright split term://powershell') end, "PowerShell" }, { "n", "<leader>ti", function() vim.notify(string.format("Time: %s | Date: %s | %s", os.date("%I:%M:%S %p"), os.date("%Y-%m-%d"), os.date("%A")), vim.log.levels.INFO, { title = "Clock" }) end, "Time" },

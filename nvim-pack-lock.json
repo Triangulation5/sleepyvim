@@ -1,0 +1,62 @@
+{
+  "plugins": {
+    "actions-preview.nvim": {
+      "rev": "0ac9c2aa3cfc8c885321c0862b50b6b1c3392405",
+      "src": "https://github.com/aznhe21/actions-preview.nvim"
+    },
+    "blink.cmp": {
+      "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
+      "src": "https://github.com/Saghen/blink.cmp",
+      "version": "'78336bc'"
+    },
+    "friendly-snippets": {
+      "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
+      "src": "https://github.com/rafamadriz/friendly-snippets"
+    },
+    "mason.nvim": {
+      "rev": "12ddd182d9efbdc848b540f16484a583d52da0fb",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "mini.nvim": {
+      "rev": "4f6f84a96b076747b736d100388a8d7844771d7d",
+      "src": "https://github.com/echasnovski/mini.nvim"
+    },
+    "neovim": {
+      "rev": "9504524e5ed0e326534698f637f9d038ba4cd0ee",
+      "src": "https://github.com/rose-pine/neovim"
+    },
+    "nvim-lspconfig": {
+      "rev": "81878de76c0de4ce289513734ad80c31ec7871b8",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "oil.nvim": {
+      "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
+      "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "plenary.nvim": {
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "telescope-ui-select.nvim": {
+      "rev": "6e51d7da30bd139a6950adf2a47fda6df9fa06d2",
+      "src": "https://github.com/nvim-telescope/telescope-ui-select.nvim"
+    },
+    "telescope.nvim": {
+      "rev": "506338434fec5ad19cb1f8d45bf92d66c4917393",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "undotree": {
+      "rev": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d",
+      "src": "https://github.com/mbbill/undotree"
+    },
+    "vague.nvim": {
+      "rev": "24cd29d277bf5259ab347c49d223d8cfb9057565",
+      "src": "https://github.com/vague-theme/vague.nvim",
+      "version": "'24cd29d'"
+    },
+    "vessel.nvim": {
+      "rev": "249ef5dfa13a3392d4c2b3ae94a24f812ef299f0",
+      "src": "https://github.com/gcmt/vessel.nvim"
+    }
+  }
+}

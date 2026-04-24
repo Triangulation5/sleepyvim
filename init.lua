@@ -24,7 +24,7 @@ for _, m in ipairs({
     { "n", "<leader>h", function() require('telescope.builtin').help_tags() end, "Telescope: Help" },
     { "n", "<leader>fd", function() require('telescope.builtin').diagnostics() end, "Telescope: Diagnostics" },
     { "n", "<leader>fr", function() require('telescope.builtin').lsp_references() end, "Telescope: References" },
-    { "n", "<leader>fa", function() require('actions-preview').code_actions() end, "Telescope: Code Actions" },
+    { "n", "<leader>fa", ":lua vim.lsp.buf.code_action()<CR>", "Telescope: Code Actions" },
     { "n", "<leader>e", ":Oil<CR>", "Oil: Explorer" },
     { "n", "<leader>ef", function() MiniFiles.open() end, "MiniFiles" },
     { "n", "<leader>wz", function() MiniMisc.zoom() end, "Zoom Window" }, { "n", "<leader>wr", function() MiniMisc.resize_window() end, "Resize Window"}, { { "n", "x", "o" }, "<leader>j", function() MiniJump2d.start() end, "MiniJump2d: Start jump" },
@@ -52,7 +52,6 @@ vim.pack.add({
     { src = "https://github.com/nvim-telescope/telescope.nvim" },
     { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
-    { src = "https://github.com/aznhe21/actions-preview.nvim" },
     { src = "https://github.com/mbbill/undotree" },
 })
 
@@ -88,7 +87,6 @@ require("telescope").setup({
     }
 })
 require("telescope").load_extension("ui-select")
-require("actions-preview").setup({ backend = { "telescope" }, telescope = require("telescope.themes").get_dropdown() })
 
 vim.lsp.enable({ "pyright", "ruff", "gopls", "rust_analyzer", "vtsls", "marksman" })
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true }); vim.diagnostic.config({ virtual_text = { prefix = "●", spacing = 6, hl_mode = "combine", format = function(d) return string.format("%s [%s]", d.message, d.source or d.code or "") end }, signs = true, underline = true, update_in_insert = false, severity_sort = true, float = { border = "rounded", header = "Diagnostic(s):", source = "always", focusable = true } }); vim.api.nvim_create_autocmd("BufEnter", { pattern = "*.rs", callback = function() local ok, _ = pcall(vim.lsp.buf.inlay_hint, 0, true) if not ok then end end }); vim.api.nvim_create_autocmd("TextYankPost", { callback = function() vim.highlight.on_yank({ higroup = "@boolean", timeout = 150, }) end, })

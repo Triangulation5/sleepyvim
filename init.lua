@@ -54,8 +54,10 @@ vim.pack.add({
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/mbbill/undotree" },
     { src = "https://github.com/chomosuke/typst-preview.nvim" },
+    { src = "https://github.com/nvzone/showkeys" },
 })
 
+require("showkeys").setup({ position = "top-right" }); vim.api.nvim_create_autocmd("VimEnter", { callback = function() vim.cmd("ShowkeysToggle") end })
 for i = 1, 8 do vim.keymap.set("n","<Leader>"..i,function()local b=vim.fn.getbufinfo({buflisted=1})[i]if b then vim.cmd.buffer(b.bufnr)end end,{silent=true});vim.keymap.set("t","<Leader>"..i,function()local b=vim.fn.getbufinfo({buflisted=1})[i]if b then vim.cmd("stopinsert");vim.cmd.buffer(b.bufnr)end end,{silent=true})end
 
 vim.opt.undofile = true; local u = vim.fn.stdpath("state") .. "/undo"; vim.opt.undodir = u; vim.fn.mkdir(u, "p"); local t = u .. "/.last_cleanup"; local n = os.time(); local l = vim.fn.filereadable(t) == 1 and tonumber(vim.fn.readfile(t)[1]) or 0; if n - l > 86400 then for _, f in ipairs(vim.fn.glob(u .. "/*", true, true)) do if f ~= t then os.remove(f) end end; vim.fn.writefile({ tostring(n) }, t) end; for i = 1, 8 do vim.keymap.set("n","<Leader>"..i,function()local b=vim.fn.getbufinfo({buflisted=1})[i]if b then vim.cmd.buffer(b.bufnr)end end,{silent=true});vim.keymap.set("t","<Leader>"..i,function()local b=vim.fn.getbufinfo({buflisted=1})[i]if b then vim.cmd("stopinsert");vim.cmd.buffer(b.bufnr)end end,{silent=true})end; vim.g.undotree_WindowLayout = 3

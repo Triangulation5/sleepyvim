@@ -25,7 +25,7 @@ for _, m in ipairs({
     { "n", "<leader>fa", ":lua vim.lsp.buf.code_action()<CR>", "Telescope: Code Actions" },
     { "n", "<leader>e", ":Oil<CR>", "Oil: Explorer" },
     { "n", "<leader>ef", function() MiniFiles.open() end, "MiniFiles" },
-    { "n", "<leader>wz", function() MiniMisc.zoom() end, "Zoom Window" }, { "n", "<leader>wr", function() MiniMisc.resize_window() end, "Resize Window"}, { { "n", "x", "o" }, "<leader>j", function() MiniJump2d.start() end, "MiniJump2d: Start jump" },
+    { "n", "<leader>wz", function() MiniMisc.zoom() end, "Zoom Window" }, { "n", "<leader>wr", function() MiniMisc.resize_window() end, "Resize Window"}, { { "n", "x", "o" }, "<leader>j", function() MiniJump2d.start() end, "MiniJump2d: Start jump" }, { { "n", "x" }, "<C-d>", "<C-d>zz", "Scroll Down" }, { { "n", "x" }, "<C-u>", "<C-u>zz", "Scroll Up" },
     { "n", "<leader>lf", vim.lsp.buf.format, "LSP: Format" },
     { "n", "<leader>cm", ":Mason<CR>", "Open Mason" },
     { "n", "<leader>bn", ":bn<CR>", "Next Buffer" }, { "n", "<leader>tn", ":tabn<CR>", "Next Tab" },
@@ -91,3 +91,5 @@ require("telescope").load_extension("ui-select")
 
 vim.lsp.enable({ "pyright", "ruff", "gopls", "rust_analyzer", "marksman", "vtsls", "tinymist" })
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true }); vim.diagnostic.config({ virtual_text = { prefix = "●", spacing = 6, hl_mode = "combine", format = function(d) return string.format("%s [%s]", d.message, d.source or d.code or "") end }, signs = true, underline = true, update_in_insert = false, severity_sort = true, float = { border = "rounded", header = "Diagnostic(s):", source = "always", focusable = true } }); vim.api.nvim_create_autocmd("BufEnter", { pattern = "*.rs", callback = function() local ok, _ = pcall(vim.lsp.buf.inlay_hint, 0, true) if not ok then end end }); vim.api.nvim_create_autocmd("TextYankPost", { callback = function() vim.highlight.on_yank({ higroup = "@boolean", timeout = 150, }) end, })
+vim.keymap.set({ "n", "x" }, "<C-d>", "<C-d>zz", { noremap = true, silent = true })
+vim.keymap.set({ "n", "x" }, "<C-u>", "<C-u>zz", { noremap = true, silent = true })

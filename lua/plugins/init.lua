@@ -6,7 +6,7 @@ vim.pack.add({
     { src = "https://github.com/echasnovski/mini.nvim" },
     { src = "https://github.com/vague-theme/vague.nvim",     version = "24cd29d", },
     { src = "https://github.com/rose-pine/neovim" },
-    { src = "https://github.com/Saghen/blink.cmp" },
+    { src = "https://github.com/Saghen/blink.cmp", version = "78336bc" },
     { src = "https://github.com/rafamadriz/friendly-snippets" },
 
     -- { src = "https://github.com/gcmt/vessel.nvim" },

@@ -11,7 +11,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; vim.opt.short
     cot = { "menuone", "noselect" },
     cole = 0, ph = 10, pb = 0,
     winbl = 0, swf = false, sd = "", ru = false,
-    title = true, titlelen = 0,
+    title = true, titlelen = 0, cc = "80",
 }) do opt[k] = v end ; opt.fcs:append({ eob = " ", stl = " ", horiz = "─", horizup = "┴", horizdown = "┬", vert = "│", vertleft = "┤", vertright = "├", verthoriz = "┼", trunc = "›", truncrl = "‹" })
 
 for _, m in ipairs({
@@ -88,6 +88,4 @@ require("telescope").setup({
 require("telescope").load_extension("ui-select")
 
 vim.lsp.enable({ "pyright", "ruff", "gopls", "rust_analyzer", "marksman", "vtsls", "tinymist" })
-vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true }); vim.diagnostic.config({ virtual_text = { prefix = "●", spacing = 6, hl_mode = "combine", format = function(d) return string.format("%s [%s]", d.message, d.source or d.code or "") end }, signs = true, underline = true, update_in_insert = false, severity_sort = true, float = { border = "rounded", header = "Diagnostic(s):", source = "always", focusable = true } }); vim.api.nvim_create_autocmd("BufEnter", { pattern = "*.rs", callback = function() local ok, _ = pcall(vim.lsp.buf.inlay_hint, 0, true) if not ok then end end }); vim.api.nvim_create_autocmd("TextYankPost", { callback = function() vim.highlight.on_yank({ higroup = "@boolean", timeout = 150, }) end, })
-vim.keymap.set({ "n", "x" }, "<C-d>", "<C-d>zz", { noremap = true, silent = true })
-vim.keymap.set({ "n", "x" }, "<C-u>", "<C-u>zz", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true }); vim.diagnostic.config({ virtual_text = { prefix = "■", spacing = 6, hl_mode = "combine", format = function(d) return string.format("%s [%s]", d.message, d.source or d.code or "") end }, signs = true, underline = true, update_in_insert = false, severity_sort = true, float = { border = "rounded", header = "Diagnostic(s):", source = "always", focusable = true } }); vim.api.nvim_create_autocmd("BufEnter", { pattern = "*.rs", callback = function() local ok, _ = pcall(vim.lsp.buf.inlay_hint, 0, true) if not ok then end end }); vim.api.nvim_create_autocmd("TextYankPost", { callback = function() vim.highlight.on_yank({ higroup = "@boolean", timeout = 150, }) end, })

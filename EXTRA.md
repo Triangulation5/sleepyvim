@@ -136,6 +136,9 @@ vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "NvimTreeNormalNC", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#3a3a3a" })
+
+-- Add this for a blinking cursor in insert mode:
+gcr = "a:block,i:blinkon500-blinkoff500"
 ```
 
 ## Extra: Keymaps

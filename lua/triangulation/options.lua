@@ -1,0 +1,15 @@
+vim.cmd([[set mouse=]])
+if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; vim.opt.shortmess:append("I"); local opt = vim.opt for k, v in pairs({ nu = true, rnu = true, nuw = 4,
+    scl = "yes",
+    ts = 4, sts = 4, sw = 4, et = true,
+    si = true, bri = true,
+    list = true, lcs = { tab = "  ", trail = "·", extends = "›", precedes = "‹", nbsp = "␣" }, scs= true, hls = false, is = true,
+    bg = "dark", gcr = "a:block",
+    ut = 50, tm = 150,
+    so = 8, siso = 8,
+    winborder = "rounded", cb = "unnamedplus",
+    cot = { "menuone", "noselect" },
+    cole = 0, ph = 10, pb = 0,
+    winbl = 0, swf = false, sd = "", ru = false,
+    title = true, titlelen = 0, cc = "80",
+}) do opt[k] = v end ; opt.fcs:append({ eob = " ", stl = " ", horiz = "─", horizup = "┴", horizdown = "┬", vert = "│", vertleft = "┤", vertright = "├", verthoriz = "┼", trunc = "›", truncrl = "‹" })

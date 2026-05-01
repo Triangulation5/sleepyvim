@@ -17,10 +17,6 @@
       "rev": "be81509b7160aa02264a59789164a2e1c4a6750a",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
-    "neovim": {
-      "rev": "6a961effd67f6130d36df6d1c05c48c739796dd2",
-      "src": "https://github.com/rose-pine/neovim"
-    },
     "nvim-lspconfig": {
       "rev": "31026a13eefb20681124706a79fc1df6bf11ab27",
       "src": "https://github.com/neovim/nvim-lspconfig"
@@ -32,10 +28,6 @@
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
-    },
-    "showkeys": {
-      "rev": "cb0a50296f11f1e585acffba8c253b9e8afc1f84",
-      "src": "https://github.com/nvzone/showkeys"
     },
     "telescope-ui-select.nvim": {
       "rev": "6e51d7da30bd139a6950adf2a47fda6df9fa06d2",

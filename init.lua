@@ -35,7 +35,7 @@ for _, m in ipairs({
     { "n", "<leader>d", function() vim.diagnostic.open_float(nil, { scope = "l" }) end, "+1 Show Diagnostic" }, { "n", "<leader>da", function() vim.diagnostic.setqflist({ open = true, title = "Diagnostics"}) end, "Show Diagnostics in Quickfix"}, { "n", "<C-q>", ":copen<CR>", "Opens Quickfix"},
     { { "n", "v" }, "d", '"_d', "Delete (no yank)" },
     { { "n", "v" }, "c", '"_c', "Change (no yank)" },
-    { "n", "<C-p>", function() vim.cmd('botright split term://powershell') end, "PowerShell" }, { "n", "<leader>ti", function() vim.notify(string.format("Time: %s | Date: %s | %s", os.date("%I:%M:%S %p"), os.date("%Y-%m-%d"), os.date("%A")), vim.log.levels.INFO, { title = "Clock" }) end, "Time" },
+    { "n", "<leader>p", function() vim.cmd('botright split term://powershell') end, "PowerShell" }, { "n", "<leader>ti", function() vim.notify(string.format("Time: %s | Date: %s | %s", os.date("%I:%M:%S %p"), os.date("%Y-%m-%d"), os.date("%A")), vim.log.levels.INFO, { title = "Clock" }) end, "Time" },
     { "n", "x", '"_x', "Cut (no yank)" }, { "n", "<leader>y", function() if vim.fn.executable("yazi")==1 then local buf=vim.api.nvim_create_buf(false,true); local w,h=math.floor(vim.o.columns*0.9),math.floor(vim.o.lines*0.85); local r,c=math.floor((vim.o.lines-h)/2),math.floor((vim.o.columns-w)/2); local win=vim.api.nvim_open_win(buf,true,{relative="editor",width=w,height=h,row=r,col=c,style="minimal",border="rounded"}); vim.cmd("terminal powershell yazi") else vim.notify("yazi not found",vim.log.levels.WARN) end end, "Yazi" },
     { "n", "<leader>u", "<cmd>UndotreeToggle<CR>", "Toggle Undotree" }, { "n", "<leader>a", ":edit #<CR>", "Switch to alternative buffer"},
 }) do vim.keymap.set(m[1], m[2], m[3], { desc = m[4] }) end

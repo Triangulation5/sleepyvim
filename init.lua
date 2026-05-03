@@ -71,18 +71,7 @@ require("mason").setup(); require("oil").setup({ default_file_explorer = true, c
 
 require("vague"); vim.cmd.colorscheme("vague")
 
-require("telescope").setup({
-    defaults = {
-        preview = { treesitter = false },
-        sorting_strategy = "ascending",
-        prompt_prefix = "» ",
-        selection_caret = "  ",
-        borderchars = { "", "", "", "", "", "", "", "" },
-        path_displays = { "smart" },
-        layout_config = { height = 100, width = 400, prompt_position = "top", preview_cutoff = 40 },
-        history = false,
-    }
-})
+require("telescope").setup({ defaults = { preview = { treesitter = false }, sorting_strategy = "ascending", prompt_prefix = "» ", selection_caret = "  ", borderchars = { "", "", "", "", "", "", "", "" }, path_displays = { "smart" }, layout_config = { height = 100, width = 400, prompt_position = "top", preview_cutoff = 40 }, history = false } })
 require("telescope").load_extension("ui-select")
 
 vim.lsp.enable({ "pyright", "ruff", "gopls", "rust_analyzer", "marksman", "vtsls", "tinymist" })

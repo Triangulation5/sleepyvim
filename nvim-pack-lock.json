@@ -14,7 +14,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "be81509b7160aa02264a59789164a2e1c4a6750a",
+      "rev": "0f339bf5c93f392dc5d2417d47d7b9edc5f96fe8",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
     "nvim-lspconfig": {
@@ -34,7 +34,7 @@
       "src": "https://github.com/nvim-telescope/telescope-ui-select.nvim"
     },
     "telescope.nvim": {
-      "rev": "506338434fec5ad19cb1f8d45bf92d66c4917393",
+      "rev": "ec009610d5d259ec59a6edf0219ef3f7ee4732e5",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "typst-preview.nvim": {

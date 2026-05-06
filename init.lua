@@ -11,7 +11,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; vim.opt.short
     cot = { "menuone", "noselect" },
     cole = 0, ph = 10, pb = 0,
     winbl = 0, swf = false, sd = "", ru = false,
-    title = true, titlelen = 0, cc = "80",
+    title = true, titlelen = 0,
 }) do opt[k] = v end ; opt.fcs:append({ eob = " ", stl = " ", horiz = "─", horizup = "┴", horizdown = "┬", vert = "│", vertleft = "┤", vertright = "├", verthoriz = "┼", trunc = "›", truncrl = "‹" })
 
 for _, m in ipairs({

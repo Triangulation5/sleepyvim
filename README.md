@@ -24,17 +24,17 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
 
 ## Features
 
-- ⚡ Fast startup using `vim.pack.add()`
-- 🧼 Clean UI with custom `fillchars`, `guicursor`, and `winblend`
-- ⌨️ Keymap-driven workflow with no-yank deletes, quick buffer cycling, Harpoon nav, and LSP integration
-- 🛠️ Language support for Python, Go, and more via native LSP
-- 🧩 Minimal plugin set using:
+- Fast startup using `vim.pack.add()`
+- Clean UI with custom `fillchars`, `guicursor`, and `winblend`
+- Keymap-driven workflow with no-yank deletes, quick buffer cycling, Harpoon nav, and LSP integration
+- Language support for Python, Go, and more via native LSP
+- Minimal plugin set using:
   - `mini.nvim` suite
   - `oil.nvim`
   - `mason.nvim`
   - Picker interface via `Telescope`
-- 🎨 Nice colorscheme (`vague`)
-- 🧠 Smart formatting dispatch per filetype (`ruff`, `gofmt`, etc.)
+- Nice colorscheme (`vague`)
+- Smart formatting dispatch per filetype (`ruff`, `gofmt`, etc.)
   - Built-in support for Python, Go, Rust, Typst, and Markdown files.
 
 ---
@@ -103,14 +103,11 @@ Managed via [`vim.pack.add`](https://neovim.io/doc/user/repeat.html#vim.pack):
 | Key              | Action                     |
 |------------------|----------------------------|
 | `<leader>lf`     | Format via LSP             |
-| `<leader>ca`     | Format + clean (Go/Python) |
+| `<leader>fa`     | Code Actions               |
 
 ### UI
 | Key              | Action                     |
 |------------------|----------------------------|
-| `<leader>t`      | Cycle color schemes        |
-| `<leader>tt`     | Toggle transparency        |
-| `<leader>ta`     | Enable cursor animations   |
 | `<leader>wz`     | Zoom current window        |
 
 ### Editing Behavior

@@ -11,7 +11,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; vim.opt.short
     cot = { "menuone", "noselect" },
     cole = 0, ph = 10, pb = 0,
     winbl = 0, swf = false, sd = "", ru = false,
-    title = true, titlelen = 0,
+    title = true, titlestring = "nvim", titlelen = 0,
 }) do opt[k] = v end ; opt.fcs:append({ eob = " ", stl = " ", horiz = "─", horizup = "┴", horizdown = "┬", vert = "│", vertleft = "┤", vertright = "├", verthoriz = "┼", trunc = "›", truncrl = "‹" })
 
 for _, m in ipairs({
@@ -21,7 +21,7 @@ for _, m in ipairs({
     { "n", "<leader>fb", function() require('telescope.builtin').buffers() end, "Telescope: Buffers" },
     { "n", "<leader>h", function() require('telescope.builtin').help_tags() end, "Telescope: Help" },
     { "n", "<leader>fd", function() require('telescope.builtin').diagnostics() end, "Telescope: Diagnostics" },
-    { "n", "<leader>fr", function() require('telescope.builtin').lsp_references() end, "Telescope: References" }, { "n", "<leader>st", function() require('telescope.builtin').builtin() end, "Telescope: Builtin" },
+    { "n", "<leader>fr", function() require('telescope.builtin').lsp_references() end, "Telescope: References" }, { "n", "<leader>st", function() require('telescope.builtin').builtin() end, "Telescope: Builtin" }, { "n", "<leader>fs", function() require('telescope.builtin').grep_string({ search = vim.fn.input("Grep > ") }) end, "Telescope: Grep String" },
     { "n", "<leader>fa", ":lua vim.lsp.buf.code_action()<CR>", "Telescope: Code Actions" },
     { "n", "<leader>e", ":Oil<CR>", "Oil: Explorer" },
     { "n", "<leader>ef", function() MiniFiles.open() end, "MiniFiles" },

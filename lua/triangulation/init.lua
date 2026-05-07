@@ -12,6 +12,7 @@ vim.pack.add({
     { src = "https://github.com/mbbill/undotree" },
     { src = "https://github.com/chomosuke/typst-preview.nvim" },
     { src = "https://github.com/rose-pine/neovim" },
+    { src = "https://github.com/copilotlsp-nvim/copilot-lsp" },
 })
 
 require("triangulation.options")

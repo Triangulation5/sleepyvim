@@ -15,7 +15,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; vim.opt.short
 }) do opt[k] = v end ; opt.fcs:append({ eob = " ", stl = " ", horiz = "─", horizup = "┴", horizdown = "┬", vert = "│", vertleft = "┤", vertright = "├", verthoriz = "┼", trunc = "›", truncrl = "‹" })
 
 for _, m in ipairs({
-    { "n", "<leader>w", function() require("mini.trailspace").trim(); require("mini.trailspace").trim_last_lines(); vim.cmd.write() end, "+1 Trim & Save" }, { "n", "<leader>q", ":q<CR>", "Quit" }, { "n", "<leader>wq", function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() vim.cmd("xa") end, "Save & Quit" },
+    { "n", "<leader>w", function() require("mini.trailspace").trim(); require("mini.trailspace").trim_last_lines(); vim.cmd.write() end, "+1 Trim & Save" }, { "n", "<leader>q", ":q<CR>", "Quit" }, { "n", "<leader>wq", function() require("mini.trailspace").trim(); require("mini.trailspace").trim_last_lines(); vim.cmd("xa") end, "Save & Quit" },
     { "n", "<leader>f", function() telescope().find_files() end, "Telescope: Files" },
     { "n", "<leader>fg", function() telescope().live_grep() end, "Telescope: Grep" },
     { "n", "<leader>fb", function() telescope().buffers() end, "Telescope: Buffers" },

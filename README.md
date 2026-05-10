@@ -8,17 +8,17 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
 
 ## Configuration Screenshots
 
-### MiniFiles Explorer
-![MiniFiles](screenshots/configuration0.png)
-
-### blink.cmp Autocomplete
-![blink.cmp](screenshots/configuration1.png)
-
-### MiniPick File Picker
-![MiniPick](screenshots/configuration2.png)
-
-### Diagnostics & LSP Info
-![Diagnostics](screenshots/configuration3.png)
+<!-- ### MiniFiles Explorer -->
+<!-- ![MiniFiles](screenshots/configuration0.png) -->
+<!---->
+<!-- ### blink.cmp Autocomplete -->
+<!-- ![blink.cmp](screenshots/configuration1.png) -->
+<!---->
+<!-- ### MiniPick File Picker -->
+<!-- ![MiniPick](screenshots/configuration2.png) -->
+<!---->
+<!-- ### Diagnostics & LSP Info -->
+<!-- ![Diagnostics](screenshots/configuration3.png) -->
 
 ---
 

@@ -3,7 +3,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; vim.opt.short
     scl = "yes",
     ts = 4, sts = 4, sw = 4, et = true,
     si = true, bri = true,
-    list = true, lcs = { tab = "  ", trail = "·", extends = "›", precedes = "‹", nbsp = "␣" }, scs= true, hls = false, is = true,
+    list = true, lcs = { tab = "  ", trail = "·", extends = "›", precedes = "‹", nbsp = "␣" }, scs = true, hls = false, is = true,
     bg = "dark", gcr = "a:block",
     ut = 50, tm = 250,
     so = 8, siso = 8,

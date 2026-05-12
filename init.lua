@@ -5,7 +5,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; vim.opt.short
     si = true, bri = true,
     list = true, lcs = { tab = "  ", trail = "·", extends = "›", precedes = "‹", nbsp = "␣" }, scs= true, hls = false, is = true,
     bg = "dark", gcr = "a:block",
-    ut = 50, tm = 150,
+    ut = 50, tm = 250,
     so = 8, siso = 8,
     winborder = "rounded", cb = "unnamedplus",
     cot = { "menuone", "noselect" },

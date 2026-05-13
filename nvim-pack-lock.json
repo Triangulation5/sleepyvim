@@ -46,7 +46,7 @@
       "src": "https://github.com/mbbill/undotree"
     },
     "vague.nvim": {
-      "rev": "24cd29d277bf5259ab347c49d223d8cfb9057565",
+      "rev": "fd58046b9d64259d9785e4aeb6d6f494c6943cad",
       "src": "https://github.com/vague-theme/vague.nvim",
       "version": "'24cd29d'"
     }

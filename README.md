@@ -1,4 +1,26 @@
 # Neovim v0.12.0 Configuration
+
+<!--toc:start-->
+- [Neovim v0.12.0 Configuration](#neovim-v0120-configuration)
+  - [This configuration only works in Neovim v0.12.0+](#this-configuration-only-works-in-neovim-v0120)
+  - [NVIM v0.12.0-dev-1215+ga897cc17a5](#nvim-v0120-dev-1215ga897cc17a5)
+  - [Configuration Screenshots](#configuration-screenshots)
+  - [Features](#features)
+  - [Requirements](#requirements)
+  - [Getting Started](#getting-started)
+  - [Plugin Architecture](#plugin-architecture)
+  - [Key Bindings](#key-bindings)
+    - [General](#general)
+    - [File Navigation](#file-navigation)
+    - [LSP](#lsp)
+    - [UI](#ui)
+    - [Editing Behavior](#editing-behavior)
+  - [Language Support](#language-support)
+  - [UI & Colors](#ui-colors)
+  - [Notes](#notes)
+  - [License](#license)
+<!--toc:end-->
+
 ## This configuration only works in Neovim v0.12.0+
 ## NVIM v0.12.0-dev-1215+ga897cc17a5
 
@@ -8,6 +30,7 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
 
 ## Configuration Screenshots
 
+<!-- Need to update the screenshots for this configuration. -->
 <!-- ### MiniFiles Explorer -->
 <!-- ![MiniFiles](screenshots/configuration0.png) -->
 <!---->

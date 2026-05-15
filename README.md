@@ -71,7 +71,7 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
   - Go: `gofmt`
   - Rust: `rust-analyzer`, `cargo`
   - Typst: `tinymist`, `typst`
-  - Shell/git tools: `lazygit`, `yazi`
+  - Shell/git tools: `glow`, `yazi`
 
 ## Getting Started
 

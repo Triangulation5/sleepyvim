@@ -28,7 +28,7 @@ return {
                 }
             })
             require("mini.files").setup({
-                windows = { preview = true, width_focus = 50, width_nofocus = 15, width_preview = 25, },
+                windows = { preview = true, width_focus = 50, width_nofocus = 15, width_preview = 25 },
             })
             local mode_map = {
                 n = "NORMAL",
@@ -141,10 +141,22 @@ return {
                     end
                 }
             })
-            local lt_opts = { action = 'open', pair = '<>', neigh_pattern = '\r.', register = { cr = false }, }
-            MiniPairs.map('i', '<', lt_opts)
-            local gt_opts = { action = 'close', pair = '<>', register = { cr = false } }
-            MiniPairs.map('i', '>', gt_opts)
+          local lt_opts = {
+            action = 'open',
+            pair = '<>',
+            neigh_pattern = '\r.',
+            register = { cr = false },
+          }
+          MiniPairs.map('i', '<', lt_opts)
+          local gt_opts = { action = 'close', pair = '<>', register = { cr = false } }
+          MiniPairs.map('i', '>', gt_opts)
+          local map_typ = function()
+            MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' })
+          end
+          vim.api.nvim_create_autocmd(
+            'FileType',
+            { pattern = 'typst', callback = map_typ }
+          )
             local mg = require("mini.git")
             mg.enable()
             local s = function(f)

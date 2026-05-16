@@ -14,5 +14,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     spec = "triangulation.lazy",
-    change_detection = { notify = false },
+    change_detection = { notify = true },
+    ui = {
+        border = "none",
+    }
 })

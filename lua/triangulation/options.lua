@@ -7,7 +7,7 @@ if vim.loader then vim.loader.enable() end; vim.opt.shortmess:append("I"); local
     bg = "dark", gcr = "a:block",
     ut = 50, tm = 250,
     so = 8, siso = 8,
-    winborder = "none", cb = "unnamedplus",
+    winborder = "rounded", cb = "unnamedplus",
     cot = { "menuone", "noselect" },
     cole = 0, ph = 10, pb = 0,
     winbl = 0, swf = false, sd = "", ru = false,

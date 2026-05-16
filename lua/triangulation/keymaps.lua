@@ -13,7 +13,7 @@ for _, m in ipairs({
     { "n", "<leader>e", ":Oil<CR>", "Oil: Explorer" },
     { "n", "<leader>ef", function() MiniFiles.open() end, "MiniFiles" },
     { { "n", "x" }, "<C-d>", "<C-d>zz", "Scroll Down" }, { { "n", "x" }, "<C-u>", "<C-u>zz", "Scroll Up" }, { "n", "n", "nzzzv", "Next search result" }, { "n", "N", "Nzzzv", "Previous search result" },
-    { "n", "<leader>lf", vim.lsp.buf.format, "LSP: Format" }, { "n", "<leader>i", [[<Cmd>tabedit .gitignore<CR>]], "Edit .gitignore" },
+    { "n", "<leader>lf", vim.lsp.buf.format, "LSP: Format" }, { "n", "<leader>i", [[<Cmd>tabedit .gitignore<CR>]], "Edit .gitignore" }, { "n", "<leader>l", ":Lazy<CR>", "Lazy" },
     { "n", "<leader>cm", ":Mason<CR>", "Open Mason" },
     { "n", "<leader>bn", ":bn<CR>", "Next Buffer" }, { "n", "<leader>tn", ":tabn<CR>", "Next Tab" },
     { "n", "<leader>bp", ":bp<CR>", "Prev Buffer" }, { "n", "<leader>tp", ":tabp<CR>", "Prev Tab" },

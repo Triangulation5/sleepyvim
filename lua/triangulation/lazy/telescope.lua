@@ -5,6 +5,7 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
         },
+        cmd = "Telescope",
         config = function()
             require("telescope").setup({
                 defaults = {
@@ -20,5 +21,13 @@ return {
             })
             require("telescope").load_extension("ui-select")
         end
+    },
+    {
+        "nvim-lua/plenary.nvim",
+        lazy = true,
+    },
+    {
+        "nvim-telescope/telescope-ui-select.nvim",
+        lazy = true,
     }
 }

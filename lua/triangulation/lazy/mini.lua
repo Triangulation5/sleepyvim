@@ -1,8 +1,9 @@
 return {
     {
         "echasnovski/mini.nvim",
+        event = "VeryLazy",
         config = function()
-            for _, m in ipairs({ "ai", "bracketed", "colors", "comment", "cmdline", "diff", "git", "icons", "jump", "jump2d", "misc", "move", "pairs", "splitjoin", "surround", "tabline", "trailspace" }) do
+            for _, m in ipairs({"ai","bracketed","cmdline","diff","git","icons","move","pairs","surround","trailspace"}) do
                 require("mini." .. m).setup()
             end
             require("mini.notify").setup({
@@ -61,6 +62,11 @@ return {
                 ["!"] = "SHELL",
                 t = "TERMINAL"
             }
+
+            require("mini.tabline").setup({
+                show_icons = true,
+                tabpage_section = "right"
+            })
             require("mini.statusline").setup({
                 use_icons = true,
                 content = {
@@ -145,9 +151,6 @@ return {
                 local d = mg.get_buf_data()
                 if d and d.head then pcall(f) end
             end
-            vim.keymap.set("n", "<leader>gh", function() s(mg.show_range_history) end, { desc = "Git History" })
-            vim.keymap.set("n", "<leader>gc", function() s(mg.show_at_cursor) end, { desc = "Git Cursor" })
-            vim.keymap.set("n", "<leader>gd", function() s(mg.show_diff_source) end, { desc = "Git Diff" })
 
             vim.notify = require("mini.notify").make_notify()
         end

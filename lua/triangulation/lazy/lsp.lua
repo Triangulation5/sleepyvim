@@ -4,6 +4,7 @@ return {
         dependencies = {
             "mason-org/mason.nvim",
         },
+        event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("mason").setup()
 
@@ -67,5 +68,9 @@ return {
                 end
             })
         end
+    },
+    {
+      "williamboman/mason.nvim",
+      cmd = "Mason",
     }
 }

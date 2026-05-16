@@ -5,6 +5,7 @@ return {
         dependencies = {
             "rafamadriz/friendly-snippets",
         },
+        event = "InsertEnter",
         config = function()
             require('blink.cmp').setup({
                 keymap = {
@@ -36,33 +37,10 @@ return {
                 fuzzy = { implementation = 'lua' },
                 signature = { enabled = true, trigger = { enabled = true }, window = { border = 'none', winblend = 0 } },
             });
-            for k, v in pairs({
-                BlinkCmpKindFunction = { fg = "#3b82f6", bg = "#3b82f6", bold = true },
-                BlinkCmpKindMethod = { fg = "#2563eb", bg = "#2563eb", bold = true },
-                BlinkCmpKindVariable = { fg = "#22c55e", bg = "#22c55e" },
-                BlinkCmpKindConstant = { fg = "#16a34a", bg = "#16a34a" },
-                BlinkCmpKindValue = { fg = "#15803d", bg = "#15803d" },
-                BlinkCmpKindField = { fg = "#4ade80", bg = "#4ade80" },
-                BlinkCmpKindProperty = { fg = "#86efac", bg = "#86efac" },
-                BlinkCmpKindClass = { fg = "#eab308", bg = "#eab308", bold = true },
-                BlinkCmpKindInterface = { fg = "#facc15", bg = "#facc15", bold = true },
-                BlinkCmpKindStruct = { fg = "#ca8a04", bg = "#ca8a04", bold = true },
-                BlinkCmpKindTypeParameter = { fg = "#fde047", bg = "#fde047" },
-                BlinkCmpKindModule = { fg = "#f97316", bg = "#f97316" },
-                BlinkCmpKindPackage = { fg = "#fb923c", bg = "#fb923c" },
-                BlinkCmpKindKeyword = { fg = "#ec4899", bg = "#ec4899" },
-                BlinkCmpKindOperator = { fg = "#db2777", bg = "#db2777" },
-                BlinkCmpKindSnippet = { fg = "#f43f5e", bg = "#f43f5e" },
-                BlinkCmpKindText = { fg = "#a3a3a3", bg = "#a3a3a3" },
-                BlinkCmpKindString = { fg = "#d4d4d4", bg = "#d4d4d4" },
-                BlinkCmpKindEnum = { fg = "#9333ea", bg = "#9333ea" },
-                BlinkCmpKindEnumMember = { fg = "#a855f7", bg = "#a855f7" },
-                BlinkCmpKindConstructor = { fg = "#0ea5e9", bg = "#0ea5e9" },
-                BlinkCmpKindBoolean = { fg = "#06b6d4", bg = "#06b6d4" },
-                BlinkCmpKindNumber = { fg = "#0891b2", bg = "#0891b2" }
-            }) do
-                vim.api.nvim_set_hl(0, k, v)
-            end;
         end
+    },
+    {
+      "rafamadriz/friendly-snippets",
+      lazy = true,
     }
 }

@@ -1,6 +1,7 @@
 return {
     {
         "mbbill/undotree",
+        cmd = "UndotreeToggle",
         config = function()
             vim.opt.undofile = true
             local u = vim.fn.stdpath("state") .. "/undo"

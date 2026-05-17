@@ -88,7 +88,8 @@ require("screenkey").setup({win_opts={row=(vim.o.lines-vim.o.cmdheight)/2-1,col=
 
 -- Add this for showkeys
 -- vim.pack.add(): { src = "https://github.com/nvzone/showkeys" },
-require("showkeys").setup({ position = "top-right", winopts = { border = "rounded" }, }); vim.api.nvim_create_autocmd("VimEnter", { callback = function() vim.cmd("ShowkeysToggle") end })
+-- options for position bottom-left, bottom-right, bottom-center, top-left, top-right, top-center
+require("showkeys").setup({ position = "bottom-center", winopts = { border = "rounded" }, maxkeys = 5, show_count = true }); vim.api.nvim_create_autocmd("VimEnter", { callback = function() vim.cmd("ShowkeysToggle") end })
 
 -- Add this for undotree: { src = "https://github.com/mbbill/undotree" },
 vim.opt.undofile = true; local u = vim.fn.stdpath("state") .. "/undo"; vim.opt.undodir = u; vim.fn.mkdir(u, "p"); local t = u .. "/.last_cleanup"; local n = os.time(); local l = vim.fn.filereadable(t) == 1 and tonumber(vim.fn.readfile(t)[1]) or 0; if n - l > 86400 then for _, f in ipairs(vim.fn.glob(u .. "/*", true, true)) do if f ~= t then os.remove(f) end end; vim.fn.writefile({ tostring(n) }, t) end

@@ -232,3 +232,42 @@ gcr = "a:block,i:blinkon500-blinkoff500"
     -- Custom settings for catppuccin:
     require("catppuccin").setup({ flavour = "mocha", color_overrides = { mocha = { base = "#000000", mantle = "#000000", crust = "#000000" } }, integrations = { notify = true, mini = true }, no_italic = true, custom_highlights = function(colors) return { FloatBorder = { fg = colors.surface2, bg = colors.base }, NormalFloat = { bg = colors.base } } end })
 ```
+
+## Remade old start screen if you don't like the new builtin won
+
+```lua
+require('mini.starter').setup({
+  autoopen = true,
+  evaluate_single = true,
+
+  header = [[
+                    Nvim v0.12.2
+
+     Nvim is open source and freely distributable
+             https://neovim.io/#chat
+    ]],
+
+  query_updaters = '',
+  items = {
+    {
+      name = '',
+      action = '',
+      section = ''
+    },
+  },
+
+  footer = [[
+type    :help nvim<Enter>          if you are new!
+type    :checkhealth<Enter>        to optimize Nvim
+type    :q<Enter>                  to exit
+type    :help<Enter>               for help
+
+         Help poor children in Kuwasha!
+type    :help Kuwasha             for information
+]],
+
+  content_hooks = {
+    starter.gen_hook.aligning('center', 'center'),
+  },
+})
+```

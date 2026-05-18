@@ -196,6 +196,14 @@ gcr = "a:block,i:blinkon500-blinkoff500"
     { "n", "<leader>o", ":update<CR>:source<CR>", "Write and source file" },
     -- If you want oldfiles to work remove shada from the opt section.
     { "n", "<leader>fr", ":Pick oldfiles<CR>", "Pick: recent" },
+
+    -- Fake Harpoon
+    vim.keymap.set("n", "<leader>a", function() vim.cmd("argadd %") vim.cmd("argdedup") end)
+    vim.keymap.set("n", "<leader>e", function() vim.cmd.args() end)
+    vim.keymap.set("n", "<C-h>", function() vim.cmd("silent! 1argument") end)
+    vim.keymap.set("n", "<C-j>", function() vim.cmd("silent! 2argument") end)
+    vim.keymap.set("n", "<C-k>", function() vim.cmd("silent! 3argument") end)
+    vim.keymap.set("n", "<C-l>", function() vim.cmd("silent! 4argument") end)
 ```
 
 ## Extra: Themes

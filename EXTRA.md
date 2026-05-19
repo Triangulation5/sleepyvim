@@ -279,3 +279,31 @@ type    :help Kuwasha             for information
   },
 })
 ```
+
+## Nice autocmds
+
+```lua
+-- Highlight yanking (faster animation, yellow)
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank({ higroup = "@boolean", timeout = 150, visual = true })
+    end,
+});
+
+-- Another variant (slower animation, uses selection color)
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ timeout = 200, visual = true })
+	end,
+})
+
+-- Minimal fast variant
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank({ timeout = 100, visual = true })
+    end,
+});
+
+```

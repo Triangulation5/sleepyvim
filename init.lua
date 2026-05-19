@@ -26,7 +26,7 @@ for _, m in ipairs({
     { "n", "<leader>e", function() oil().open() end, "Oil: Explorer" },
     { "n", "<leader>ef", function() require("mini.files").setup({ windows = { preview = true }}); require("mini.files").open() end, "MiniFiles" },
     { "n", "<leader>wz", function() require("mini.misc").zoom() end, "Zoom Window" }, { "n", "<leader>wr", function() require("mini.misc").resize_window() end, "Resize Window" }, { { "n", "x", "o" }, "<leader>j", function() require("mini.jump2d").start() end, "MiniJump2d: Start jump" }, { { "n", "x" }, "<C-d>", "<C-d>zz", "Scroll Down" }, { { "n", "x" }, "<C-u>", "<C-u>zz", "Scroll Up" }, { "n", "n", "nzzzv", "Next search result" }, { "n", "N", "Nzzzv", "Previous search result" },
-    { "n", "<leader>lf", vim.lsp.buf.format, "LSP: Format" }, { "n", "<leader>i", [[<Cmd>tabedit .gitignore<CR>]], "Edit .gitignore" },
+    { "n", "<leader>lf", vim.lsp.buf.format, "LSP: Format" }, { "n", "<leader>i", [[<Cmd>tabedit .gitignore<CR>]], "Edit .gitignore" }, { "n", "<leader>p", ":TypstPreview<CR>", "Preview Typst File" },
     { "n", "<leader>cm", function() vim.cmd("Mason") end, "Open Mason" },
     { "n", "<leader>bn", ":bn<CR>", "Next Buffer" }, { "n", "<leader>tn", ":tabn<CR>", "Next Tab" },
     { "n", "<leader>bp", ":bp<CR>", "Prev Buffer" }, { "n", "<leader>tp", ":tabp<CR>", "Prev Tab" },

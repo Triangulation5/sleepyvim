@@ -280,7 +280,7 @@ type    :help Kuwasha             for information
 })
 ```
 
-## Nice autocmds
+## Nice autocmds and settings
 
 ```lua
 -- Highlight yanking (faster animation, yellow)
@@ -305,5 +305,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank({ timeout = 100, visual = true })
     end,
 });
+
+-- fillchars
+opt.fcs:append({ eob = " ", stl = " ", horiz = "─", horizup = "┴", horizdown = "┬", vert = "│", vertleft = "┤", vertright = "├", verthoriz = "┼", trunc = "›", truncrl = "‹" })
 
 ```

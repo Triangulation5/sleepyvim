@@ -12,7 +12,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " ";vim.opt.shortm
     cole = 0, ph = 10, pb = 0,
     winbl = 0, swf = false, sd = "", ru = false,
     title = true, titlestring = "nvim", titlelen = 0,
-}) do opt[k] = v end ; opt.fcs:append({ eob = " ", stl = " ", horiz = "─", horizup = "┴", horizdown = "┬", vert = "│", vertleft = "┤", vertright = "├", verthoriz = "┼", trunc = "›", truncrl = "‹" })
+}) do opt[k] = v end
 
 for _, m in ipairs({
     { "n", "<leader>w", function() require("mini.trailspace").trim(); require("mini.trailspace").trim_last_lines(); vim.cmd.write() end, "+1 Trim & Save" }, { "n", "<leader>q", ":q<CR>", "Quit" }, { "n", "<leader>wq", function() require("mini.trailspace").trim(); require("mini.trailspace").trim_last_lines(); vim.cmd("xa") end, "Save & Quit" },

@@ -17,10 +17,6 @@
       "rev": "4f6f84a96b076747b736d100388a8d7844771d7d",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
-    "neovim": {
-      "rev": "9504524e5ed0e326534698f637f9d038ba4cd0ee",
-      "src": "https://github.com/rose-pine/neovim"
-    },
     "nvim-lspconfig": {
       "rev": "81878de76c0de4ce289513734ad80c31ec7871b8",
       "src": "https://github.com/neovim/nvim-lspconfig"
@@ -32,10 +28,6 @@
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
-    },
-    "showkeys": {
-      "rev": "cb0a50296f11f1e585acffba8c253b9e8afc1f84",
-      "src": "https://github.com/nvzone/showkeys"
     },
     "telescope-ui-select.nvim": {
       "rev": "6e51d7da30bd139a6950adf2a47fda6df9fa06d2",
@@ -54,13 +46,9 @@
       "src": "https://github.com/mbbill/undotree"
     },
     "vague.nvim": {
-      "rev": "24cd29d277bf5259ab347c49d223d8cfb9057565",
+      "rev": "53b6060efb85a18c4587a39e5fb2c1071c719ab2",
       "src": "https://github.com/vague-theme/vague.nvim",
-      "version": "'24cd29d'"
-    },
-    "vessel.nvim": {
-      "rev": "249ef5dfa13a3392d4c2b3ae94a24f812ef299f0",
-      "src": "https://github.com/gcmt/vessel.nvim"
+      "version": "'53b6060'"
     }
   }
 }

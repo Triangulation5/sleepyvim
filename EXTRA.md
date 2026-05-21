@@ -155,6 +155,11 @@ vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#3a3a3a" })
     -- Koda theme
     { src = "https://github.com/oskarnurm/koda.nvim" },
 
+    -- Best commit hashes for Vague.nvim theme:
+    { src = "https://github.com/vague-theme/vague.nvim", version = "6c44ca6", }, -- Old but nice
+    { src = "https://github.com/vague-theme/vague.nvim", version = "24cd29d", }, -- Very clean more modern
+    { src = "https://github.com/vague-theme/vague.nvim", version = "53b6060", }, -- Old version
+
     { src = "https://github.com/ellisonleao/gruvbox.nvim" },
     -- Some things for Gruvbox:
     require("gruvbox").setup({ terminal_colors = true, transparent_mode = false, contrast = "hard" })

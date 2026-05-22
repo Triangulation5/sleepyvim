@@ -37,6 +37,8 @@ require("mini.clue").setup({
 })
 
 -- Add this to use mini.snippets using friendly-snippets or any other snippet plugin
+{ src = "https://github.com/rafamadriz/friendly-snippets" },
+
 require("mini.snippets").setup({
     snippets = { require("mini.snippets").gen_loader.from_lang() },
     mappings = {

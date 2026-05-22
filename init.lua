@@ -3,7 +3,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " ";vim.opt.shortm
     scl = "yes",
     ts = 4, sts = 4, sw = 4, et = true,
     si = true, bri = true,
-    list = true, lcs = { tab = "  ", trail = "·", extends = "›", precedes = "‹", nbsp = "␣" }, scs = true, hls = false, is = true,
+    scs = true, hls = false, is = true,
     bg = "dark", gcr = "a:block",
     ut = 50, tm = 250,
     so = 8, siso = 8,
@@ -44,7 +44,7 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/echasnovski/mini.nvim" },
-    { src = "https://github.com/vague-theme/vague.nvim", version = "53b6060", },
+    { src = "https://github.com/vague-theme/vague.nvim", version = "6c44ca6", },
     { src = "https://github.com/rafamadriz/friendly-snippets" },
     { src = "https://github.com/mbbill/undotree" },
     { src = "https://github.com/chomosuke/typst-preview.nvim" },
@@ -55,6 +55,7 @@ vim.opt.undofile = true; local u = vim.fn.stdpath("state") .. "/undo"; vim.opt.u
 for _,m in ipairs({"ai","bracketed","cmdline","diff","git","icons","move","pairs","pick","surround"}) do require("mini."..m).setup() end
 MiniIcons.tweak_lsp_kind(); MiniIcons.mock_nvim_web_devicons()
 require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 150 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } }) ; require("mini.tabline").setup({ show_icons = false, tabpage_section = "right" }); local lt_opts = { action = 'open', pair = '<>', neigh_pattern = '\r.', register = { cr = false }, }; MiniPairs.map('i', '<', lt_opts); local gt_opts = { action = 'close', pair = '<>', register = { cr = false } }; MiniPairs.map('i', '>', gt_opts); local map_typ = function() MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' }) end; vim.api.nvim_create_autocmd( 'FileType', { pattern = 'typst', callback = map_typ }); local mg = require("mini.git"); mg.enable(); local s = function(f) local d = mg.get_buf_data() if d and d.head then pcall(f) end end; vim.keymap.set("n", "<leader>gh", function() s(mg.show_range_history) end, { desc = "Git History" }); vim.keymap.set("n", "<leader>gc", function() s(mg.show_at_cursor) end, { desc = "Git Cursor" }); vim.keymap.set("n", "<leader>gd", function() s(mg.show_diff_source) end, { desc = "Git Diff" })
+require("mini.snippets").setup({ snippets = { require("mini.snippets").gen_loader.from_lang() }, mappings = { expand = "<C-j>", jump_next = "<Tab>", jump_prev = "<S-Tab>", stop = "<C-c>", }, }); require("mini.snippets").start_lsp_server({ match = false })
 
 vim.notify = require("mini.notify").make_notify()
 

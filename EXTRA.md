@@ -1,5 +1,12 @@
 # Extras:
 
+<!--toc:start-->
+- [Extras:](#extras)
+  - [Extra: Plugins](#extra-plugins)
+  - [Extra: Keymaps](#extra-keymaps)
+  - [Extra: Themes](#extra-themes)
+<!--toc:end-->
+
 ## Extra: Plugins
 
 ```lua
@@ -28,6 +35,19 @@ require("mini.clue").setup({
         delay = 200,
     },
 })
+
+-- Add this to use mini.snippets using friendly-snippets or any other snippet plugin
+require("mini.snippets").setup({
+    snippets = { require("mini.snippets").gen_loader.from_lang() },
+    mappings = {
+        expand = "<C-j>",
+        jump_next = "<Tab>",
+        jump_prev = "<S-Tab>",
+        stop = "<C-c>",
+    },
+})
+
+require("mini.snippets").start_lsp_server({ match = false })
 
 -- blink.cmp
 -- Install it using vim.pack.add(): { src = "https://github.com/Saghen/blink.cmp" },

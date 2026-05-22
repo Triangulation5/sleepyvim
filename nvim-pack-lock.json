@@ -10,15 +10,15 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "mason.nvim": {
-      "rev": "12ddd182d9efbdc848b540f16484a583d52da0fb",
+      "rev": "bb639d4bf385a4d89f478b83af4d770be05ab7eb",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "4f6f84a96b076747b736d100388a8d7844771d7d",
+      "rev": "a405061478d8027b4e21214d897ce1eb33115792",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "81878de76c0de4ce289513734ad80c31ec7871b8",
+      "rev": "a4ed4e761c400849e8c9f8bda33e5083f890268c",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "oil.nvim": {
@@ -46,9 +46,9 @@
       "src": "https://github.com/mbbill/undotree"
     },
     "vague.nvim": {
-      "rev": "53b6060efb85a18c4587a39e5fb2c1071c719ab2",
+      "rev": "6c44ca64a7efc89bb86f501602e6ddd51bc92b3a",
       "src": "https://github.com/vague-theme/vague.nvim",
-      "version": "'53b6060'"
+      "version": "'6c44ca6'"
     }
   }
 }

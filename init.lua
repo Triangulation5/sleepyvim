@@ -3,7 +3,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " ";vim.opt.shortm
     scl = "yes",
     ts = 4, sts = 4, sw = 4, et = true,
     si = true, bri = true,
-    scs = true, hls = false, is = true,
+    ic = true, scs = true, hls = false, is = true,
     bg = "dark", gcr = "a:block",
     ut = 50, tm = 250,
     so = 8, siso = 8,

@@ -51,7 +51,8 @@
     },
     "vague.nvim": {
       "rev": "24cd29d277bf5259ab347c49d223d8cfb9057565",
-      "src": "https://github.com/vague-theme/vague.nvim"
+      "src": "https://github.com/vague-theme/vague.nvim",
+      "version": "'24cd29d'"
     }
   }
 }

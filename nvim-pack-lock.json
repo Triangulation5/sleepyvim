@@ -21,6 +21,10 @@
       "rev": "a4ed4e761c400849e8c9f8bda33e5083f890268c",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
+    "nvim-web-devicons": {
+      "rev": "0d7d35fa946837b8738b17c18d1faa1ac351e7f9",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
     "oil.nvim": {
       "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
       "src": "https://github.com/stevearc/oil.nvim"
@@ -47,8 +51,7 @@
     },
     "vague.nvim": {
       "rev": "24cd29d277bf5259ab347c49d223d8cfb9057565",
-      "src": "https://github.com/vague-theme/vague.nvim",
-      "version": "'24cd29d'"
+      "src": "https://github.com/vague-theme/vague.nvim"
     }
   }
 }

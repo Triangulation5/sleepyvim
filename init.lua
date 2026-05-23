@@ -15,7 +15,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " ";vim.opt.shortm
 }) do opt[k] = v end
 
 for _, m in ipairs({
-    { "n", "<leader>w", function() require("mini.trailspace").trim(); require("mini.trailspace").trim_last_lines(); vim.cmd.update() end, "+1 Trim & Save" }, { "n", "<leader>q", ":q<CR>", "Quit" }, { "n", "<leader>wq", function() require("mini.trailspace").trim(); require("mini.trailspace").trim_last_lines(); vim.cmd("xa") end, "Save & Quit" },
+    { "n", "<leader>w", function() require("mini.trailspace").trim(); require("mini.trailspace").trim_last_lines(); vim.cmd.update() end, "Trim & Save" }, { "n", "<leader>q", ":q<CR>", "Quit" }, { "n", "<leader>wq", function() require("mini.trailspace").trim(); require("mini.trailspace").trim_last_lines(); vim.cmd("xa") end, "Save & Quit" },
     { "n", "<leader>f", ":Pick files<CR>", "Pick: Files" },
     { "n", "<leader>fg", ":Pick grep_live<CR>", "Pick: Grep" },
     { "n", "<leader>fw", function() MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>") }) end, "Pick: Word" },
@@ -44,20 +44,21 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/echasnovski/mini.nvim" },
-    { src = "https://github.com/vague-theme/vague.nvim", version = "24cd29d", },
+    { src = "https://github.com/vague-theme/vague.nvim" },
     { src = "https://github.com/mbbill/undotree" },
     { src = "https://github.com/chomosuke/typst-preview.nvim" },
+    { src = "https://github.com/nvim-tree/nvim-web-devicons" },
 })
 
 vim.opt.undofile = true; local u = vim.fn.stdpath("state") .. "/undo"; vim.opt.undodir = u; vim.fn.mkdir(u, "p"); local t = u .. "/.last_cleanup"; local n = os.time(); local l = vim.fn.filereadable(t) == 1 and tonumber(vim.fn.readfile(t)[1]) or 0; if n - l > 86400 then for _, f in ipairs(vim.fn.glob(u .. "/*", true, true)) do if f ~= t then os.remove(f) end end; vim.fn.writefile({ tostring(n) }, t) end; for i = 1, 8 do vim.keymap.set("n","<Leader>"..i,function()local b=vim.fn.getbufinfo({buflisted=1})[i]if b then vim.cmd.buffer(b.bufnr)end end,{silent=true});vim.keymap.set("t","<Leader>"..i,function()local b=vim.fn.getbufinfo({buflisted=1})[i]if b then vim.cmd("stopinsert");vim.cmd.buffer(b.bufnr)end end,{silent=true}) end; vim.g.undotree_WindowLayout = 3
 
-for _,m in ipairs({"ai","bracketed","cmdline","diff","git","icons","move","pairs","pick","surround"}) do require("mini."..m).setup() end
-MiniIcons.tweak_lsp_kind(); MiniIcons.mock_nvim_web_devicons()
+for _,m in ipairs({"ai","bracketed","cmdline","diff","git","move","pairs","pick","surround"}) do require("mini."..m).setup() end
+-- MiniIcons.tweak_lsp_kind(); MiniIcons.mock_nvim_web_devicons()
 require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 150 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } }) ; require("mini.tabline").setup({ show_icons = false, tabpage_section = "right" }); local lt_opts = { action = 'open', pair = '<>', neigh_pattern = '\r.', register = { cr = false }, }; MiniPairs.map('i', '<', lt_opts); local gt_opts = { action = 'close', pair = '<>', register = { cr = false } }; MiniPairs.map('i', '>', gt_opts); local map_typ = function() MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' }) end; vim.api.nvim_create_autocmd( 'FileType', { pattern = 'typst', callback = map_typ }); local mg = require("mini.git"); mg.enable(); local s = function(f) local d = mg.get_buf_data() if d and d.head then pcall(f) end end; vim.keymap.set("n", "<leader>gh", function() s(mg.show_range_history) end, { desc = "Git History" }); vim.keymap.set("n", "<leader>gc", function() s(mg.show_at_cursor) end, { desc = "Git Cursor" }); vim.keymap.set("n", "<leader>gd", function() s(mg.show_diff_source) end, { desc = "Git Diff" })
 
 vim.notify = require("mini.notify").make_notify()
 
-require("mason").setup(); oil_loaded, oil = false, function() if oil_loaded then return require("oil") end  require("oil").setup({ default_file_explorer = true, columns = { "icon" }, keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, use_default_keymaps = true, view_options = { show_hidden = true, is_hidden_file = function(name, bufnr) return name:match("^%.") ~= nil end, { "name", "asc" } }, float = { padding = 2, max_width = 0, max_height = 0, border = "rounded", win_options = { winblend = 0 }, get_win_title = nil, preview_split = "auto", override = function(conf) return conf end }, preview_win = { update_on_cursor_moved = true, preview_method = "fast_scratch", disable_preview = function() return false end, win_options = {} }, confirmation = { max_width = 0.9, min_width = { 40, 0.4 }, width = nil, max_height = 0.9, min_height = { 5, 0.1 }, height = nil, border = "rounded", win_options = { winblend = 0 } }, progress = { max_width = 0.9, min_width = { 40, 0.4 }, width = nil, max_height = { 10, 0.9 }, min_height = { 5, 0.1 }, height = nil, border = "rounded", minimized_border = "rounded", win_options = { winblend = 0 } }, ssh = { border = "rounded" }, keymaps_help = { border = "rounded" } }) oil_loaded = true return require("oil") end
+require("mason").setup(); oil_loaded, oil = false, function() if oil_loaded then return require("oil") end  require("oil").setup({ default_file_explorer = true, columns = { "icon" }, keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, use_default_keymaps = true, view_options = { show_hidden = false, is_hidden_file = function(name, bufnr) return name:match("^%.") ~= nil end, { "name", "asc" } }, float = { padding = 2, max_width = 0, max_height = 0, border = "rounded", win_options = { winblend = 0 }, get_win_title = nil, preview_split = "auto", override = function(conf) return conf end }, preview_win = { update_on_cursor_moved = true, preview_method = "fast_scratch", disable_preview = function() return false end, win_options = {} }, confirmation = { max_width = 0.9, min_width = { 40, 0.4 }, width = nil, max_height = 0.9, min_height = { 5, 0.1 }, height = nil, border = "rounded", win_options = { winblend = 0 } }, progress = { max_width = 0.9, min_width = { 40, 0.4 }, width = nil, max_height = { 10, 0.9 }, min_height = { 5, 0.1 }, height = nil, border = "rounded", minimized_border = "rounded", win_options = { winblend = 0 } }, ssh = { border = "rounded" }, keymaps_help = { border = "rounded" } }) oil_loaded = true return require("oil") end
 
 vim.cmd.colorscheme("vague"); require("vague").setup({ transparency = false })
 

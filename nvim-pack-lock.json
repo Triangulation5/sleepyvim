@@ -14,7 +14,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "a405061478d8027b4e21214d897ce1eb33115792",
+      "rev": "44657837c7338e52727facc85c1d95bec1f6bd7c",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
     "nvim-lspconfig": {
@@ -46,9 +46,9 @@
       "src": "https://github.com/mbbill/undotree"
     },
     "vague.nvim": {
-      "rev": "6c44ca64a7efc89bb86f501602e6ddd51bc92b3a",
+      "rev": "53b6060efb85a18c4587a39e5fb2c1071c719ab2",
       "src": "https://github.com/vague-theme/vague.nvim",
-      "version": "'6c44ca6'"
+      "version": "'53b6060'"
     }
   }
 }

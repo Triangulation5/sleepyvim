@@ -1,8 +1,42 @@
 # Neovim Nightly Configuration
+
+<!--toc:start-->
+- [Neovim Nightly Configuration](#neovim-nightly-configuration)
+  - [This configuration only works in Neovim Nightly](#this-configuration-only-works-in-neovim-nightly)
+  - [NVIM v0.12.0-dev-1215+ga897cc17a5](#nvim-v0120-dev-1215ga897cc17a5)
+  - [Configuration Screenshots](#configuration-screenshots)
+    - [MiniFiles Explorer](#minifiles-explorer)
+    - [blink.cmp Autocomplete](#blinkcmp-autocomplete)
+    - [MiniPick File Picker](#minipick-file-picker)
+    - [Diagnostics & LSP Info](#diagnostics-lsp-info)
+  - [Designed for](#designed-for)
+  - [Features](#features)
+  - [All plugins managed entirely through native vim.pack.add()](#all-plugins-managed-entirely-through-native-vimpackadd)
+    - [Installed Plugins:](#installed-plugins)
+    - [Included mini.nvim Modules](#included-mininvim-modules)
+    - [Requirements:](#requirements)
+    - [External Tools (optional but recommended):](#external-tools-optional-but-recommended)
+  - [Installation:](#installation)
+  - [Keymaps](#keymaps)
+    - [General](#general)
+    - [File Navigation](#file-navigation)
+    - [Window Management](#window-management)
+    - [Buffers & Tabs](#buffers-tabs)
+    - [Git](#git)
+    - [Diagnostics & LSP](#diagnostics-lsp)
+    - [Motion](#motion)
+    - [Editing](#editing)
+    - [Terminal Tools](#terminal-tools)
+    - [LSP Configuration](#lsp-configuration)
+  - [Philosophy](#philosophy)
+- [License](#license)
+<!--toc:end-->
+
 ## This configuration only works in Neovim Nightly
 ## NVIM v0.12.0-dev-1215+ga897cc17a5
 
 This is a high-performance, minimal, and extensible Neovim Nightly configuration designed around fast startup, sane defaults, and modern plugin architecture. Built for Neovim 0.10+.
+A fast, minimal, and modern Neovim configuration built entirely around native Neovim APIs, vim.pack, and the mini.nvim ecosystem.
 
 ---
 
@@ -20,154 +54,245 @@ This is a high-performance, minimal, and extensible Neovim Nightly configuration
 ### Diagnostics & LSP Info
 ![Diagnostics](screenshots/configuration3.png)
 
----
+## Designed for
+
+- Low startup latency
+- Minimal dependencies
+- Native LSP workflow
+- Keyboard-driven navigation
+- Lightweight extensibility
+- Terminal-centric development
+
+No Telescope. No Treesitter. No heavyweight plugin managers.
 
 ## Features
 
-- ⚡ Fast startup using `vim.loader`
-- 🧼 Clean UI with custom `fillchars`, `guicursor`, and `winblend`
-- ⌨️ Keymap-driven workflow with no-yank deletes, quick buffer cycling, Harpoon nav, and LSP integration
-- 🛠️ Language support for Lua, Python, and Go via native LSP
-- 🧩 Minimal plugin set using:
-  - `mini.nvim` suite
-  - `harpoon` (v2)
-    - You will have to clone it into your nvim-data:
-    - git clone --branch harpoon2 https://github.com/ThePrimeagen/harpoon.git
-  - `oil.nvim`
-  - `mason.nvim`
-  - `Pick` interface via `mini.pick`
-- 🎨 Built-in color scheme cycling (`tokyonight`, `rose-pine`, `vague`, etc.)
-- 🧠 Smart formatting dispatch per filetype (`ruff`, `gofmt`, etc.)
+- Native package management using vim.pack.add()
+- Fast startup using vim.loader
+- Minimal Lua-only configuration
+- Built around the mini.nvim ecosystem
+- Native Neovim completion (vim.lsp.completion)
+- Persistent undo history with automatic cleanup
+- Rounded floating windows everywhere
+- Integrated file explorer with oil.nvim
+- Floating terminal launcher
+- Typst preview support
+- Git integration using mini.git
+- Quickfix-driven diagnostics workflow
+- Smart no-yank editing mappings
+- Buffer navigation using <leader>1-8
+- Floating yazi and glow integration
 
----
+Built-in LSP support for:
+- Python
+- Go
+- TypeScript
+- Markdown
+- Typst
+- Plugin Architecture
 
-## Requirements
+## All plugins managed entirely through native vim.pack.add()
 
-- [Neovim Nightly](https://neovim.io/download/nightly) (v0.11+)
-- `git` for plugin installation via `vim.pack.add()`
-- Optional language-specific tools (Mason is intentionally left empty so you can configure your own):
-  - Python: `ruff`
-  - Go: `gofmt`
-  - Rust: `rust-analyzer`, `cargo`
-  - Shell/git tools: `lazygit`
+### Installed Plugins:
+- neovim/nvim-lspconfig
+- mason-org/mason.nvim
+- stevearc/oil.nvim
+- echasnovski/mini.nvim
+- vague-theme/vague.nvim
+- mbbill/undotree
+- chomosuke/typst-preview.nvim
 
-## Getting Started
+### Included mini.nvim Modules
+- mini.ai
+- mini.bracketed
+- mini.cmdline
+- mini.diff
+- mini.git
+- mini.icons
+- mini.jump2d
+- mini.move
+- mini.notify
+- mini.pairs
+- mini.pick
+- mini.surround
+- mini.tabline
+- mini.trailspace
+- mini.misc
+- mini.files
 
-1. Install [Neovim Nightly](https://neovim.io/download/nightly).
-2. Clone this configuration:
-   ```bash
-   git clone https://github.com/Triangulation5/minimalvim ~/.config/nvim
-   ```
----
+### Requirements:
+- Neovim Nightly (0.12+)
+- Git
 
-## Plugin Architecture
+### External Tools (optional but recommended):
 
-Managed via [`vim.pack.add`](https://neovim.io/doc/user/repeat.html#vim.pack):
+| Tool         | Purpose                                                |
+|------------- | ------------------------------------------------------ |
+| ruff         | Python linting/formatting                              |
+| gopls        | Go LSP                                                 |
+| pyright      | Python LSP                                             |
+| vtsls        | TypeScript LSP                                         |
+| tinymist     | Typst LSP                                              |
+| yazi         | Flating terminal file manager                          |
+| glow         | Markdown preview                                       |
+| typst        | Typst compiler                                         |
+| powershell   | Terminal integration on Windows (depends on your OS)   |
 
-- [`neovim/nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig)
-- [`mason-org/mason.nvim`](https://github.com/williamboman/mason.nvim)
-- [`stevearc/oil.nvim`](https://github.com/stevearc/oil.nvim)
-- [`echasnovski/mini.nvim`](https://github.com/echasnovski/mini.nvim)
-- [`vague2k/vague.nvim`](https://github.com/vague2k/vague.nvim)
-- [`rose-pine/neovim`](https://github.com/rose-pine/neovim)
-- [`folke/tokyonight`](https://github.com/folke/tokyonight.nvim)
-- [`Saghen/blink.cmp`](https://github.com/Saghen/blink.cmp)
+## Installation:
 
-Managed via [`mini.deps`](https://github.com/echasnovski/mini.deps):
+Linux / macOS
+```bash
+git clone https://github.com/Triangulation5/minimalvim ~/.config/nvim
+```
 
-- [`nvim-lua/plenary.nvim`](https://github.com/nvim-lua/plenary.nvim)
-- [`ThePrimeagen/harpoon`](https://github.com/ThePrimeagen/harpoon) (`harpoon2` branch)
+Windows (PowerShell)
+```pwsh
+git clone https://github.com/Triangulation5/minimalvim $env:LOCALAPPDATA\nvim
+```
 
----
-
-## Key Bindings
+## Keymaps
 
 ### General
-| Key                  | Action                               |
-|----------------------|--------------------------------------|
-| `<leader>w`          | Trim trailing space + save           |
-| `<leader>q`          | Quit                                 |
-| `<leader>b[n/p/d/f]` | Buffer next/prev/delete/delete force |
-| `<leader>cm`         | Open Mason                           |
-| `<C-p>`              | Open PowerShell terminal             |
-| `<leader>gg`         | Open LazyGit terminal                |
+
+| Key            | Action                             |
+|--------------- | ---------------------------------- |
+| <leader>w      | Trim whitespace and save           |
+| <leader>wq     | Save and quit                      |
+| <leader>q      | Quit                               |
+| <leader>cm     | Open Mason                         |
+| <leader>u      | Toggle Undotree                    |
+| <leader>a      | Alternate buffer                   |
+| <leader>ti     | Show time/date                     |
+| <leader>n      | Enter :norm command (for sweats)   |
 
 ### File Navigation
-| Key              | Action                |
-|------------------|-----------------------|
-| `<leader>f`      | Pick files            |
-| `<leader>fb`     | Pick buffers          |
-| `<leader>fg`     | Pick grep_live        |
-| `<leader>fc`     | Pick colorschemes     |
-| `<leader>fw`     | Pick word             |
-| `<leader>h`      | Pick help             |
-| `<leader>e`      | Open Oil              |
-| `<leader>ef`     | Open MiniFiles        |
 
-### Harpoon
-| Key              | Action                |
-|------------------|-----------------------|
-| `<leader>a`      | Add to Harpoon        |
-| `<C-e>`          | Toggle menu           |
-| `<C-h/t/n/s>`    | Select slot 1–4       |
-| `<leader>hx`     | Clear list            |
+| Key            | Action               |
+|--------------- | -------------------- |
+| <leader>f      | Pick files           |
+| <leader>fg     | Live grep            |
+| <leader>fw     | Grep current word    |
+| <leader>fb     | Pick buffers         |
+| <leader>h      | Help picker          |
+| <leader>k      | Keymap picker        |
+| <leader>e      | Oil file explorer    |
+| <leader>ef     | MiniFiles explorer   |
 
-### LSP
-| Key              | Action                     |
-|------------------|----------------------------|
-| `<leader>lf`     | Format via LSP             |
-| `<leader>ca`     | Format + clean (Go/Python) |
+### Window Management
 
-### UI
-| Key              | Action                     |
-|------------------|----------------------------|
-| `<leader>t`      | Cycle color schemes        |
-| `<leader>tt`     | Toggle transparency        |
-| `<leader>ta`     | Enable cursor animations   |
-| `<leader>wz`     | Zoom current window        |
+| Key   | Action    |
+|--------------- | --------------- |
+| <leader>wz   | Zoom Window   |
+| <leader>wr   | Resize window   |
 
-### Editing Behavior
-| Key              | Action                              |
-|------------------|-------------------------------------|
-| `d/c/x`          | Mapped to blackhole register (`"_`) |
-| Visual `d/c`     | Same as above                       |
+### Buffers & Tabs
 
----
+| Key   | Action    |
+|--------------- | --------------- |
+| <leader>bn   | Next buffer   |
+| <leader>bp   | Previous buffer   |
+| <leader>bd   | Delete buffer   |
+| <leader>bf   | Force delete buffer   |
+| <leader>ba   | Wipe all buffers |
+| <leader>tn   | Next tab |
+| <leader>tp   | Previous tab |
+| <leader>tc   | Close tab |
+| <leader>tf   | Close other tabs |
 
-## Language Support
+### Git
 
-Configured LSPs:
+| Key | Action |
+| -------------- | --------------- |
+| <leader>gh | Git history |
+| <leader>gc | Git cursor history |
+| <leader>gd | Git diff source |
 
-- **Lua** (`lua_ls`)
-- **Python** (`pyright`, `ruff`)
-- **Go** (`gopls` with staticcheck and param analysis)
-- **Rust** (`rust_analyzer`)
+### Diagnostics & LSP
 
-Custom `LspAttach` handler enables completion autotriggering. (Could optionally use blink.cmp).
+| Key | Action |
+| -------------- | --------------- |
+| <leader>lf | Format buffer |
+| <leader>da | Diagnostics → quickfix|
+| <C-q> | Open quickfix |
 
----
+### Motion
 
-## UI & Colors
+| Key   | Action    |
+|--------------- | --------------- |
+| <leader>j   | Jump2d   |
+| <C-d>   | Scroll down and center   |
+| <C-u>   | Scroll up and center   |
+| n   | Next search result centered   |
+| N | Previous search result centered |
 
-Themes supported:
+### Editing
 
-- `rose-pine`
-- `tokyonight`
-- `vague` (with custom statusline)
-- `retrobox` (built-in fallback theme)
+| Key | Action |
+| -------------- | --------------- |
+| d | Delete without yanking |
+| c | Change without yanking |
+| x | Cut without yanking |
 
-Cycle using `<leader>t`.
+### Terminal Tools
 
----
+| Key | Action |
+| -------------- | --------------- |
+| <M-t> | Floating Powershell |
+| <leader>y | Floating Yazi |
+| <leader>g | Floating Glow |
 
-## Notes
+### LSP Configuration
 
-- Filetype-specific formatters are dispatched using `jobstart`, with auto-reload.
-- Assumes Lazygit is installed.
-- No telescope, cmp, lualine, or treesitter used — intentional minimalism via `mini.nvim`.
+Enabled Servers:
+| Language   | LSP    |
+|--------------- | --------------- |
+| Python   | pyright, ruff   |
+| Go   | gopls   |
+| Markdown   | marksman   |
+| TypstScript / JavaScript   | vtsls   |
+| Typst   | tinymist    |
 
----
+Features:
+- Native completion autotrigger
+- Diagnostics with rounded floating windows
+- Quickfix integration
+- Severity sorting
+- Underlines and signs enabled
+- Custom diagnostic formatting
+- UI Design
+- Configuration Choices
+- Rounded borders everywhere
+- Minimal visual clutter
+- No statusline plugin
+- Native tabline via mini.tabline
+- vague.nvim colorscheme
+- Hidden startup intro
+- Relative line numbers
+- Persistent undo
+- Integrated notifications via mini.notify
+- Typst Support
 
-## License
+Includes:
+
+tinymist LSP
+typst-preview.nvim
+Automatic Typst pair mappings
+
+Preview command:
+```vimscript
+:TypstPreview
+```
+
+## Philosophy
+
+This configuration intentionally avoids:
+- Telescope
+- Treesitter
+- Heavy completion frameworks
+- Large plugin dependency graphs
+- Lua framework abstractions
+The goal is to stay close to upstream Neovim while still providing a modern editing experience.
+
+# License
 
 MIT

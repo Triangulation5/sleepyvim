@@ -44,7 +44,7 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/echasnovski/mini.nvim" },
-    { src = "https://github.com/vague-theme/vague.nvim", version = "6c44ca6", },
+    { src = "https://github.com/vague-theme/vague.nvim", version = "53b6060", },
     { src = "https://github.com/mbbill/undotree" },
     { src = "https://github.com/chomosuke/typst-preview.nvim" },
 })

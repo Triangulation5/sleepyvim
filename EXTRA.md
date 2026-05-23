@@ -5,6 +5,7 @@
   - [Extra: Plugins](#extra-plugins)
   - [Extra: Keymaps](#extra-keymaps)
   - [Extra: Themes](#extra-themes)
+    - [Extra: Mini Pick Configurations:](#extra-mini-pick-configurations)
 <!--toc:end-->
 
 ## Extra: Plugins
@@ -191,4 +192,162 @@ vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#3a3a3a" })
     { src = "https://github.com/catppuccin/nvim" },
     -- Custom settings for catppuccin:
     require("catppuccin").setup({ flavour = "mocha", color_overrides = { mocha = { base = "#000000", mantle = "#000000", crust = "#000000" } }, integrations = { notify = true, mini = true }, no_italic = true, custom_highlights = function(colors) return { FloatBorder = { fg = colors.surface2, bg = colors.base }, NormalFloat = { bg = colors.base } } end })
+```
+
+### Extra: Mini Pick Configurations:
+```lua
+-- Default configuration with different prompt prefix and caret
+require("mini.pick").setup({ window = { config = nil, prompt_caret = '█ ', prompt_prefix = '» ', }, })
+
+-- Cursor attached search bar
+require("mini.pick").setup({ window = { config = { relative = 'cursor', anchor = 'NW', row = 0, col = 0, width = 40, heiht}, prompt_prefix = '» ', }, })
+
+-- Another Cursor attached micro picker
+require("mini.pick").setup({
+  window = {
+    config = {
+      relative = "cursor",
+      anchor = "NW",
+      row = 1,
+      col = 0,
+      width = 50,
+      height = 12,
+      border = "single",
+    },
+    prompt_prefix = "» ",
+  },
+})
+
+-- Floating command-palette style
+require("mini.pick").setup({
+  window = {
+    config = {
+      relative = "editor",
+      anchor = "NW",
+      width = math.floor(vim.o.columns * 0.42),
+      height = math.floor(vim.o.lines * 0.48),
+      row = math.floor(vim.o.lines * 0.18),
+      col = math.floor(vim.o.columns * 0.29),
+      border = "rounded",
+    },
+    prompt_prefix = "   ",
+  },
+})
+
+-- Minimalist transparent sidebar (super cool)
+require("mini.pick").setup({
+  window = {
+    config = {
+      relative = "editor",
+      anchor = "NE",
+      width = 42,
+      height = vim.o.lines - 4,
+      row = 1,
+      col = vim.o.columns,
+      border = "none",
+    },
+    prompt_prefix = "▌ ",
+  },
+})
+
+-- Telescope-like centered layout
+require("mini.pick").setup({
+  window = {
+    config = function()
+      local height = math.floor(0.45 * vim.o.lines)
+      local width = math.floor(0.55 * vim.o.columns)
+      return {
+        anchor = "NW",
+        height = height,
+        width = width,
+        row = math.floor(0.5 * (vim.o.lines - height)),
+        col = math.floor(0.5 * (vim.o.columns - width)),
+        border = "double",
+      }
+    end,
+    prompt_prefix = "   ",
+  },
+})
+
+-- Bottom command-line dock
+require("mini.pick").setup({
+  window = {
+    config = {
+      relative = "editor",
+      anchor = "SW",
+      width = vim.o.columns,
+      height = 15,
+      row = vim.o.lines - 2,
+      col = 0,
+    },
+    prompt_prefix = " ",
+  },
+})
+
+-- IDE-style wide search panel
+require("mini.pick").setup({
+  window = {
+    config = {
+      relative = "editor",
+      anchor = "NW",
+      row = 1,
+      col = 2,
+      width = vim.o.columns - 4,
+      height = math.floor(vim.o.lines * 0.35),
+      border = "solid",
+    },
+    prompt_prefix = " Search  ",
+  },
+})
+
+-- Hard-left utility panel
+require("mini.pick").setup({
+  window = {
+    config = {
+      relative = "editor",
+      anchor = "NW",
+      row = 0,
+      col = 0,
+      width = 30,
+      height = vim.o.lines,
+      border = "rounded",
+    },
+    prompt_prefix = " ",
+  },
+})
+
+-- Bottom-center dock
+require("mini.pick").setup({
+  window = {
+    config = function()
+      local w = 70
+      return {
+        relative = "editor",
+        anchor = "SW",
+        row = vim.o.lines - 2,
+        col = math.floor((vim.o.columns - w) / 2),
+        width = w,
+        height = 12,
+        border = "rounded",
+      }
+    end,
+    prompt_prefix = " ",
+  },
+})
+
+-- Hyper-compact command runner
+require("mini.pick").setup({
+  window = {
+    config = {
+      relative = "cursor",
+      anchor = "NW",
+      row = 1,
+      col = 0,
+      width = 38,
+      height = 1,
+      border = "rounded",
+    },
+    prompt_prefix = "› ",
+  },
+})
 ```

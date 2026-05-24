@@ -44,7 +44,7 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/echasnovski/mini.nvim" },
-    { src = "https://github.com/vague-theme/vague.nvim" },
+    { src = "https://github.com/vague-theme/vague.nvim", version = "24cd29d", },
     { src = "https://github.com/mbbill/undotree" },
     { src = "https://github.com/chomosuke/typst-preview.nvim" },
     { src = "https://github.com/nvim-tree/nvim-web-devicons" },
@@ -60,7 +60,7 @@ vim.notify = require("mini.notify").make_notify()
 
 require("mason").setup(); oil_loaded, oil = false, function() if oil_loaded then return require("oil") end  require("oil").setup({ default_file_explorer = true, columns = { "icon" }, keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, use_default_keymaps = true, view_options = { show_hidden = false, is_hidden_file = function(name, bufnr) return name:match("^%.") ~= nil end, { "name", "asc" } }, float = { padding = 2, max_width = 0, max_height = 0, border = "rounded", win_options = { winblend = 0 }, get_win_title = nil, preview_split = "auto", override = function(conf) return conf end }, preview_win = { update_on_cursor_moved = true, preview_method = "fast_scratch", disable_preview = function() return false end, win_options = {} }, confirmation = { max_width = 0.9, min_width = { 40, 0.4 }, width = nil, max_height = 0.9, min_height = { 5, 0.1 }, height = nil, border = "rounded", win_options = { winblend = 0 } }, progress = { max_width = 0.9, min_width = { 40, 0.4 }, width = nil, max_height = { 10, 0.9 }, min_height = { 5, 0.1 }, height = nil, border = "rounded", minimized_border = "rounded", win_options = { winblend = 0 } }, ssh = { border = "rounded" }, keymaps_help = { border = "rounded" } }) oil_loaded = true return require("oil") end
 
-vim.cmd.colorscheme("vague"); require("vague").setup({ transparency = false })
+vim.cmd.colorscheme("vague"); require("vague").setup()
 
 vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client = vim.lsp.get_client_by_id(ev.data.client_id); if client then vim.api.nvim_buf_set_option(ev.buf, "omnifunc", "v:lua.vim.lsp.omnifunc"); if client:supports_method("textDocument/completion") then vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true }) end end end })
 vim.lsp.enable({ "pyright", "ruff", "gopls", "marksman", "vtsls", "tinymist" })

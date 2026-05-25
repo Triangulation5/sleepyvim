@@ -2,7 +2,7 @@ vim.cmd([[set mouse=]])
 if vim.loader then vim.loader.enable() end; vim.g.mapleader = " ";vim.opt.shortmess:append("I"); local opt = vim.opt for k, v in pairs({ nu = true, rnu = true, nuw = 4,
     scl = "yes",
     ts = 4, sts = 4, sw = 4, et = true,
-    si = true, bri = true, stal = 3,
+    si = true, bri = true, stal = 1,
     ic = true, scs = true, hls = false, is = true,
     bg = "dark", gcr = "a:block",
     ut = 50, tm = 250,

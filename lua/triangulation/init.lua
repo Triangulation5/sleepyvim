@@ -18,6 +18,7 @@ vim.pack.add({
 require("triangulation.options")
 require("triangulation.keymaps")
 require("triangulation.macros")
+require("triangulation.ui.pack_interface")
 
 
 for _, file in ipairs(vim.fn.readdir(vim.fn.stdpath("config") .. "/lua/triangulation/plugins")) do

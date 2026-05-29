@@ -177,6 +177,9 @@ vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#3a3a3a" })
     -- Koda theme
     { src = "https://github.com/oskarnurm/koda.nvim" },
 
+    -- Techbase theme
+    { src = "https://github.com/mcauley-penney/techbase.nvim" },
+
     -- Best commit hashes for Vague.nvim theme:
     { src = "https://github.com/vague-theme/vague.nvim", version = "24cd29d", }, -- Very clean more modern
     { src = "https://github.com/vague-theme/vague.nvim", version = "6c44ca6", }, -- Old but nice

@@ -6,6 +6,7 @@
   - [Extra: Keymaps](#extra-keymaps)
   - [Extra: Themes](#extra-themes)
     - [Extra: Mini Pick Configurations:](#extra-mini-pick-configurations)
+    - [Extra: Obsidian Support](#extra-obsidian-support)
 <!--toc:end-->
 
 ## Extra: Plugins
@@ -351,6 +352,23 @@ require("mini.pick").setup({
       border = "rounded",
     },
     prompt_prefix = "› ",
+  },
+})
+```
+### Extra: Obsidian Support
+
+```lua
+-- Plugins for it
+{ src = "https://github.com/epwalsh/obsidian.nvim" },
+{ src = "https://github.com/nvim-lua/plenary.nvim" },
+
+-- Configuration for it
+require("obsidian").setup({
+  workspaces = {
+    {
+      name = "notes",
+      path = vim.fn.expand(""), -- Add the path to your vault or notes here
+    },
   },
 })
 ```

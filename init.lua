@@ -27,15 +27,12 @@ for _, m in ipairs({
     { "n", "<leader>wz", function() require("mini.misc").zoom() end, "Zoom Window" }, { "n", "<leader>wr", function() require("mini.misc").resize_window() end, "Resize Window" }, { { "n", "x", "o" }, "<leader>j", function() require("mini.jump2d").start() end, "MiniJump2d: Start jump" }, { { "n", "x" }, "<C-d>", "<C-d>zz", "Scroll Down" }, { { "n", "x" }, "<C-u>", "<C-u>zz", "Scroll Up" }, { "n", "n", "nzzzv", "Next search result" }, { "n", "N", "Nzzzv", "Previous search result" },
     { "n", "<leader>lf", vim.lsp.buf.format, "LSP: Format" }, { "n", "<leader>i", [[<Cmd>tabedit .gitignore<CR>]], "Edit .gitignore" }, { "n", "<leader>p", ":TypstPreview<CR>", "Preview Typst File" },
     { "n", "<leader>cm", function() vim.cmd("Mason") end, "Open Mason" },
-    { "n", "<leader>bn", ":bn<CR>", "Next Buffer" }, { "n", "<leader>tn", ":tabn<CR>", "Next Tab" },
-    { "n", "<leader>bp", ":bp<CR>", "Prev Buffer" }, { "n", "<leader>tp", ":tabp<CR>", "Prev Tab" },
     { "n", "<leader>bf", ":bd!<CR>", "Force Delete Buffer" }, { "n", "<leader>tf", ":tabc<CR>", "Close Tab" },
     { "n", "<leader>da", function() vim.diagnostic.setqflist({ open = true, title = "Diagnostics"}) end, "Show Diagnostics in Quickfix"}, { "n", "<C-q>", ":copen<CR>", "Opens Quickfix"},
     { { "n", "v" }, "d", '"_d', "Delete (no yank)" },
     { { "n", "v" }, "c", '"_c', "Change (no yank)" },
     { "n", "<M-t>", function() vim.cmd('botright split term://powershell') end, "PowerShell" }, { "n", "<leader>ti", function() vim.notify(string.format("Time: %s | Date: %s | %s", os.date("%I:%M:%S %p"), os.date("%Y-%m-%d"), os.date("%A")), vim.log.levels.INFO, { title = "Clock" }) end, "Time" },
     { "n", "x", '"_x', "Cut (no yank)" }, { "n", "<leader>y", function() if vim.fn.executable("yazi")==1 then local buf=vim.api.nvim_create_buf(false,true); local w,h=math.floor(vim.o.columns*0.9),math.floor(vim.o.lines*0.85); local r,c=math.floor((vim.o.lines-h)/2),math.floor((vim.o.columns-w)/2); local win=vim.api.nvim_open_win(buf,true,{relative="editor",width=w,height=h,row=r,col=c,style="minimal",border="rounded"}); vim.cmd("terminal powershell yazi") else vim.notify("yazi not found",vim.log.levels.WARN) end end, "Yazi" }, { "n", "<leader>g", function() if vim.fn.executable("glow")==1 then local buf=vim.api.nvim_create_buf(false,true); local w,h=math.floor(vim.o.columns*0.9),math.floor(vim.o.lines*0.85); local r,c=math.floor((vim.o.lines-h)/2),math.floor((vim.o.columns-w)/2); local win=vim.api.nvim_open_win(buf,true,{relative="editor",width=w,height=h,row=r,col=c,style="minimal",border="rounded"}); vim.cmd("terminal powershell glow") else vim.notify("glow not found",vim.log.levels.WARN) end end, "Glow" },
-    { "n", "<leader>u", "<cmd>UndotreeToggle<CR>", "Toggle Undotree" },
 }) do vim.keymap.set(m[1], m[2], m[3], { desc = m[4] }) end
 
 vim.pack.add({
@@ -43,7 +40,7 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/echasnovski/mini.nvim" },
-    { src = "https://github.com/vague-theme/vague.nvim", version = "24cd29d", },
+    { src = "https://github.com/vague-theme/vague.nvim", version = "24cd29d" },
     { src = "https://github.com/chomosuke/typst-preview.nvim" },
 })
 
@@ -57,7 +54,7 @@ vim.notify = require("mini.notify").make_notify()
 
 require("mason").setup(); oil_loaded, oil = false, function() if oil_loaded then return require("oil") end  require("oil").setup({ default_file_explorer = true, columns = { "icon" }, keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, use_default_keymaps = true, view_options = { show_hidden = true, is_hidden_file = function(name, bufnr) return name:match("^%.") ~= nil end, { "name", "asc" } }, float = { padding = 2, max_width = 0, max_height = 0, border = "rounded", win_options = { winblend = 0 }, get_win_title = nil, preview_split = "auto", override = function(conf) return conf end }, preview_win = { update_on_cursor_moved = true, preview_method = "fast_scratch", disable_preview = function() return false end, win_options = {} }, confirmation = { max_width = 0.9, min_width = { 40, 0.4 }, width = nil, max_height = 0.9, min_height = { 5, 0.1 }, height = nil, border = "rounded", win_options = { winblend = 0 } }, progress = { max_width = 0.9, min_width = { 40, 0.4 }, width = nil, max_height = { 10, 0.9 }, min_height = { 5, 0.1 }, height = nil, border = "rounded", minimized_border = "rounded", win_options = { winblend = 0 } }, ssh = { border = "rounded" }, keymaps_help = { border = "rounded" } }) oil_loaded = true return require("oil") end
 
-vim.cmd.colorscheme("vague"); require("vague").setup()
+require("vague").setup(); vim.cmd.colorscheme("vague")
 
 vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client = vim.lsp.get_client_by_id(ev.data.client_id); if client then vim.api.nvim_buf_set_option(ev.buf, "omnifunc", "v:lua.vim.lsp.omnifunc"); if client:supports_method("textDocument/completion") then vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true }) end end end })
 vim.lsp.enable({ "pyright", "ruff", "gopls", "marksman", "vtsls", "tinymist" })

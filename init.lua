@@ -40,7 +40,7 @@ vim.opt.undofile = true; local u = vim.fn.stdpath("state") .. "/undo"; vim.opt.u
 
 for _,m in ipairs({"ai","bracketed","diff","git","icons","move","pairs","pick","surround"}) do require("mini."..m).setup() end
 MiniIcons.tweak_lsp_kind(); MiniIcons.mock_nvim_web_devicons()
-require("mini.notify").setup({ lsp_progress = { enable = true, duration_last = 150 }, window = { config = { border = "rounded" }, max_width_share = 0.6 } }) ; local lt_opts = { action = 'open', pair = '<>', neigh_pattern = '\r.', register = { cr = false }, }; MiniPairs.map('i', '<', lt_opts); local gt_opts = { action = 'close', pair = '<>', register = { cr = false } }; MiniPairs.map('i', '>', gt_opts); local map_typ = function() MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' }) end; vim.api.nvim_create_autocmd( 'FileType', { pattern = 'typst', callback = map_typ })
+require("mini.notify").setup({ window = { max_width_share = 0.6 } }); local lt_opts = { action = 'open', pair = '<>', neigh_pattern = '\r.', register = { cr = false }, }; MiniPairs.map('i', '<', lt_opts); local gt_opts = { action = 'close', pair = '<>', register = { cr = false } }; MiniPairs.map('i', '>', gt_opts); local map_typ = function() MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' }) end; vim.api.nvim_create_autocmd( 'FileType', { pattern = 'typst', callback = map_typ })
 
 vim.notify = require("mini.notify").make_notify()
 

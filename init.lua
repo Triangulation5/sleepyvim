@@ -38,7 +38,7 @@ vim.pack.add({
 
 vim.opt.undofile = true; local u = vim.fn.stdpath("state") .. "/undo"; vim.opt.undodir = u; vim.fn.mkdir(u, "p"); local t = u .. "/.last_cleanup"; local n = os.time(); local l = vim.fn.filereadable(t) == 1 and tonumber(vim.fn.readfile(t)[1]) or 0; if n - l > 86400 then for _,f in ipairs(vim.fn.glob(u.."/*",true,true)) do local s=vim.uv.fs_stat(f); if f~=t and s and n-s.mtime.sec>60*86400 then os.remove(f) end end; vim.fn.writefile({tostring(n)},t) end
 
-for _,m in ipairs({"ai","bracketed","diff","git","icons","move","pairs","pick","surround"}) do require("mini."..m).setup() end
+for _,m in ipairs({"ai","diff","git","icons","move","pairs","pick","surround"}) do require("mini."..m).setup() end
 MiniIcons.tweak_lsp_kind(); MiniIcons.mock_nvim_web_devicons()
 require("mini.notify").setup({ window = { max_width_share = 0.6 } }); local lt_opts = { action = 'open', pair = '<>', neigh_pattern = '\r.', register = { cr = false }, }; MiniPairs.map('i', '<', lt_opts); local gt_opts = { action = 'close', pair = '<>', register = { cr = false } }; MiniPairs.map('i', '>', gt_opts); local map_typ = function() MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' }) end; vim.api.nvim_create_autocmd( 'FileType', { pattern = 'typst', callback = map_typ })
 

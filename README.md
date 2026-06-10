@@ -126,10 +126,10 @@ git clone https://github.com/Triangulation5/sleepyvim $env:LOCALAPPDATA\nvim
 
 ### Tools
 
-| Key         | Action                                                        |
-| ----------- | ------------------------------------------------------------- |
-| `<leader>p` | Typst Preview                                                 |
-| `<M-t>`     | PowerShell Terminal (Change the terminal for your specic one) |
+| Key         | Action                                                          |
+| ----------- | --------------------------------------------------------------- |
+| `<leader>p` | Typst Preview                                                   |
+| `<M-t>`     | PowerShell Terminal (Change the terminal for your specific one) |
 
 ## LSP Configuration
 

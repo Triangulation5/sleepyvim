@@ -32,7 +32,7 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/echasnovski/mini.nvim" },
-    { src = "https://github.com/vague-theme/vague.nvim", version = "24cd29d" },
+	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
     { src = "https://github.com/chomosuke/typst-preview.nvim" },
 })
 
@@ -46,7 +46,7 @@ vim.notify = require("mini.notify").make_notify()
 
 require("mason").setup(); oil_loaded, oil = false, function() if oil_loaded then return require("oil") end require("oil").setup({ view_options = { show_hidden = true } }) oil_loaded = true return require("oil") end
 
-require("vague").setup(); vim.cmd.colorscheme("vague")
+require("gruvbox").setup({ transparent_mode = true }); vim.cmd.colorscheme("gruvbox")
 
 vim.api.nvim_create_autocmd("LspAttach", { callback = function(ev) local client = vim.lsp.get_client_by_id(ev.data.client_id); if client then vim.api.nvim_buf_set_option(ev.buf, "omnifunc", "v:lua.vim.lsp.omnifunc"); if client:supports_method("textDocument/completion") then vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true }) end end end })
 vim.lsp.enable({ "pyright", "ruff", "gopls", "marksman", "vtsls", "tinymist" })

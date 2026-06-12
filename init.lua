@@ -24,10 +24,7 @@ for _, m in ipairs({
     { "n", "<leader>f",  ":Pick files<CR>",     "Pick: Files" },
     { "n", "<leader>fg", ":Pick grep_live<CR>", "Pick: Grep" },
     { "n", "<leader>h",  ":Pick help<CR>",      "Pick: Help" },
-    { "n", "<leader>k", function()
-        require("mini.extra")
-            .pickers.keymaps()
-    end, "Pick: Keymaps" },
+    { "n", "<leader>k", function() require("mini.extra") .pickers.keymaps() end, "Pick: Keymaps" },
     { { "n", "v", "x" }, "<leader>n", ":norm ",                    "Enter Norm Commmand" },
     { "n",               "<leader>e", function() oil().open() end, "Oil: Explorer" },
     { "n", "<leader>lf", function()
@@ -85,16 +82,13 @@ local lt_opts = {
     '\r.',
     register = { cr = false },
 }
-MiniPairs.map('i', '<', lt_opts)
 local gt_opts = { action = 'close', pair = '<>', register = { cr = false } }
-MiniPairs
-    .map('i', '>', gt_opts)
+MiniPairs.map('i', '<', lt_opts)
+MiniPairs .map('i', '>', gt_opts)
 local map_typ = function()
-    MiniPairs.map_buf(0, 'i', '$',
-        { action = 'closeopen', pair = '$$' })
+    MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' })
 end
-vim.api.nvim_create_autocmd('FileType',
-    { pattern = 'typst', callback = map_typ })
+vim.api.nvim_create_autocmd('FileType', { pattern = 'typst', callback = map_typ })
 
 vim.notify = require("mini.notify").make_notify()
 

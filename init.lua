@@ -10,7 +10,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; local opt = v
     winborder = "rounded", cb = "unnamedplus",
     cot = { "menuone", "noselect" },
     cole = 0, ph = 10,
-    swf = false, sd = "",
+    swf = false,
     title = true, titlestring = "nvim", titlelen = 0,
 }) do opt[k] = v end
 

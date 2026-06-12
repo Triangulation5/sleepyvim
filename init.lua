@@ -7,7 +7,7 @@ for k, v in pairs({ number = true, relativenumber = true,
     tabstop = 4, softtabstop = 4, shiftwidth = 4, expandtab = true,
     smartindent = true, breakindent = true,
     ignorecase = true, smartcase = true, hlsearch = false,
-    background = "dark", guicursor = "a:block",
+    background = "dark",
     updatetime = 50, timeoutlen = 250,
     scrolloff = 8, sidescrolloff = 8,
     winborder = "rounded", clipboard = "unnamedplus",
@@ -123,7 +123,7 @@ vim.api.nvim_create_autocmd("LspAttach",
         end
     })
 
-vim.lsp.enable({ "lua_ls", "pyright", "ruff", "gopls", "marksman", "vtsls", "tinymist" })
+vim.lsp.enable({ "pyright", "ruff", "gopls", "marksman", "vtsls", "tinymist" })
 
 vim.lsp.config("gopls",
     { settings = { gopls = { completeUnimported = true, usePlaceholders = true, analyses = { unusedparams = true, shadow = true }, staticcheck = true } } })

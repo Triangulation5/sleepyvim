@@ -1,5 +1,5 @@
 vim.cmd([[set mouse=]])
-if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; local opt = vim.opt for k, v in pairs({ nu = true, rnu = true, nuw = 4,
+if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; local opt = vim.opt for k, v in pairs({ nu = true, rnu = true,
     scl = "yes",
     ts = 4, sts = 4, sw = 4, et = true,
     si = true, bri = true,
@@ -10,7 +10,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; local opt = v
     winborder = "rounded", cb = "unnamedplus",
     cot = { "menuone", "noselect" },
     cole = 0, ph = 10, pb = 0,
-    winbl = 0, swf = false, sd = "",
+    winbl = 0, swf = false,
     title = true, titlestring = "nvim", titlelen = 0,
 }) do opt[k] = v end ; opt.fcs:append({ eob = " ", stl = " ", horiz = "─", horizup = "┴", horizdown = "┬", vert = "│", vertleft = "┤", vertright = "├", verthoriz = "┼", trunc = "›", truncrl = "‹" })
 
@@ -46,6 +46,7 @@ vim.pack.add({
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/echasnovski/mini.nvim" },
     { src = "https://github.com/vague-theme/vague.nvim", version = "24cd29d" },
+    { src = "https://github.com/ellisonleao/gruvbox.nvim" },
     { src = "https://github.com/Saghen/blink.cmp", version = "78336bc" }, { src = "https://github.com/rafamadriz/friendly-snippets" },
     { src = "https://github.com/nvim-telescope/telescope.nvim" },
     { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
@@ -65,7 +66,7 @@ vim.notify = require("mini.notify").make_notify()
 
 require("mason").setup(); oil_loaded, oil = false, function() if oil_loaded then return require("oil") end  require("oil").setup({ default_file_explorer = true, columns = { "icon" }, keymaps = { q = "actions.close", l = "actions.select", h = "actions.parent", ["<leader>r"] = "actions.refresh" }, use_default_keymaps = true, view_options = { show_hidden = true, is_hidden_file = function(name, bufnr) return name:match("^%.") ~= nil end, { "name", "asc" } }, float = { padding = 2, max_width = 0, max_height = 0, border = "rounded", win_options = { winblend = 0 }, get_win_title = nil, preview_split = "auto", override = function(conf) return conf end }, preview_win = { update_on_cursor_moved = true, preview_method = "fast_scratch", disable_preview = function() return false end, win_options = {} }, confirmation = { max_width = 0.9, min_width = { 40, 0.4 }, width = nil, max_height = 0.9, min_height = { 5, 0.1 }, height = nil, border = "rounded", win_options = { winblend = 0 } }, progress = { max_width = 0.9, min_width = { 40, 0.4 }, width = nil, max_height = { 10, 0.9 }, min_height = { 5, 0.1 }, height = nil, border = "rounded", minimized_border = "rounded", win_options = { winblend = 0 } }, ssh = { border = "rounded" }, keymaps_help = { border = "rounded" } }) oil_loaded = true return require("oil") end
 
-vim.cmd.colorscheme("vague")
+require("gruvbox").setup({ transparent_mode = true })vim.cmd.colorscheme("gruvbox")
 
 telescope_loaded, telescope = false, function() if telescope_loaded then return require("telescope.builtin") end; require("telescope").setup({ defaults = { preview = { treesitter = false }, sorting_strategy = "ascending", prompt_prefix = "» ", selection_caret = "  ", borderchars = { "", "", "", "", "", "", "", "" }, path_display = { "smart" }, layout_config = { height = 100, width = 400, prompt_position = "top", preview_cutoff = 40 }, history = false } }); pcall(require("telescope").load_extension, "ui-select"); telescope_loaded = true; return require("telescope.builtin") end
 

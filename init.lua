@@ -16,7 +16,7 @@ for _, m in ipairs({
     { "n", "<leader>w", ":write<CR>", "Trim & Save" }, { "n", "<leader>q", ":quit<CR>", "Quit" }, { "n", "<leader>wq", ":xa<CR>", "Save & Quit" },
     { "n", "<leader>f", ":Pick files<CR>", "Pick: Files" },
     { "n", "<leader>fg", ":Pick grep_live<CR>", "Pick: Grep" },
-    { "n", "<leader>h", ":Pick help<CR>", "Pick: Help" }, { "n", "<leader>k", function() require("mini.extra").pickers.keymaps() end, "Pick: Keymaps" },
+    { "n", "<leader>h", ":Pick help<CR>", "Pick: Help" }, 
     { { "n", "v", "x" }, "<leader>n", ":norm ", "Enter Norm Commmand" },
     { "n", "<leader>e", function() oil().open() end, "Oil: Explorer" },
     { "n", "<leader>lf", function() require("mini.trailspace").trim(); require("mini.trailspace").trim_last_lines(); vim.lsp.buf.format() end, "LSP: Format" }, { "n", "<leader>i", [[<Cmd>tabedit .gitignore<CR>]], "Edit .gitignore" }, { "n", "<leader>p", ":TypstPreview<CR>", "Preview Typst File" },
@@ -38,9 +38,7 @@ vim.opt.undofile = true; local u = vim.fn.stdpath("state") .. "/undo"; vim.opt.u
 
 for _,m in ipairs({"ai","diff","git","icons","move","pairs","pick","surround"}) do require("mini."..m).setup() end
 MiniIcons.tweak_lsp_kind(); MiniIcons.mock_nvim_web_devicons()
-require("mini.notify").setup({ window = { max_width_share = 0.6 } }); local lt_opts = { action = 'open', pair = '<>', neigh_pattern = '\r.', register = { cr = false }, }; MiniPairs.map('i', '<', lt_opts); local gt_opts = { action = 'close', pair = '<>', register = { cr = false } }; MiniPairs.map('i', '>', gt_opts); local map_typ = function() MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' }) end; vim.api.nvim_create_autocmd( 'FileType', { pattern = 'typst', callback = map_typ })
-
-vim.notify = require("mini.notify").make_notify()
+local lt_opts = { action = 'open', pair = '<>', neigh_pattern = '\r.', register = { cr = false }, }; MiniPairs.map('i', '<', lt_opts); local gt_opts = { action = 'close', pair = '<>', register = { cr = false } }; MiniPairs.map('i', '>', gt_opts); local map_typ = function() MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' }) end; vim.api.nvim_create_autocmd( 'FileType', { pattern = 'typst', callback = map_typ })
 
 require("mason").setup(); oil_loaded, oil = false, function() if oil_loaded then return require("oil") end require("oil").setup({ view_options = { show_hidden = true } }) oil_loaded = true return require("oil") end
 

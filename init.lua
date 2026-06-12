@@ -13,7 +13,7 @@ for k, v in pairs({ number = true, relativenumber = true,
     winborder = "rounded", clipboard = "unnamedplus",
     completeopt = { "menuone", "noselect" },
     conceallevel = 0, pumheight = 10,
-    swapfile = false, shada = "",
+    swapfile = false, 
     title = true, titlestring = "nvim", titlelen = 0,
 }) do opt[k] = v end
 

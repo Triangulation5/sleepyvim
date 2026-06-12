@@ -1,5 +1,5 @@
 vim.cmd([[set mouse=]])
-if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; local opt = vim.opt for k, v in pairs({ nu = true, rnu = true, nuw = 4,
+if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; local opt = vim.opt for k, v in pairs({ nu = true, rnu = true, 
     scl = "yes",
     ts = 4, sts = 4, sw = 4, et = true,
     si = true, bri = true, stal = 2,
@@ -9,8 +9,7 @@ if vim.loader then vim.loader.enable() end; vim.g.mapleader = " "; local opt = v
     so = 8, siso = 8,
     winborder = "rounded", cb = "unnamedplus",
     cot = { "menuone", "noselect" },
-    cole = 0, ph = 10, pb = 0,
-    winbl = 0, swf = false, sd = "",
+    ph = 10, swf = false, 
     title = true, titlestring = "nvim", titlelen = 0,
 }) do opt[k] = v end
 

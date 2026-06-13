@@ -73,7 +73,6 @@ end
 for _, m in ipairs({ "ai", "diff", "git", "icons", "move", "pairs", "pick", "surround" }) do require("mini." .. m).setup() end
 MiniIcons.tweak_lsp_kind()
 MiniIcons.mock_nvim_web_devicons()
-require("mini.notify").setup({ window = { max_width_share = 0.6 } })
 local lt_opts = {
     action = 'open',
     pair = '<>',
@@ -88,8 +87,6 @@ local map_typ = function()
     MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' })
 end
 vim.api.nvim_create_autocmd('FileType', { pattern = 'typst', callback = map_typ })
-
-vim.notify = require("mini.notify").make_notify()
 
 require("mason").setup()
 oil_loaded, oil = false,
@@ -150,11 +147,11 @@ vim.api.nvim_create_autocmd("FileType",
                 vim.cmd.packadd("typst-preview.nvim")
                 local ok, typst = pcall(require, "typst-preview")
                 if not ok then
-                    vim.notify("typst-preview failed to load")
+                    vim.notify("[Typst] typst-preview failed to load")
                     return
                 end
                 typst.setup({})
-                vim.notify("typst-preview initialized")
+                vim.notify("[Typst] typst-preview initialized")
             end)
         end,
     })

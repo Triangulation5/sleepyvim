@@ -23,6 +23,10 @@
     "typst-preview.nvim": {
       "rev": "87db18b8d19c8b0eed399f52e4c527ce5afe4817",
       "src": "https://github.com/chomosuke/typst-preview.nvim"
+    },
+    "vague.nvim": {
+      "rev": "24cd29d277bf5259ab347c49d223d8cfb9057565",
+      "src": "https://github.com/vague-theme/vague.nvim"
     }
   }
 }

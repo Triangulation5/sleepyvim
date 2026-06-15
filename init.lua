@@ -23,7 +23,6 @@ for _, m in ipairs({
     { "n", "<leader>f",  ":Pick files<CR>",     "Pick: Files" },
     { "n", "<leader>fg", ":Pick grep_live<CR>", "Pick: Grep" },
     { "n", "<leader>h",  ":Pick help<CR>",      "Pick: Help" },
-    { "n", "<leader>k", function() require("mini.extra") .pickers.keymaps() end, "Pick: Keymaps" },
     { { "n", "v", "x" }, "<leader>n", ":norm ",                    "Enter Norm Commmand" },
     { "n",               "<leader>e", function() oil().open() end, "Oil: Explorer" },
     { "n", "<leader>lf", function()

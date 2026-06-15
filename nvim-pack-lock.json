@@ -1,16 +1,8 @@
 {
   "plugins": {
-    "gruvbox.nvim": {
-      "rev": "154eb5ff5b96d0641307113fa385eaf0d36d9796",
-      "src": "https://github.com/ellisonleao/gruvbox.nvim"
-    },
-    "mason.nvim": {
-      "rev": "16ba83bfc8a25f52bb545134f5bee082b195c460",
-      "src": "https://github.com/mason-org/mason.nvim"
-    },
-    "mini.nvim": {
-      "rev": "ff8b3580935818ef2f21bdd651f057a2ae071eab",
-      "src": "https://github.com/echasnovski/mini.nvim"
+    "mini.pick": {
+      "rev": "f8ea97c5e89cc923f466e0706046eaa3988f246c",
+      "src": "https://github.com/echasnovski/mini.pick"
     },
     "nvim-lspconfig": {
       "rev": "ed19590a3a9792901553c388d1aadafce012f80d",
@@ -26,7 +18,8 @@
     },
     "vague.nvim": {
       "rev": "24cd29d277bf5259ab347c49d223d8cfb9057565",
-      "src": "https://github.com/vague-theme/vague.nvim"
+      "src": "https://github.com/vague-theme/vague.nvim",
+      "version": "'24cd29d'"
     }
   }
 }

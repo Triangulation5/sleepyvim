@@ -3,6 +3,7 @@ vim.o.relativenumber = true
 vim.o.signcolumn = "yes"
 vim.o.tabstop = 4
 vim.o.swapfile = false
+vim.o.wrap = true
 vim.g.mapleader = " "
 vim.o.winborder = "rounded"
 

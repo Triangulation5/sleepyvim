@@ -17,9 +17,8 @@
       "src": "https://github.com/chomosuke/typst-preview.nvim"
     },
     "vague.nvim": {
-      "rev": "24cd29d277bf5259ab347c49d223d8cfb9057565",
-      "src": "https://github.com/vague-theme/vague.nvim",
-      "version": "'24cd29d'"
+      "rev": "49fe06ad33d8847b931ba4279197bda222374cd1",
+      "src": "https://github.com/vague-theme/vague.nvim"
     }
   }
 }

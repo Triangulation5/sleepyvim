@@ -14,7 +14,7 @@ vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>d', '"+d<CR>')
 
 vim.pack.add({
-		{ src = "https://github.com/vague-theme/vague.nvim", version = "24cd29d"},
+		{ src = "https://github.com/vague-theme/vague.nvim", version = "24cd29d" },
 		{ src = "https://github.com/stevearc/oil.nvim" },
 		{ src = "https://github.com/echasnovski/mini.pick" },
 		{ src = "https://github.com/neovim/nvim-lspconfig" },

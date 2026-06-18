@@ -8,10 +8,6 @@
       "rev": "bf8169f3e518be8de3f88073ace37d91f576cb04",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
-    "mini.pick": {
-      "rev": "0b3599e6df730f3ced3359d33c674288de0d186d",
-      "src": "https://github.com/echasnovski/mini.pick"
-    },
     "nvim-lspconfig": {
       "rev": "ed19590a3a9792901553c388d1aadafce012f80d",
       "src": "https://github.com/neovim/nvim-lspconfig"

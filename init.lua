@@ -72,16 +72,6 @@ end
 for _, m in ipairs({ "ai", "diff", "git", "icons", "move", "pairs", "pick", "surround" }) do require("mini." .. m).setup() end
 MiniIcons.tweak_lsp_kind()
 MiniIcons.mock_nvim_web_devicons()
-local lt_opts = {
-    action = 'open',
-    pair = '<>',
-    neigh_pattern =
-    '\r.',
-    register = { cr = false },
-}
-local gt_opts = { action = 'close', pair = '<>', register = { cr = false } }
-MiniPairs.map('i', '<', lt_opts)
-MiniPairs .map('i', '>', gt_opts)
 local map_typ = function()
     MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' })
 end

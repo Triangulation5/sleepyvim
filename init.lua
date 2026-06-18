@@ -117,12 +117,7 @@ vim.diagnostic.config({
             d)
             return string.format("%s [%s]", d.message, d.source or d.code or "")
         end
-    },
-    signs = true,
-    underline = true,
-    update_in_insert = false,
-    severity_sort = true,
-    float = { border = "rounded", header = "Diagnostic(s):", source = "always", focusable = true }
+    }
 })
 
 local typst_loaded = false

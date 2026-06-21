@@ -102,7 +102,7 @@ vim.api.nvim_create_autocmd("LspAttach",
         end
     })
 
-vim.lsp.enable({ "pyright", "ruff", "gopls", "marksman", "vtsls", "tinymist" })
+vim.lsp.enable({ "pyright", "ruff", "marksman", "vtsls", "tinymist" })
 
 vim.lsp.config("gopls",
     { settings = { gopls = { completeUnimported = true, usePlaceholders = true, analyses = { unusedparams = true, shadow = true }, staticcheck = true } } })
